@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+
 export default defineConfig({
   base:'/codery.github.io/',
   title: "Codery's 的开发文档",
@@ -61,7 +62,8 @@ export default defineConfig({
               { text: 'ES6知识积累', link: '/interview/ES6-skill' },
               { text: 'Vue知识积累', link: '/interview/vue-skill' },
               { text: '常用面试积累', link: '/interview/interview-skill' },
-              { text: '实践知识积累', link: '/interview/practice-skill' }
+              { text: '实践知识积累', link: '/interview/practice-skill' },
+              { text: '2024年11月30', link: '/interview/2024年11月30' }
           ]
       }]
     },
@@ -69,5 +71,5 @@ export default defineConfig({
     socialLinks: [{ icon: "github", link: "https://github.com/ChinaCarlos" }],
     // 部署的时候需要注意该参数避免样式丢失
     // base: "/vitepress-blog-template/",
-  },
+  }
 });
