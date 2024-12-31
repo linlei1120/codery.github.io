@@ -50,6 +50,11 @@ export default defineConfig({
         }] },
       { text: "后端开发文档", link: "/markdown-examples" },
       { text: "工具导航栏", link: "/markdown-examples" },
+      { text: "工作笔记",items:[
+        {
+          text: '2024年12月',
+          link: '/workNote/2024年12月',
+        }] },
       { text: "工作项目集", link: "/markdown-examples" }
     ],
 
@@ -63,7 +68,7 @@ export default defineConfig({
               { text: 'Vue知识积累', link: '/interview/vue-skill' },
               { text: '常用面试积累', link: '/interview/interview-skill' },
               { text: '实践知识积累', link: '/interview/practice-skill' },
-              { text: '2024年11月30', link: '/interview/2024年11月30' }
+              { text: '2024年11月30', link: '/interview/notebook' }
           ]
       }]
     },
