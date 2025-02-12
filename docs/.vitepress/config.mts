@@ -47,6 +47,9 @@ export default defineConfig({
         {
           text: '前端面经',
           link: '/interview/h5css-skill',
+        },{
+          text: '工作笔记',
+          link: '/workNote/2024年12月',
         }] },
       { text: "后端开发文档", link: "/markdown-examples" },
       { text: "工具导航栏", link: "/markdown-examples" },
@@ -67,8 +70,15 @@ export default defineConfig({
               { text: 'ES6知识积累', link: '/interview/ES6-skill' },
               { text: 'Vue知识积累', link: '/interview/vue-skill' },
               { text: '常用面试积累', link: '/interview/interview-skill' },
-              { text: '实践知识积累', link: '/interview/practice-skill' },
-              { text: '2024年11月30', link: '/interview/notebook' }
+              { text: '实践知识积累', link: '/interview/practice-skill' }
+          ]
+      }],
+      '/workNote/': [{
+        text: '工作笔记',
+          items: [
+              { text: '2024年12月', link: '/workNote/2024年12月' },
+              { text: '2025年1月', link: '/workNote/2025年1月' },
+              { text: '2025年2月', link: '/workNote/2025年2月' }
           ]
       }]
     },
