@@ -168,150 +168,12 @@ let arrB1=arrB.map((item) => {
 &emsp;&emsp;Web Worker是一种为Web后台新增线程的一种简单方法，也就行单独运行JS的一种方法，新增线程的脚本独立于其他脚本，不会影响页面的性能，包括使用Ajax或Fetch发送请求等；WebWorker分为专用worker和共享worker；
 
 &emsp;&emsp;创建方式：`w = new Worker("demo_workers.js");`
-
-## 12、对于TS的了解以及与JS的区别
-&emsp;&emsp;TS是JS的超集，它在JS的基础上添加了`强类型`、`接口`、`类`、`泛型`、`元组`、`枚举`等等特性，并提供了静态类型检查等工具，可以是开发者在编写代码时更加安全、可靠；
-
-&emsp;&emsp;与JS相比，TS具有更强的类型系统，更严格的类型检查，更好的代码可读性以及维护性等优点。TS更加适合中大型的应用开发，更注重可持续性和可维护性等。
-
-**类型：**  
-```js
-let isDone: boolean = false; // 布尔值
-let decLiteral: number = 6; //数字
-let textString: string = '字符';//字符串
-let lisrArr: number[] = [1, 2, 3] //数字的数组
-let list: Array<number> = [1, 2, 3]//泛型数组
-//元组：已知数量和类型的数组，类型可以不同
-let x: [string, number];
-x = ["字符", 6] // √
-x = [6, "字符"] // ×
-//枚举
-enum Color {Red, Green, Blue}
-enum Color2 {Red = 1, Green, Blue}
-let c: Color = Color.Green;
-let colorName: string = Color2[2];
-console.log(colorName);  // 显示'Green'因为上面代码里它的值是2
-//Any: 不确定类型时可以使用,任意类型
-let notSure: any = 4;
-notSure = "maybe a string instead";
-notSure = false; // okay, definitely a boolean
-//Void void类型像是与any类型相反，它表示没有任何类型，只能为它赋予undefined和null
-let unusable: void = undefined;
-//Object:除了基本类型及以上类型之外
-declare function create(o: object | null): void;
-create({prop: 0});
-create(null)
-```
-## 13、TS中类型别名和接口有什么作用和区别？
-&emsp;&emsp;TS中类型别名和接口的主要作用是提供类型定义，提高代码的可读性和可维护性。`接口interface`可以用于定义对象类型，以对象的形式进行描述，接口interface可以重复声明自动合并；`别名type`则是创建一个新类型名称，也就是别名，不能重复声明，但是可以定义基本类型别名、声明联合类型、声明元组类型；
-
-**使用场景：** 
-
-&emsp;&emsp;① 需要被 extends 或者 implements, 则尽量使用接口。
-
-&emsp;&emsp;② 需要使用联合类型或者元组类型，类型别名会更合适。
-
-&emsp;&emsp;③ 定义对象或函数，则都可以，尽量选择使用interface。
-
-**类型别名：**  
-```js
-//通过交叉扩展接口，类型创建后无法更改
-type Point = {
-    x: number;
-    x: number;
-}
-function printCoord(pt: Point){
-    console.log(pt.x, pt.y)
-}
-printCoord(x:100, y:200)
-type StringType = string; //基本类型
-type paramType = number | string; //联合类型
-type arrType = [string, string, number]; //元组
-```
-**接口：**  
-```js
-//直接扩展接口，可以向现有接口添加新字段
-interface Point {
-    x: number;
-    y: number;
-}
-function printCoord(pt: Ponit){
-    consle.log(pt.x,pt.y)
-}
-printCoord(x:100, y:200)
-```
-
-## 14、TS的重载函数是什么
-&emsp;&emsp;TypeScript中的函数重载是指定义多个具有相同名称的函数，但可以有不同的参数类型或参数数量。通过函数重载，可以为不同的参数类型或参数数量提供不同的函数实现；总结：当我们在声明函数的时候直截了当的告诉函数使用者有哪些参数组合；
-```js
-//声明一个函数
-function message(options: object): void;
-function message(text: string, onCLose?: Function): void;
-function message(Text: string, mode: string, duration?: number): void;
-function message(
-    param1: string | object,
-    param2?: number | Function | string,
-    param3?: Function | number
-): void {}
-//函数调用
-message({
-    mode: "mode",
-    text: "text",
-    onClose: () => {},
-    duration: 3000,
-});
-message("text");
-message("text",() => {});
-message("text", "mode", 3000);
-```
-
-## 15、TS中的类型断言有什么作用？
-&emsp;&emsp;类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。 它没有运行时的影响，只是在编译阶段起作用。TS会假设程序员进行了必须的检查。
-```js
-//写法一
-let someValue: any = "this string"
-let strLength: number = (`<string>`someValue).length;
-//写法二 推荐as写法
-let strLength: number = (someValue as string).length
-```
-
-## 16、JS原生判断页面加载完成的方式
+## 12、JS原生判断页面加载完成的方式
 &emsp;&emsp;1、利用Window对象中的onLoad方法判断。
 ```js
     window.onload = function(){}
 ```
-&emsp;&emsp;2、使用监听器监听`DomContentLoaded`来判断页面加载是否完成，`DOMContentLoaded`事件在初始的HTML被完全加载和解析完成后触发，但不等待样式表、图片等资源加载，需要注意兼容性问题。
-```js
-if('addEventListener' in document){
-   window.addEventListener("DOMContentLoaded", () => {
-    if (document.readyState === "complete") {
-        console.log('DOM已完全加载');
-    } else if (document.readyState === "interactive") {
-        console.log('DOM已准备好，但资源仍在加载');
-    }
-    },false)//false代表在冒泡阶段触发，true在捕获阶段触发
-}
-//并结合document.readyState属性来判断DOM是否已准备好
-```
-&emsp;&emsp;3、使用监听器监听`load`事件，`load`事件在页面所有资源（包括样式表、图片等）加载完成后触发.
-```js
-window.addEventListener("load", () => {
-  if (document.readyState === "complete") {
-    console.log('所有资源已加载完成');
-  } else if (document.readyState === "interactive") {
-    console.log('DOM已准备好，但资源仍在加载');
-  }
-});
-//并结合document.readyState属性来判断DOM是否已准备好
-```
-&emsp;&emsp;4、JQuery中可以使用的方法
-```js
-$(function(){})
-$(document).ready(function(){
-})// document 不写默认document
-```
-
-## 17、什么是纯函数？数组的纯函数API有哪些？
+## 13、什么是纯函数？数组的纯函数API有哪些？
 &emsp;&emsp;**1、定义：** 纯函数，作为一种编程范式，它不改变输入数据，也不依赖外部状态，只通过输入参数决定输出结果。这样的函数易于测试、易于理解，也更易于维护。
 
 &emsp;&emsp;**2、纯函数的特点：** 
@@ -353,7 +215,7 @@ console.log(newArr); // [1, 2, 6, 4, 5]
 console.log(arr);    // [1, 2, 3, 4, 5] 原数组未改变
 ```
 
-## 18、JS是阻塞的还是非阻塞的？
+## 14、JS是阻塞的还是非阻塞的？
 &emsp;&emsp;JS是阻塞的，所有浏览器在下载JS的时候，会阻止一切其他活动，比如其他资源的下载，内容的呈现等等。直到JS下载、解析、执行完毕后才开始继续并行下载其他资源并呈现内容。
 
 &emsp;&emsp;JS无阻塞加载方式：
@@ -369,15 +231,155 @@ console.log(arr);    // [1, 2, 3, 4, 5] 原数组未改变
 </head>
 ```
 
-## 19、对于执行上下文的了解
+## 15、对于执行上下文的了解
 关键字：`全局执行上下文`，`局部(函数)执行上下文`，`eval执行上下文(不推荐使用易被攻击)`
 
-## 20、对于作用域及作用域链的理解
+## 16、对于作用域及作用域链的理解
 关键字：`隔离变量`，`全局作用域`，`局部作用域`
 
-## 21、高阶函数的了解
+## 17、高阶函数的了解
 关键字：`函数式编程`，`高阶函数应用`
 &emsp;&emsp;高阶函数：指函数可以接收另一个函数作为参数可以作为返回值输出，就称为高阶函数，如回调函数；
 
-## 22、JS如何实现继承
+## 18、JS如何实现继承
 关键字：`原型和原型链继承`，`构造函数继承`
+
+# TS面试题集
+
+## 1、对于TS的了解以及与JS的区别
+&emsp;&emsp;TS是JS的超集，它在JS的基础上添加了`强类型`、`接口`、`类`、`泛型`、`元组`、`枚举`等等特性，并提供了静态类型检查等工具，可以是开发者在编写代码时更加安全、可靠；
+
+&emsp;&emsp;与JS相比，TS具有更强的类型系统，更严格的类型检查，更好的代码可读性以及维护性等优点。TS更加适合中大型的应用开发，更注重可持续性和可维护性等。
+
+**类型：**  
+```js
+let isDone: boolean = false; // 布尔值
+let decLiteral: number = 6; //数字
+let textString: string = '字符';//字符串
+let lisrArr: number[] = [1, 2, 3] //数字的数组
+let list: Array<number> = [1, 2, 3]//泛型数组
+//元组：已知数量和类型的数组，类型可以不同
+let x: [string, number];
+x = ["字符", 6] // √
+x = [6, "字符"] // ×
+//枚举
+enum Color {Red, Green, Blue}
+enum Color2 {Red = 1, Green, Blue}
+let c: Color = Color.Green;
+let colorName: string = Color2[2];
+console.log(colorName);  // 显示'Green'因为上面代码里它的值是2
+//Any: 不确定类型时可以使用,任意类型
+let notSure: any = 4;
+notSure = "maybe a string instead";
+notSure = false; // okay, definitely a boolean
+//Void void类型像是与any类型相反，它表示没有任何类型，只能为它赋予undefined和null
+let unusable: void = undefined;
+//Object:除了基本类型及以上类型之外
+declare function create(o: object | null): void;
+create({prop: 0});
+create(null)
+```
+## 2、TS中类型别名和接口有什么作用和区别？
+&emsp;&emsp;TS中类型别名和接口的主要作用是提供类型定义，提高代码的可读性和可维护性。`接口interface`可以用于定义对象类型，以对象的形式进行描述，接口interface可以重复声明自动合并；`别名type`则是创建一个新类型名称，也就是别名，不能重复声明，但是可以定义基本类型别名、声明联合类型、声明元组类型；
+
+**使用场景：** 
+
+&emsp;&emsp;① 需要被 extends 或者 implements, 则尽量使用接口。
+
+&emsp;&emsp;② 需要使用联合类型或者元组类型，类型别名会更合适。
+
+&emsp;&emsp;③ 定义对象或函数，则都可以，尽量选择使用interface。
+
+**类型别名：**  
+```js
+//通过交叉扩展接口，类型创建后无法更改
+type Point = {
+    x: number;
+    x: number;
+}
+function printCoord(pt: Point){
+    console.log(pt.x, pt.y)
+}
+printCoord(x:100, y:200)
+type StringType = string; //基本类型
+type paramType = number | string; //联合类型
+type arrType = [string, string, number]; //元组
+```
+**接口：**  
+```js
+//直接扩展接口，可以向现有接口添加新字段
+interface Point {
+    x: number;
+    y: number;
+}
+function printCoord(pt: Ponit){
+    consle.log(pt.x,pt.y)
+}
+printCoord(x:100, y:200)
+```
+
+## 3、TS的重载函数是什么
+&emsp;&emsp;TypeScript中的函数重载是指定义多个具有相同名称的函数，但可以有不同的参数类型或参数数量。通过函数重载，可以为不同的参数类型或参数数量提供不同的函数实现；总结：当我们在声明函数的时候直截了当的告诉函数使用者有哪些参数组合；
+```js
+//声明一个函数
+function message(options: object): void;
+function message(text: string, onCLose?: Function): void;
+function message(Text: string, mode: string, duration?: number): void;
+function message(
+    param1: string | object,
+    param2?: number | Function | string,
+    param3?: Function | number
+): void {}
+//函数调用
+message({
+    mode: "mode",
+    text: "text",
+    onClose: () => {},
+    duration: 3000,
+});
+message("text");
+message("text",() => {});
+message("text", "mode", 3000);
+```
+
+## 4、TS中的类型断言有什么作用？
+&emsp;&emsp;类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。 它没有运行时的影响，只是在编译阶段起作用。TS会假设程序员进行了必须的检查。
+```js
+//写法一
+let someValue: any = "this string"
+let strLength: number = (`<string>`someValue).length;
+//写法二 推荐as写法
+let strLength: number = (someValue as string).length
+```
+
+
+&emsp;&emsp;2、使用监听器监听`DomContentLoaded`来判断页面加载是否完成，`DOMContentLoaded`事件在初始的HTML被完全加载和解析完成后触发，但不等待样式表、图片等资源加载，需要注意兼容性问题。
+```js
+if('addEventListener' in document){
+   window.addEventListener("DOMContentLoaded", () => {
+    if (document.readyState === "complete") {
+        console.log('DOM已完全加载');
+    } else if (document.readyState === "interactive") {
+        console.log('DOM已准备好，但资源仍在加载');
+    }
+    },false)//false代表在冒泡阶段触发，true在捕获阶段触发
+}
+//并结合document.readyState属性来判断DOM是否已准备好
+```
+&emsp;&emsp;3、使用监听器监听`load`事件，`load`事件在页面所有资源（包括样式表、图片等）加载完成后触发.
+```js
+window.addEventListener("load", () => {
+  if (document.readyState === "complete") {
+    console.log('所有资源已加载完成');
+  } else if (document.readyState === "interactive") {
+    console.log('DOM已准备好，但资源仍在加载');
+  }
+});
+//并结合document.readyState属性来判断DOM是否已准备好
+```
+&emsp;&emsp;4、JQuery中可以使用的方法
+```js
+$(function(){})
+$(document).ready(function(){
+})// document 不写默认document
+```

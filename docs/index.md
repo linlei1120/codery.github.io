@@ -11,22 +11,22 @@ hero:
   actions:
     - theme: brand
       text: My GitHub ➟
-      link: https://carlosme.fun
+      link: https://github.com/linlei1120
     - theme: alt
       text: 我的工具箱 🔨
-      link: https://carlosme.fun
+      link: /markdown-examples
     - theme: alt
       text: 前端面经 🎒
-      link: https://carlosme.fun
+      link: /interview/h5css-skill
     - theme: alt
       text: 支持一下
-      link: https://carlosme.fun
+      link: https://github.com/linlei1120
 
 features:
-  - title: 什么是PWA渐进式应用？
+  - title: UML设计模式
     icon:
       src: /icon_feature21.svg
-    details: PWA（Progressive Web Application，渐进式 Web 应用）是一种结合了传统 Web 应用与原生移动应用优势的应用程序。PWA 利用现代 Web 技术提供用户体验接近原生应用的 Web 应用
+    details: UML（Unified Modeling Language，统一建模语言），是一种用于软件系统分析和设计的语言工具，用于帮助软件开发人员进行思考和记录思路的结果UML本身是一套符号的规定，通过这些符号，来描述软件模型中各个元素之间的关系；比如类、接口、实现、泛化、依赖、组合、聚合等
     link: https://carlosme.fun
     linkText: 查看详情
   - title: PWA 是如何构建的？

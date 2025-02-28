@@ -233,3 +233,5 @@ Hash函数 → 信息摘要 → 私钥加密 → 接收者 → 相同Hash函数�
 ## 31、SPA单页面应用和MPA多页面应用
 ‌&emsp;&emsp;SPA:用户体验好，内容改变不需要全部刷新整个页面；但是不利于SEO搜索引擎抓取，首次渲染速度也相对较慢；
 ![Example Image](../public/spa.png)
+
+## 32、什么是CI/CD?

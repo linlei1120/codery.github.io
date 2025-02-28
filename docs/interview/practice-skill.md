@@ -598,7 +598,7 @@ export default instance;
 ```
 
 ### 31、fetchAPI是什么？如何进行封装
-&emsp;&emsp;fetch()函数可以直接用于在JS脚本中进行请求，它与XMLHttpRequset不同的是，fecth()使用的是Promise，而不是回调函数，这样更加简洁且避免了回调地狱；fecth()还采用了模块化设计，API分散在Response对象、Request对象、Headers对象上，更加合理；fetch()还可以通过数据流Stream对象处理数据，分块读取，有利于提高性能；
+&emsp;&emsp;fetch()函数可以直接用于在JS脚本中进行请求，① 它与XMLHttpRequset不同的是，fecth()使用的是Promise，而不是回调函数，这样更加简洁且避免了回调地狱；② fecth()还采用了模块化设计，API分散在Response对象、Request对象、Headers对象上，更加合理；③ fetch()还可以通过数据流Stream对象处理数据，分块读取，有利于提高性能；
 ```js
 // src/utils/fetch.ts
 import { Response, RequsetInit } from 'node-fetch'
@@ -737,18 +737,31 @@ console.log(values); // 输出value值 [1, 2, 3]
 ```
 ### 36、Git常用的命令有哪些
 &emsp;&emsp;`git init` 初始化本地仓库
+
 &emsp;&emsp;`git clone` 克隆仓库
+
 &emsp;&emsp;`git status` 查看工作目录和暂存区状态
+
 &emsp;&emsp;`git add .` 修改提交暂存区
+
 &emsp;&emsp;`git pull [origin] [branch]` 拉去远程仓库代码合并到本地
+
 &emsp;&emsp;`git push` 将本地分支推送到远程仓库
+
 &emsp;&emsp;`git commit -m”text”` 将暂存区代码提交远程仓库
+
 &emsp;&emsp;`git reset` 将暂存区文件取消或切换版本
+
 &emsp;&emsp;`git reset --hard` 版本号 切换指定版本
+
 &emsp;&emsp;`git branch` 查看分支列表
+
 &emsp;&emsp;`git checkout branchName` 切换分支
+
 &emsp;&emsp;`git merge branchName`合并指定分支到当前分支
+
 &emsp;&emsp;`git rebase branchName` 将当前分支变基到指定分支
+
 &emsp;&emsp;`git diff fileName` 修改的文件内容
 
 [参考文档](https://mp.weixin.qq.com/s/Qq8hKjuelBd8t0byUhIP6g)

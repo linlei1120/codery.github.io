@@ -51,7 +51,15 @@ export default defineConfig({
           text: '工作笔记',
           link: '/workNote/2024年12月',
         }] },
-      { text: "后端开发文档", link: "/markdown-examples" },
+        { text: "后端学习文档",items:[
+          {
+            text: 'Docker文档',
+            link: '/endFront/dockerStudy/dockerIndex',
+          },
+          {
+            text: 'K8S文档',
+            link: '/endFront/k8s-study/k8sIndex',
+          }] },
       { text: "工具导航栏", link: "/markdown-examples" },
       { text: "工作笔记",items:[
         {
