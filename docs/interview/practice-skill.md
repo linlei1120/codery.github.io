@@ -4,18 +4,37 @@
 
 ## 1、前端如何一次性处理十万条数据？
 
-**(1) 分页加载**：可以使用requestAnimationFrame 或者setTimeout时间动态分页加载数据；  
+**(1) 分页加载**：可以使用requestAnimationFrame 或者setTimeout时实现动态分页加载数据；  
 **(2) 懒加载**：可以监听用户下拉触底操作，动态加载数据，提高页面渲染速度和性能；  
 **(3) 虚拟列表加载**：虚拟列表是一种在容器可见区域的动态渲染数据的技术，其优点是根据容器可视区域固定渲染的DOM节点，从而减少DOM操作，提高页面性能，如使用vue-virtual-scroller虚拟滚动方案，或自定义列表子项高度固定实现；  
-**注意**：需要解决的关键问题就是如何有效减少DOM节点的渲染
+**注意**：1、需要解决的关键问题就是如何有效减少DOM节点的渲染；
 
-### 2、如何实现虚拟列表加载?
+
+### 2、如何实现懒加载/虚拟列表加载?
+[懒加载实现参考](https://juejin.cn/post/7080544007834730510?searchId=2025030322343958EB49F78AD14A758A20)
+
 [虚拟列表实现参考](https://juejin.cn/post/7389064690125832244)
 
-### 3、如何处理页面中大量图片加载？
-**（1）图片懒加载**：在容器不可视区域加一个滚动条事件，判断图片位置与浏览器顶端和页面的距离，如果前者小于后者，优先加载；  
-
-**（2）图片预加载**：将当前展示图片的前一张和后一张优先
+### 3、requestAnimationFrame是什么？如何使用
+`requestAnimationFrame`是浏览器提供的一个用于优化动画性能的API，他会在浏览器下一次重绘之前调用指定的回调函数，因为它会根据浏览器的刷新频率自行调整调用的频率，更加高效，通常用于实现平滑的动画效果；
+**使用**：
+```js
+let animationId;
+function animate() {
+  // 在这里更新动画状态
+  console.log("Animating...");
+  // 继续调用 requestAnimationFrame 以保持动画循环
+  animationId = requestAnimationFrame(animate);
+}
+// 启动动画
+animationId = requestAnimationFrame(animate);
+// 停止动画
+function stopAnimation() {
+  cancelAnimationFrame(animationId);
+}
+// 例如，5秒后停止动画
+setTimeout(stopAnimation, 5000);
+```
 
 ### 4、懒加载的原理是什么
 &emsp;&emsp;懒加载是一种优化技术，它允许在需要时才加载页面的一部分或全部资源，以减少初始加载时间和网络流量。懒加载的原理主要包括按需加载、异步加载、动态加载和延迟渲染等方面，其主要原理如下：
@@ -783,3 +802,6 @@ console.log(values); // 输出value值 [1, 2, 3]
 
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`git reset + git push -f(私有需强制提交) `
 
+ ### 39、IntersectionObserver的了解及使用
+`IntersectionObserver` 是浏览器提供的一个 API，可以更高效地监听元素是否进入可视区域;相比于常用图片懒加载的实现，使用 `IntersectionObserver` 可以进一步提升性能，但是为了满足兼容性推荐在现代浏览器中使用。
+[参考文档](https://cloud.tencent.com/developer/article/1528620)
