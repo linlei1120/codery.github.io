@@ -48,6 +48,9 @@ export default defineConfig({
           text: '前端面经',
           link: '/interview/h5css-skill',
         },{
+          text: 'Flutter开发文档',
+          link: '/flutter/notebook',
+        },{
           text: '工作笔记',
           link: '/workNote/2024年12月',
         }] },
@@ -86,7 +89,8 @@ export default defineConfig({
           items: [
               { text: '2024年12月', link: '/workNote/2024年12月' },
               { text: '2025年1月', link: '/workNote/2025年1月' },
-              { text: '2025年2月', link: '/workNote/2025年2月' }
+              { text: '2025年2月', link: '/workNote/2025年2月' },
+              { text: '2025年3月', link: '/workNote/2025年3月' }
           ]
       }]
     },
