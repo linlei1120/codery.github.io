@@ -48,11 +48,11 @@ export default defineConfig({
           text: '前端面经',
           link: '/interview/h5css-skill',
         },{
-          text: 'Flutter开发文档',
-          link: '/flutter/notebook',
+          text: 'React开发文档',
+          link: '/react/reactFiles',
         },{
-          text: '工作笔记',
-          link: '/workNote/2024年12月',
+          text: 'Flutter开发文档',
+          link: '/flutter/flutterFiles',
         }] },
         { text: "后端学习文档",items:[
           {
@@ -63,12 +63,23 @@ export default defineConfig({
             text: 'K8S文档',
             link: '/endFront/k8s-study/k8sIndex',
           }] },
-      { text: "工具导航栏", link: "/markdown-examples" },
       { text: "工作笔记",items:[
         {
           text: '2024年12月',
           link: '/workNote/2024年12月',
+        },{
+          text: '2025年1月',
+          link: '/workNote/2025年1月',
+        },
+        {
+          text: '2025年2月',
+          link: '/workNote/2025年2月',
+        },
+        {
+          text: '2025年3月',
+          link: '/workNote/2025年3月',
         }] },
+      { text: "工具导航栏", link: "/markdown-examples" },
       { text: "工作项目集", link: "/markdown-examples" }
     ],
 
