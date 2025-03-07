@@ -816,20 +816,30 @@ console.log(values); // 输出value值 [1, 2, 3]
 &emsp;&emsp;首先产生冲突的原因包括版本信息不完整导致提交冲突，所以需要使用`git pull`命令同步版本，自动解决冲突；由于修改了公共代码或者其他人维护的代码导致冲突，需要手动解决冲突，必须对比原始代码和修改都代码，然后使用`git add .`和`git commit` 将代码进行合并提交；
 
 ### 38、在Git中进行撤销操作
-&emsp;&emsp;**硬盘区：** `git checkout <changed_file>  (git restore <changed_file>)`
+&emsp;&emsp;**硬盘区：** 
 
-&emsp;&emsp;**暂存区：** `git reset <changed_file> `
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`git checkout <changed_file>  (git restore <changed_file>)`
+
+&emsp;&emsp;**暂存区：** 
+
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`git reset <changed_file> `
+
 
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`(git restore --staged <changed_file>)`
 
-&emsp;&emsp;**本地仓库：**` git reset --soft HEAD~1(暂存区和硬盘依然存在) `
+&emsp;&emsp;**本地仓库：**
+
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;` git reset --soft HEAD~1(暂存区和硬盘依然存在) `
 
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`git reset --mined HEAD~1 (仅硬盘文件存在)`
 
-&emsp;&emsp;**远程仓库：** `git revert HEAD + git push(公共分支)`
+&emsp;&emsp;**远程仓库：** 
+
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`git revert HEAD + git push(公共分支)`
 
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`git reset + git push -f(私有需强制提交) `
 
  ### 39、IntersectionObserver的了解及使用
 `IntersectionObserver` 是浏览器提供的一个 API，可以更高效地监听元素是否进入可视区域;相比于常用图片懒加载的实现，使用 `IntersectionObserver` 可以进一步提升性能，但是为了满足兼容性推荐在现代浏览器中使用。
+
 [参考文档](https://cloud.tencent.com/developer/article/1528620)

@@ -80,7 +80,7 @@ export default defineConfig({
           link: '/workNote/2025年3月',
         }] },
       { text: "工具导航栏", link: "/markdown-examples" },
-      { text: "工作项目集", link: "/markdown-examples" }
+      { text: "工作项目集", link: "/projectFiles/project-list" }
     ],
 
     sidebar: {
