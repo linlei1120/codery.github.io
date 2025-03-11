@@ -843,3 +843,17 @@ console.log(values); // 输出value值 [1, 2, 3]
 `IntersectionObserver` 是浏览器提供的一个 API，可以更高效地监听元素是否进入可视区域;相比于常用图片懒加载的实现，使用 `IntersectionObserver` 可以进一步提升性能，但是为了满足兼容性推荐在现代浏览器中使用。
 
 [参考文档](https://cloud.tencent.com/developer/article/1528620)
+
+ ### 40、Nodejs需要读取一个文件，请编写一个中断forEach循环的功能代码
+ &emsp;&emsp;首先我们需要查看NodeJS读取文件的过程：
+ ```js
+  //异步文件读取-非阻塞
+  const fs = require('fs');
+  fs.readFile('example.text','utf8',(err,data) => {
+    if(err) thorw err;
+    console.log('读取的文件内容',data)
+  })
+  //同步文件-阻塞
+  let fsData = fs.readFileSync('example.txt');
+  console.log('读取的文件内容',fsData.toString())
+ ```

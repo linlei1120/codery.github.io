@@ -26,13 +26,13 @@ features:
   - title: UML设计模式
     icon:
       src: /icon_feature21.svg
-    details: UML（Unified Modeling Language，统一建模语言），是一种用于软件系统分析和设计的语言工具，用于帮助软件开发人员进行思考和记录思路的结果UML本身是一套符号的规定，通过这些符号，来描述软件模型中各个元素之间的关系；比如类、接口、实现、泛化、依赖、组合、聚合等
+    details: UML（Unified Modeling Language，统一建模语言），是一种用于软件系统分析和设计的语言工具，用于帮助软件开发人员进行思考和记录思路的结果UML本身是一套符号的规定，通过这些符号，来描述软件模型中各个元素之间的关系；比如类、接口、实现、泛化、依赖、组合、聚合等...
     link: /SE/UML.md
     linkText: 查看详情
-  - title: PWA 是如何构建的？
+  - title: 互联网管理系统大全
     icon:
       src: /icon_feature22.svg
-    details: 构建一个 PWA（渐进式 Web 应用）涉及多个关键技术和步骤，以确保应用具备离线能力、快速加载、可安装性等核心特性。以下是构建 PWA 的主要步骤和技术。
+    details: 互联网中管理平台系统的分类方式多样，可以根据功能、应用场景、技术架构、部署方式、行业和用户类型进行划分。不同的系统服务于不同的需求，企业可以根据自身业务特点选择合适的系统来提升管理效率和竞争力...
     link: https://carlosme.fun
     linkText: 查看详情
   - title: PWA 应用的优势有哪些？

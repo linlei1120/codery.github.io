@@ -1,11 +1,11 @@
 # HTML5面试题集
 
 HTML5是互联网的新一代Web内容构建标准，是构建以及呈现互联网内容的一种语言方式，被认为是互联网的核心技术之一。[查看HTML文档](https://www.w3school.com.cn/html/index.asp)
-### 1、行内元素和块级元素都有哪些？
+### 1、行内元素和块级元素都有哪些？√
 **（1）块级元素**：div、h1~h6、hr、p、li、ul、ol、table、from、blockquote；  
 **（2）行内元素**：a、span、img、input、textarea、select；
 
-### 2、HTML5的拖拽如何实现，有哪些API？
+### 2、HTML5的拖拽如何实现，有哪些API？√
 被拖放元素API：
 
 - dragstart: 事件主体为被拖拽元素，在开始拖放元素时触发
@@ -46,8 +46,8 @@ dropZone.addEventListener('dragover', function(event) {
 ```
 
 
-### 3、HTML5新增的标签有那些？
-H5新增的标签包括：
+### 3、HTML5新增的标签有那些？√
+H5新增的标签包括：`<video>`、`<audio>`、`<source>`、`<section>`、`<header>`、`<footer>`、`<aside>`、`<article>`、`<canvas>`、`<progress>`
 
 `<section>`定义文档中的节、`<header>`定义 section 或 document 的页眉、`<footer>`定义 section 或 document 的页脚、
 
@@ -61,13 +61,13 @@ H5新增的标签包括：
 
 CSS3 是CSS（层叠样式表）技术的最新标准。主要包括盒子模型、列表模块、超链接方式、语言模块、背景和边框、文字特效、多栏布局、过渡动画、2D/3D转换等模块。[查看CSS文档](https://www.w3school.com.cn/css/index.asp)
 
-### 1、px/em/rem的区别？
+### 1、px/em/rem的区别？√
 
 - px：绝对单位长度，相对于显示器屏幕分辨率来定义，大小固定，不随浏览器的缩放而改变；
 - em：相对单位长度，相对于当前元素的父元素字体大小定义；
 - rem：CSS3引入的一种相对单位长度，它相对于HTML根元素的字体大小，优点是可以通过直接修改根元素字体大小来控制长度比例；初始：`1em = 1rem = 16px`
 
-### 2、什么是回流和重绘？
+### 2、什么是回流和重绘？√
 **（1）定义及区别**：  
 &emsp;&emsp;① 回流指的是浏览器重新计算元素属性，然后绘制经修改后的元素的过程，并重新渲染页面，元素的几何属性发生改变（比如修改元素的宽、高或隐藏元素等）‌；  
 &emsp;&emsp;② 重绘指的是浏览器根据元素的样式信息重新绘制页面，‌但没有改变元素的几何属性（比如修改了颜色或背景色）。  

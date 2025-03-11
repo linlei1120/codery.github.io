@@ -48,6 +48,9 @@ export default defineConfig({
           text: '前端面经',
           link: '/interview/h5css-skill',
         },{
+          text: 'DevOps文档',
+          link: '/devOps/JenkinsFiles',
+        },{
           text: 'React开发文档',
           link: '/react/reactFiles',
         },{
