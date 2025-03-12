@@ -1,7 +1,7 @@
 # JavaScript面试题集
 
 JavaScript是一种动态的编程语言，广泛应用于网页开发中，主要用于增强网页的交互性和动态性。[查看JavaScript文档地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)。
-## 1、原生JS如何添加、删除、移动、复制、创建和查找节点？
+## 1、原生JS如何添加、删除、移动、复制、创建和查找节点？√
 **（1）添加创建**：`document.createElement()`
 
 **（2）删除**：`document.parentNode.removeChild()`
@@ -12,7 +12,7 @@ JavaScript是一种动态的编程语言，广泛应用于网页开发中，主�
 
 **（3）查找**：`document.getElementById()`、`getElementsByClassName()`、`querySelector()`、`querySelectorAll()`、`getElementsByTagName()`
 
-## 2、数组对象的操作方法有哪些？
+## 2、数组对象的操作方法有哪些？√
 **（1）插入和删除**：  
 &emsp;&emsp;`push()`、`pop()`：尾部插入和删除数组中一个或多个元素，会修改数组；  
 &emsp;&emsp;`unshift()` 、`shift()`：首部插入和删除数组中一个或多个元素，会修改数组；
@@ -33,7 +33,7 @@ JavaScript是一种动态的编程语言，广泛应用于网页开发中，主�
 **（3）其他方法**：  
 &emsp;&emsp;`reverse()`反转数组、`sort()`数组排序、`concat()`连接数组、`forEach()`数组循环； 
  
-## 3、Call\Apply\Bind的区别
+## 3、Call\Apply\Bind的区别√
 **（1）相同点**：都可以用于改变this的指向，传入的第一个参数都是绑定this的指向，若第一个参数是null或undefined，则会把全局对象window作为this的值；  
 
 **（2）不同点**：   
@@ -75,7 +75,7 @@ newFun("参数01","参数02")
 ## 4、什么是事件循环(EventLoop)？
 ‌&emsp;&emsp;首先由于JS是单线程的，所以为了避免阻塞，JS会将事件分为同步事件和异步事件，同步事件会在执行栈中立即执行并等待结果，而异步事件则会先放到宿主环境中，然后推送到执行队列，每次当执行栈中的同步事件执行完毕之后就回到执行队列中查找是否有异步事件需要执行，以此循环的查找过程就称为事件循环。
 
-‌&emsp;&emsp;浏览器中事件循环和NodeJS中事件循环的主要区别就在于前者的异步任务分别为宏任务队列和微任务队列，而后者NodeJS中的事件循环的异步任务分成了6个任务队列:`process.nextTick`进程队列、`Promise等`微任务队列、`setTimeout`计时器执行等。
+‌&emsp;&emsp;浏览器中事件循环和NodeJS中事件循环的主要区别就在于前者的异步任务分别为宏任务队列和微任务队列，而NodeJS中的事件循环的异步任务分成了6个任务队列:①`process.nextTick`进程队列、②`Promise等`微任务队列、③`setTimeout`计时器执行等。
 
 ## 5、什么是宏任务和微任务？
 ‌&emsp;&emsp;首先JS是单线程的，所以为了避免阻塞，JS会将事件分为同步任务和异步任务，而异步任务则会分为宏任务和微任务，宏任务通常由浏览器或者Node发起如script/请求事件/定时器等，而微任务则由JS引擎自身发起如`Promise`(注意`Promise`本身是同步的，但是`.then()`和`.catch()`会让其异步执行)，`Async/Await`等；
@@ -83,7 +83,7 @@ newFun("参数01","参数02")
 ‌&emsp;&emsp;事件会按照首先在执行栈中同步任务、将微任务放入任务队列、将宏任务放入宏任务队列，待同步任务执行完毕后回去查找微任务队列中的事件执行，然后再去查找宏任务中的队列去执行。
 
 ## 6、什么是事件响应链？
-&emsp;&emsp;事件响应链是指当一个事件发生在DOM元素上时，该事件会从特定的事件目标开始逐级传播到其他事件监听者；这个事件传播的过程分为三个阶段：`捕获阶段`(最外层开始逐级向内传播)、`目标阶段`(事件到达事件目标)、`冒泡阶段`(目标事件开始开始逐级向内传播)；   
+&emsp;&emsp;事件响应链是指当一个事件发生在DOM元素上时，该事件会从特定的事件目标开始逐级传播到其他事件监听者；这个事件传播的过程分为三个阶段：① `捕获阶段`(最外层开始逐级向内传播)、② `目标阶段`(事件到达事件目标)、③ `冒泡阶段`(目标事件开始开始逐级向内传播)；   
 
 &emsp;&emsp;在实际开发中，可以利用事件捕获阶段来处理事件拦截或者事件的预处理，而冒泡阶段则用于执行主要的事件处理逻辑。可以通过`addEventListener`函数的第三个参数来决定监听器是在捕获阶段还是冒泡阶段触发。 
 
@@ -108,10 +108,32 @@ newFun("参数01","参数02")
 // true - 事件在捕获阶段执行
 // false - 事件在冒泡阶段执行，默认是false
 ```
-参考资料[JS监听器及事件](https://blog.csdn.net/qq_46344419/article/details/130320656)
+`参考资料`[JS监听器及事件](https://blog.csdn.net/qq_46344419/article/details/130320656)
 
 ## 7、什么是事件委托
-&emsp;&emsp;事件委托也称事件代理，是 js 中很常用的绑定事件的技巧，事件委托就是把原本需要绑定在子元素的响应事件委托给父元素，让父元素担当事件监听的职务，事件委托的原理是 DOM 元素的事件冒泡；
+&emsp;&emsp;事件委托是一种利用事件冒泡机制优化事件处理的方式，它的核心思想则是：将子元素事件监听交由父元素上统一处理，而不是绑定到每一个子元素上；
+
+&emsp;&emsp;应用场景：
+
+```js
+//大量列表数据绑定点击事件
+<ul id="parent">
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+
+<script>
+  const parent = document.getElementById('parent');
+
+  parent.addEventListener('click', function(event) {
+    // event.target 是实际被点击的 li
+    if (event.target.tagName === 'LI') {
+      console.log('Clicked:', event.target.textContent);
+    }
+  });
+</script>
+```
 
 
 ## 8、JS的垃圾回收机制(GC)

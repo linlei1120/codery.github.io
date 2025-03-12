@@ -94,7 +94,7 @@ export default defineConfig({
               { text: 'JS/TS知识积累', link: '/interview/js-skill' },
               { text: 'ES6知识积累', link: '/interview/ES6-skill' },
               { text: 'Vue知识积累', link: '/interview/vue-skill' },
-              { text: 'Hybrid知识积累', link: '/interview/vue-skill' },
+              { text: 'Hybrid知识积累', link: '/interview/hybrid-skill' },
               { text: '常用面试积累', link: '/interview/interview-skill' },
               { text: '实践知识积累', link: '/interview/practice-skill' }
           ]

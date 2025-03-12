@@ -2,14 +2,14 @@
 
 ‌&emsp;&emsp;‌Vue.js是一个用于构建用户界面的渐进式‌JavaScript框架。‌‌Vue.js遵循MVVM模式（Model-View-ViewModel），实现了数据双向绑定，简化了DOM操作，使得开发者可以更加专注于应用逻辑而非页面渲染。[查看Vue官网文档地址](https://cn.vuejs.org/)。
 
-## 1、Vue的生命周期以及各自的作用？
+## 1、Vue的生命周期以及各自的作用？√
 **（1）beforeCreate**：该阶段是`new Vue()`之后触发的第一个钩子，在当前阶段`data、methods、computed`以及`watch`上的数据和方法都不能被访问；  
 
-**（2）created**：将该阶段在实例创建完成后发生，当前已完成数据观测，可以使用数据或更改数据，但是不会触发`updated`函数，只能做一些初始数据的获取，无法与DOM进行交互，但是可以通过`vm.$nextTick`来访问DOM；  
+**（2）created**：将该阶段在实例创建完成后发生，当前已完成`数据观测`，可以使用数据或更改数据，但是不会触发`updated`函数，只能做一些初始数据的获取，无法与DOM进行交互，但是可以通过`vm.$nextTick`来访问DOM；  
 
 **（3）beforeMount**：该阶段发生在挂载之前，此时`template模板`已导入渲染函数编译，而该阶段虚拟DOM已经创建完成，即将开始渲染，此时可以操作数据，但不会触发`updated`；  
 
-**（4）mounted**：该阶段发生在挂载之后，此时真实的DOM已经挂载完成，数据完成双向绑定，可以访问到DOM节点并使用`$ref`对节点进行操作；  
+**（4）mounted**：该阶段发生在挂载之后，此时`真实的DOM已经挂载完成`，`数据完成双向绑定`，可以访问到DOM节点并使用`$ref`对节点进行操作；  
 
 **（5）beforeUpdate**：该阶段发生在数据更新之前，此时虚拟DOM还未重渲染，在当前阶段修改数据不会发生重渲染；  
 
@@ -17,16 +17,16 @@
 
 **（7）beforeDestory**：Vue3改名为`beforeUnmount`，该阶段发生实例销毁之前，此时实例依然可以使用，通常在该阶段进行善后收尾工作，如清除定时器等；  
 
-**（8）destoryed**：Vue3改名为`unmounted`，该阶段发生在实例销毁之后，此时组件已经被拆解，数据绑定已被卸除，监听被移除，子实例等也全部销毁；  
+**（8）destoryed**：Vue3改名为`unmounted`，该阶段发生在实例销毁之后，此时`组件已经被拆解`，`数据绑定已被卸除`，`监听被移除`，`子实例等也全部销毁`；  
 
 **（9）setup**：该阶段由vue3.0新增，发生在`beforeCreate`之前，此时不需要使用`data、methods`等方法，所以属性和方法都利用return返回出去；  
 
-## 2、Vue2.0和Vue3.0有何不同？
+## 2、Vue2.0和Vue3.0有何不同？√
 
-**Vue3.0的主要变化**：① 新增setup函数以替代beforeCreate和created函数、② 新增CompositionAPI组织组件逻辑更加灵活、③ 响应式改为Proxy实现、④ 源码开发更适合于TS编写 、⑤ templete模板支持多个根标签、⑥ VueX状态管理创建由new Store改为createStore等;
+**Vue3.0的主要变化**：① 新增setup函数以替代beforeCreate和created函数；② 新增CompositionAPI组织组件逻辑更加灵活；③ 响应式改为Proxy实现；④ 源码开发更适合于TS编写；⑤ templete模板支持多个根标签；⑥ VueX状态管理创建由new Store改为createStore等；
 
-## 3、Object.defineProperty()和Proxy有何不同？
-**（1）Object.defineProperty**：`Object.defineProperty`是一种直接通过API设置对象属性的方法，可以更精确的控制某个属性的行为；支持对单个属性进行精确控制并设置getter和setter;
+## 3、Object.defineProperty()和Proxy有何不同？√
+**（1）Object.defineProperty**：`Object.defineProperty`是一种直接通过API设置对象属性的方法，可以更精确的控制某个属性的行为；支持对单个属性进行精确控制并设置`getter`和`setter`;
 ```js
 let obj = {};
 Object.defineProperty(obj, 'name', {
@@ -76,8 +76,14 @@ let proxy = new Proxy(person, {
 })
 ```
 
-## 3、Vue2.0和Vue3.0的响应式有何不同？
-**（1）Vue2.0响应式**：使用了`Object.defineProperty`来实现响应式，首先基于数据劫持，当我们创建Vue实例时，它会遍历data选项中的所有属性，并使用`Object.defineProperty`将它们转换为`getter`和`setter`；在`getter`中进行依赖收集，将当前`watcher`观察者加入到该属性的依赖队列中，当属性值发生变化时便会触发`setter`然后通知所有依赖于该属性的`watcher`进行更新视图，也就是利用到`观察者模式`；但是无法对数组进行操作以及无法监听数组API； 在对象中存在大量属性时，逐一使用`Object.defineProperty`会比较消耗性能；
+## 4、Vue2.0和Vue3.0的响应式有何不同？√
+**（1）Vue2.0响应式**：
+
+‌&emsp;&emsp;① 核心思想：使用了`Object.defineProperty`来实现响应式，首先基于数据劫持，当我们创建Vue实例时，它会遍历data选项中的所有属性，并使用`Object.defineProperty`将它们转换为`getter`和`setter`；
+
+‌&emsp;&emsp;② 实现原理：其原理就是利用到`观察者模式`，在`getter`中进行依赖收集，然后`watcher观察者`加入到该属性的依赖队列中，当属性值发生变化时便会触发`setter`，就会通知所有依赖于该属性的`watcher观察者`进行更新视图；
+
+‌&emsp;&emsp;③ 特性：但是无法对数组进行操作以及无法监听数组API； 在对象中存在大量属性时，逐一使用`Object.defineProperty`会比较消耗性能；
 ```js
 let obj = {name:'Alice'};
 Object.defineProperty(obj, 'name', {
@@ -116,14 +122,23 @@ console.log(obj.name);
 
 **（3）如何处理Proxy只能代理对象的第一层的问题**：判断当前`Reflect.get`的返回值是否为Object，若是则通过`reactive`方法进行代理，从而实现深度监听；  
 
-**（4）如何避免检测数组时可能会触发多次get/set**：可以判断key是否为当前被代理对象`target`自身属性，也可以判断旧值与新值是否相同，只有满足以上两个条件才有可能执行`trigger`进行派发更新；
+**（4）如何避免检测数组时可能会触发多次get/set**：两个条件 ① 可以判断`key`是否为当前被代理对象`target`自身属性，② 可以判断旧值与新值是否相同，只有满足以上两个条件才有可能执行`trigger`进行派发更新；
 
-**（5）Vue3.0为何使用Proxy**：可以在Vue2.0中`Object.defineProperty`会改变原始数值，且无法对数组的操作进行监听；而`Proxy`则是创建对象的虚拟表示，并且提供了`set、get、deleteProperty`等处理器可以在访问和修改原始对象时进行拦截，也支持`Map、Set、Weakmap`和`Weakset`等。其实现原理为：`get依赖收集`、`set/delete`等派发更新；`Proxy`相对于`Object.defineProperty`来说所能操作的数据更加广泛，但由于是ES6的内容，所以对于浏览器兼容性就需要更加注意；
+**（5）Vue3.0为何使用Proxy**：
 
-## 4、v-model双向数据绑定的原理是什么？
-&emsp;&emsp;v-model是一种语法糖，是`v-on`和`v-bind`的语法糖，它基于数据劫持机制，通过劫持表单中的`value`和`input事件`，建立视图与数据之间的双向绑定关系，使其数据可以同步；
+‌&emsp;&emsp;① 核心思想：Vue2.0中`Object.defineProperty`会改变原始数值，且无法对数组的操作进行监听；而`Proxy`则是创建对象的虚拟表示，并且提供了`set、get、deleteProperty`等处理器可以在访问和修改原始对象时进行拦截，也支持`Map、Set、Weakmap`和`Weakset`等。
 
-## 5、keep-alive的常用属性有哪些以及实现原理？
+‌&emsp;&emsp;② 实现原理为：`get依赖收集`、`set/delete`等派发更新；`Proxy`相对于`Object.defineProperty`来说所能操作的数据更加广泛，但由于是ES6的内容，所以对于浏览器兼容性就需要更加注意；
+
+## 5、v-model双向数据绑定的原理是什么？√
+&emsp;&emsp;v-model是一种语法糖，`是v-on和v-bind的语法糖`，它基于数据劫持机制，通过劫持表单中的`value`和`input事件`，建立视图与数据之间的双向绑定关系，使其数据可以同步；
+
+## 6、Vue模板语法的解析原理 √
+&emsp;&emsp;模板语法是一种基于HTML语法，模板语法使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上；
+
+&emsp;&emsp;解析原理主要是：将模板解析成`AST抽象语法树`，对AST进行优化，然后将其转换为`渲染函数的JS代码`，最终生成能够接受数据并返回虚拟DON的JS函数。
+
+## 7、keep-alive的常用属性有哪些以及实现原理？ √
 **（1）概述**：`keep-alive`是一种Vue的内置组件，用于对组件进行缓存，当切换组件时避免其频繁被创建和销毁；常用属性有`include/exclude/max`，指定需要缓存或排除缓存的组件的名称，`max`定义最大缓存个数；有两个生命周期`activated/deactivated`，用来得知当前组件是否处于活跃状态；
 ```js
 <keep-alive>
@@ -135,8 +150,8 @@ console.log(obj.name);
 
 **（3）LRU算法**：也称为最近最少使用算法，是一种常用的缓存淘汰策略，根据数据的历史访问记录来决定那些数据应该被淘汰，其核心思想就是：最近访问的优先级最高，最少访问的优先删除，从而有效地优化缓存性能；
 
-## 6、next-Tick的作用以及实现原理？
-&emsp;&emsp;用于等待下一次 DOM 更新的工具方法，是一种异步更新DOM机制，由于Vue在更改响应式状态时，DOM的更新并不是同步生效的，而是先将他们缓存到一个队列中，nextTick() 则可以在状态改变后立即使用，然后在下一次DOM更新循环结束后返回一个回调函数。
+## 6、next-Tick的作用以及实现原理？ √
+&emsp;&emsp;用于等待下一次 DOM 更新的工具方法，是一种异步更新DOM机制，由于Vue在更改响应式状态时，DOM的更新并不是同步生效的，而是先将他们缓存到一个队列中，`nextTick()` 则可以在状态改变后立即使用，然后在下一次DOM更新循环结束后返回一个回调函数。
 ```js
 //vue2.0使用
 this.$nextTick(() => {
@@ -156,11 +171,11 @@ async function increment() {
 }
 ```
 
-## 7、什么是虚拟DOM？
-&emsp;&emsp;虚拟DOM其实是真实DOM的JS对象，对象中包含的字段有标签名，标签属性以及子标签名子标签属性，文本节点；当真实DOM节点发生变化，会产生新旧两个虚拟DOM，然后通过diff算法对两者进行对比不同。
+## 7、什么是虚拟DOM？ √
+&emsp;&emsp;虚拟DOM其实是真实DOM的`JS对象`，对象中包含的字段有标签名，标签属性以及子标签名子标签属性，文本节点；当真实DOM节点发生变化，会产生新旧两个虚拟DOM，然后通过diff算法对两者进行对比不同。
 
-## 8、虚拟DOM是如何生成的？
-&emsp;&emsp;在vue中通常会为组件编写模板template，该模板会被编译器编译为渲染函数render，然后再挂载过程中调用render函数就会返回虚拟DOM;
+## 8、虚拟DOM是如何生成的？√
+&emsp;&emsp;在vue中通常会为组件编写模板`template`，该模板会被编译器编译为渲染函数`render`，然后再挂载过程中调用`render函数`就会返回`虚拟DOM`;
 ```js
 // Vue 组件
 const MyComponent = {
@@ -189,28 +204,29 @@ const vNode = MyComponent.render();
 console.log(vNode);
 ```
 
-## 9、Vue2.0和Vue3.0渲染器的diff算法有何区别？
+## 9、Vue2.0和Vue3.0渲染器的diff算法有何区别？√
 **（1）Vue2的diff算法**：  
-&emsp;&emsp;**原理**：核心就是比较两个虚拟DOM 树的差异，返回一个 `patch(补丁) 对象`，这	个对象的作用就是存储两个节点不同的地方，最后用 patch 里记录的信息更	新真实DOM；  
-&emsp;&emsp;**特点**：①只会在同级进行比较，然后再比较子节点，不会跨级比较、②循环从两	端向中间进行比较；    
+&emsp;&emsp;**原理**：核心就是比较两个虚拟DOM 树的差异，返回一个 `patch(补丁) 对象`，这	个对象的作用就是存储两个节点不同的地方，最后用 `patch` 里记录的信息更新`真实DOM`；  
+&emsp;&emsp;**特点**：① 只会在同级进行比较，然后再比较子节点，不会跨级比较；② 循环从两端向中间进行比较；    
 
 **（2）Vue3的快速diff算法**：  
-&emsp;&emsp;**原理**：该借鉴了 `ivi 算法`和 `inferno 算法`加上纯文本`diff算法`，主要分为五个阶段		完成，预处理前置节点、预处理后置节点、处理仅有新增节点、处理仅有卸载		节点、处理其他新增卸载移动情况；在创建`VNode`时就确定其类型，以及在`mout/path`的过程中采用VNode的类型，在此基础上又配合核心的diff	算法提高性能；  
-&emsp;&emsp;**特点**：该算法中还运用到了动态规划的思想求解最长递归子序列;
+&emsp;&emsp;**原理**：该借鉴了 `ivi 算法`和 `inferno 算法`加上纯文本`diff算法`，主要分为五个阶段完成，① 预处理前置节点、② 预处理后置节点、③ 处理仅有新增节点、④ 处理仅有卸载	节点、⑤ 处理其他新增卸载移动情况；在创建`VNode`时就确定其类型，以及在`mout/path`的过程中采用VNode的类型，在此基础上又配合核心的diff	算法提高性能；  
+
+&emsp;&emsp;**特点**：该算法中还运用到了动态规划的思想`求解最长递归子序列`;
 
 
-## 10、Vue中data为很么必须是函数？
-&emsp;&emsp;一个组件若被复用多次，则会创建多个实例。本质上，这些实例用的都是同一个构造函数。若data是对象的话，则属于引用类型，会影响到所有的实例，所以为了保证组件不同的实例之间data不冲突，data必须是一个函数。
+## 10、Vue中data为什么必须是函数？√
+&emsp;&emsp;一个组件若被复用多次，则会创建多个实例。本质上，这些实例用的都是同一个`构造函数`。若data是对象的话，则属于引用类型，会影响到所有的实例，所以为了保证组件不同的实例之间data不冲突，data必须是一个函数。
 
 
-## 11、接口请求一般放在哪个生命周期中？为什么要这样做？
+## 11、接口请求一般放在哪个生命周期中？为什么要这样做？√
 &emsp;&emsp;接口请求可以放在钩子函数 `created、beforeMount、mounted` 中进行调用，因为在这三个钩子函数中，data已经创建，可以将服务端返回的数据进行赋值。  
 &emsp;&emsp;推荐在 `created` 钩子函数中调用异步请求，因为在 `created` 钩子函数中调用异步请求有以下优点：① 获取服务端数据更快；② SSR不支持`beforeMount、mounted`函数，所以使用created函数有助于代码一致性；③ 在mounted函数中可能会出现闪屏问题,因为此时页面已经渲染完成。
 
-## 12、Vue中computed和watch的区别是什么？
-**（1）computed**：  
-&emsp;&emsp;① 用于计算属性，主要用于基于已有数据计算出新的值;  
-&emsp;&emsp;② 计算属性的值会被缓存，只有当其依赖的数据发生变化时，才会重新计算;  
+## 12、Vue中computed和watch的区别是什么？√
+**（1）computed计算属性**：  
+&emsp;&emsp;① 用于计算属性，主要用于基于已有数据计算出`新值`;  
+&emsp;&emsp;② 计算属性的值会被`缓存`，只有当其依赖的数据发生变化时，才会重新计算;  
 &emsp;&emsp;③ 不支持异步，本质是一个惰性观察者;  
 ```js[4]
 computed: {
@@ -223,9 +239,9 @@ computed: {
 }
 //返回一个值，可以在模板中直接使用
 ```
-**（2）watch**：  
-&emsp;&emsp;① watch用于监听观察数据的变化，如data、props中的数据变化;  
-&emsp;&emsp;② 没有缓存，适合用于执行异步操作或在数据变化时执行某些副作用;  
+**（2）watch监听器**：  
+&emsp;&emsp;① watch用于监听观察数据的变化，如`data、props`中的数据变化;  
+&emsp;&emsp;② `没有缓存`，适合用于执行异步操作或在数据变化时执行某些副作用;  
 &emsp;&emsp;③ 支持异步，有两个参数分别是deep深度监听、immediate组件加载立即触发回调函数执行;
 ````js
 watch: {
@@ -244,7 +260,7 @@ methods: {
 ## 13、VueX的核心属性分别是？
 **（1）State**：用于存储数据状态，类似于Vue中的`Data`，可以通过 `this.$store.state`访问； 
 
-**（2）Getter**：用于从store中的state派生出一些状态，可以将其看作是store的计算属性，组件可以通过 mapGetters 辅助函数或直接访问 this.$store.getters 来获取派生状态； 
+**（2）Getter**：用于从`store`中的`state`派生出一些状态，可以将其看作是`store的计算属性`，组件可以通过 `mapGetters` 辅助函数或直接访问 `this.$store.getters `来获取派生状态； 
 ```js
    computed: {
        ...mapState(['someState']),
@@ -322,10 +338,6 @@ methods: {
 &emsp;&emsp;**(2) ComponsitionAPI**：Vue3.0提供了一种更灵活、可组合的组件编码方式，在使用CompositionAPI时可以更好的推导出函数的参数及返回值，使得代码质量更高，也更方便扩展维护；  
 &emsp;&emsp;**(3) 模块化支持更好**：Vue 3.0中的模块化支持得到了改进，在使用TypeScript开发项目时，可以更好地结合模块化开发的思想，使得代码更具可读性和可维护性。
 
-## 21、Vue模板语法的解析原理
-&emsp;&emsp;模板语法是一种基于HTML语法，模板语法使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上；
-
-&emsp;&emsp;模板语法的解析原理主要是将模板解析成`AST抽象语法树`，对AST进行优化，然后将其转换为渲染函数的`JS代码`，最终生成能够接受数据并返回虚拟DON的JS函数。
 
 ## 22、Vue中父组件/子组件的执行顺序
 **（1）渲染过程**：父beforeCreate()→父created()→父beforeMounte()→子beforeCreate()→子created()→子beforeMounte()→子mounted()→父mounted()  

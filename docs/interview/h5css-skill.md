@@ -77,19 +77,19 @@ CSS3 是CSS（层叠样式表）技术的最新标准。主要包括盒子模型
 &emsp;&emsp;③ 避免频繁读取布局信息，如获取`offsetTop`、`offsetLeft`等信息；  
 **注意：** 重绘不一定导致回流，回流一定会导致重绘，回流的性能开销更大
 
-## 3、CSS常用的伪元素有哪些，如何使用
+## 3、CSS常用的伪元素有哪些，如何使用√
 &emsp;&emsp;常用的伪元素有：  
 &emsp;&emsp;`::before`（在元素之前插入内容并修改样式）、`::after`（在元素之后插入内容并修改样式）、`::first-letter`（设置第一个字符的样式）、`::first-line`（设置第一行的样式）、`::placeholder`（设置输入字段的占位符）
 
 ## 4、CSS选择器的优先级
 !important > 内联样式1000 > Id选择器100 > 属性选择器10 > 伪类选择器10 > Class选择器10 > 伪元素选择器1 > 元素选择器1
 
-## 5、标准盒模型和怪异盒模型的区别
+## 5、标准盒模型和怪异盒模型的区别√
 **标准盒模型**：width = content + margin 
 
 **怪异盒模型**：width = content + border + padding + margin  
 
-## 6、Flex弹性布局常用属性有哪些
+## 6、Flex弹性布局常用属性有哪些√
 **flex-direction:** 弹性容器中子元素排列方式,其包含的值有：row、row-reverse、column、column-reverse
 
 **flex-warp:** 设置弹性盒子的子元素的换行
@@ -106,61 +106,21 @@ CSS3 是CSS（层叠样式表）技术的最新标准。主要包括盒子模型
 
 **flex-grow:** 设置flex的增长系数，与flex-basis类似，以比例设置
 
-## 7、对于BFC的理解
+## 7、对于BFC的理解√
 &emsp;&emsp;BFC（块级格式化上下文）可以理解为CSS元素的一个属性，它属于普通流元素，可以创建一个隔离的/独立的渲染容器。并且可以用于处理外边距重叠现象，可用于清除浮动、阻止元素被浮动元素覆盖等问题；
 
 &emsp;&emsp;触发BFC的方式有：html根元素、浮动元素、`绝对定位元素`、`overflow属性元素等`；
 
-## 8、import和require的区别，加载模块的区别
-&emsp;&emsp;‌require和import的主要区别在于它们所属的`模块化规范不同`，`加载时机不同`，以及`动态绑定和缓存方式的不同`。
+## 8、import和require的区别，加载模块的区别√
+&emsp;&emsp;`‌require`和`import`的主要区别在于它们所属的``模块化规范不同`，`加载时机不同`，以及`动态绑定和缓存方式的不同`。
 
 &emsp;&emsp;**(1) 所属规范不同：** import是ES6（ECMAScript 2015）引入的关键字，属于ES模块化语法规范，主要用于浏览器端；require是CommonJS规范的一部分，主要用于Node.js环境，无法直接用于浏览器端；
 
-&emsp;&emsp;**(2) 加载时机不同：** import是`静态引入`，必须在文件的顶部使用，提高了加载效率，但也限制了其使用位置，编译时加载；require是`动态引入`，可以在代码的任何位置使用，运行时加载，更加灵活但可能影响性能‌。
+&emsp;&emsp;**(2) 加载时机不同：** import是`静态引入`，必须在文件的顶部使用，提高了加载效率，但也限制了其使用位置，`编译时加载`；require是`动态引入`，可以在代码的任何位置使用，`运行时加载`，更加灵活但可能影响性能‌。
 
-&emsp;&emsp;**(3) 动态绑定和缓存方式不同：** import提供静态分析，支持宏和类型检验，但无法实现动态绑定；require提供动态绑定，适合服务器或浏览器环境，多次要求相同的模块时，只会执行一次，因为缓存机制的存在‌。
+&emsp;&emsp;**(3) 动态绑定和缓存方式不同：** import提供静态分析，支持宏类型检验，但无法实现动态绑定；require提供动态绑定，适合服务器或浏览器环境，多次要求相同的模块时，只会执行一次，因为`缓存机制`的存在‌。
 
-## 9、CSS加载是阻塞的吗
-&emsp;&emsp;CSS加载不会阻塞DOM的解析，但是会阻塞DOM的渲染，因为解析过程两者是独立并行的，而渲染过程这是两者合并进行的；所以要避免CSS加载时间过长，因此就需要对CSS进行包括合并css文件或压缩、减少请求数等性能优化操作；
+## 9、CSS加载是阻塞的吗√
+&emsp;&emsp;CSS加载不会阻塞DOM的解析，但是会阻塞DOM的渲染，因为解析过程两者是独立并行的，而渲染过程这是两者合并进行的；所以要避免CSS加载时间过长，因此就需要对CSS进行包括`合并css文件或压缩`、`减少请求数`等性能优化操作；
 
 &emsp;&emsp;CSS加载会堵塞JS运行，因为浏览器中的渲染进程是多线程的，分为GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、异步http请求线程等等，由于JS可以操作DOM和CSS样式，因此为了避免出现冲突，CSS加载会阻塞JS的执行；
-
-# 小程序开发
-## 1、小程序和H5的区别
-&emsp;&emsp;简单来说，小程序是一种轻应用，运行的环境是微信（App）；H5 是一种技术，依附的外壳是浏览器；原生 App 直接运行在操作系统的单独进程中；
-&emsp;&emsp;开发一个微信小程序，由于微信团队提供了开发者工具，并且规范了开发标准，则简单得多；H5 的开发，涉及开发工具（vscode、Atom等）、前端框架（Angular、react等）、模块管理工具（Webpack 、Browserify 等）、任务管理工具（Grunt、Gulp等），还有 UI 库选择、接口调用工具（ajax、Fetch Api等）、浏览器兼容性等等；原生 App 的开发涉及到 Android/iOS 多个平台、开发工具、开发语言、不同设备的适配等问题；
-
-## 2、小程序/Uniapp的生命周期
-&emsp;&emsp;微信原生小程序生命周期：
-
-&emsp;&emsp;&emsp;App全局：onLaunch监听小程序初始化、onShow小程序启动或切前台、onHide小程序隐藏或切后台、onError监听错误函数、onPageNotFound页面不存在监听函数
-
-&emsp;&emsp;&emsp;Page页内：onLoad监听页面加载、onUnLoad监听页面卸载、onReady监听页面初次渲染完成、onRouteDone监听路由动画完成、onPullDownRefresh监听用户下拉、onReachBotton监听触底事件、onPageScroll监听页面滚动、onResize监听页面尺寸变化、onShareAppMessage监听用户分享转发、onShareTimeLine监听分享朋友圈、onAddToFavorites监听用户收藏
-
-&emsp;&emsp;Uniapp的生命周期：
-
-&emsp;&emsp;&emsp;uniapp的生命周期集成了Vue和原生小程序，但是uniapp有一些新增的生命周期onNavigationBarButtonTap监听原生标题栏按钮点击事件、onBackPress监听页面返回
-
-## 3、小程序/uniapp的setData方法使用
-&emsp;&emsp;在小程序和uniapp中直接修改this.data的数值是无法改变当前页面状态的，从而会导致状态不一致。所以，setData方法可以用于将数据从逻辑层发送到视图层(异步)，同时改变对应的this.data的数值(同步)，仅支持可以JSON化的数据，尽量避免一次设置过多的数据；
-```js
-  page.setData(data: Object): Prmoise<void>
-  //or
-  const page = await program.currentPage()
-  await page.setData({
-    text: 'changed data'
-  })
-
-```
-## 4、小程序/uniapp分包能相互引用吗   
-&emsp;&emsp;• 主包无法引用分包的私有资源；packageA 无法 require packageB JS 文件，但可以 require 主包、packageA 内的 JS 文件；
-
-&emsp;&emsp;• 分包之间不能相互引用私有资源
-
-&emsp;&emsp;• 分包可以引用主包内的公共资源
-
-&emsp;&emsp;• 独立包可以在不下载主包的情况下，独立运行；普通分包必须依赖于主包才能运行
-
-&emsp;&emsp;独立分包是小程序中一种特殊类型的分包，可以独立于主包和其他分包运行。从独立分包中页面进入小程序时，不需要下载主包。当用户进入普通分包或主包内页面时，主包才会被下载。一个小程序中可以有多个独立分包。通过在app.json的subpackages字段中对应的分包配置项中定义independent字段声明对应分包为独立分包。
-
-## 5、

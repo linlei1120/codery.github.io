@@ -857,3 +857,7 @@ console.log(values); // 输出value值 [1, 2, 3]
   let fsData = fs.readFileSync('example.txt');
   console.log('读取的文件内容',fsData.toString())
  ```
+
+  ### 41、什么是SEO?如何进行SEO优化操作
+
+  ### 42、script标签中defer和async的作用
