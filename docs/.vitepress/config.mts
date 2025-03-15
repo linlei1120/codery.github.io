@@ -99,6 +99,13 @@ export default defineConfig({
               { text: '实践知识积累', link: '/interview/practice-skill' }
           ]
       }],
+      '/vue3Refined/': [{
+        text: 'Vue3.0精读',
+          items: [
+              { text: '入门基础', link: '/vue3Refined/index' },
+              { text: '深入组件', link: '/workNote/vueComponent' }
+          ]
+      }],
       '/workNote/': [{
         text: '工作笔记',
           items: [
@@ -108,6 +115,7 @@ export default defineConfig({
               { text: '2025年3月', link: '/workNote/2025年3月' }
           ]
       }]
+      
     },
     // 社交链接
     socialLinks: [{ icon: "github", link: "https://github.com/ChinaCarlos" }],

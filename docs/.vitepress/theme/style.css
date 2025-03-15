@@ -136,3 +136,7 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/* 修改代码块的背景色 */
+.vp-doc [class*="language-"] {
+  background-color: #0d2135; /* 浅灰色背景 */
+}
