@@ -48,8 +48,8 @@ export default defineConfig({
           text: '前端面经',
           link: '/interview/h5css-skill',
         },{
-          text: 'DevOps文档',
-          link: '/devOps/JenkinsFiles',
+          text: 'Vue3.0精读文档',
+          link: '/vue3Refined/index',
         },{
           text: 'React开发文档',
           link: '/react/reactFiles',
