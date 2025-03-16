@@ -1,5 +1,4 @@
-# Vue3.0
-## 入门基础
+# Vue3.0 入门基础
 
 ### 1、Vue的特性概述
 &emsp;&emsp;① 声明式渲染：它是一种编程范式，只注重结果，由框架控制细节；而原生开发中的`命令式渲染`则更加关注过程，需要开发者控制每一步；
@@ -142,30 +141,85 @@ const handleEmits = () => {
 //children+定义文本传递
 ```
 
-## 模板语法
+## 7、模板语法
 
-### 1、模板语法特性概述
+&emsp;&emsp;**① 模板语法特性概述**
 
-### 2、插值文本和v-html指令
+&emsp;&emsp;模板语法底层机制就是将模板编译成功高度优化的js代码，并结合响应式，推导出最优的方式进行DOM操作并渲染元素；
 
-### 3、Arribute属性绑定
+&emsp;&emsp;&emsp;**模板语法进阶-手写渲染函数：** 
 
-### 4、指令使用
+&emsp;&emsp;`h()`函数：用于创建`Vnodes`，该方法的意思是“能生成HTML的JS”
 
-### 5、绑定动态参数
+&emsp;&emsp;**② 插值文本和v-html指令** 
 
-### 6、修饰符使用
+&emsp;&emsp;在文本插值中直接写入标签会被翻译为文本，若需要渲染标签则需要使用`v-html`指令，但是不推荐频繁使用因为`v-html`指令渲染标签容易造成`XSS`漏洞；
+
+&emsp;&emsp;**③ Arribute属性绑定** 
+
+&emsp;&emsp;属性通过`v-bind`指令绑定，也可简写为`:`符号；如果属性名和属性值名词相同则可以只写属性名，3.4版本以上；
+
+&emsp;&emsp;属性绑定也可以是多个属性的js对象使用`v-bind`进行绑定；
+
+&emsp;&emsp;**④ 指令使用**  
+
+&emsp;&emsp;一个指令的作用就是在表达式的值变化是响应式的更新DOM；常见的指令如`v-solt`、`v-memo`等；
+
+
+&emsp;&emsp;**⑤ 绑定动态参数**  
+
+&emsp;&emsp;动态参数主要是可以作用在`v-bind`和`v-on`，使得属性和事件都可以动态的进行绑定，但是需要注意最终的值应为一个字符串
+
+&emsp;&emsp;**⑥ 修饰符使用**
+
+&emsp;&emsp;修饰符表示指令需要以一些特殊的方式被绑定
+
+&emsp;&emsp;常用的修饰符：`.tirm、.prevent、.stop`
 
 ## 响应式基础
 
 ### 1、声明响应式状态
+&emsp;&emsp;通过`ref()`来声明响应式状态，并通过`.value`获取值，`ref`可以持有任何类型的值，也可以直接在`@click`时间监听器中直接改变一个`ref`
+
+&emsp;&emsp;`ref`根据初始化的值推导其类型，对于更复杂的类型可以用`Ref`这个类型，或者再调用`ref()`时传入一个泛型参数
 
 ### 2、为什么使用ref?
+&emsp;&emsp;`ref`可以用来作为响应式系统追踪和触发组件的渲染，且`.value`则更方便`Vue`中`getter`方法执行追踪和`setter`方法执行触发，且`ref`可以传递给函数并保留对最新值和响应式连接的访问；
 
 ### 3、nextTick()全局API
+&emsp;&emsp;因为DOM的更新不是同步的，可以使用nextTick()全局API等待DOM更新完成后执行额外的代码；
+```js
+//DOM更新周期-nextTick()
+const num = ref(0);
+async function increment() {
+  num.value++;
+  console.log("还没有更新", document.getElementById("numC").textContent);
+  await nextTick();
+  console.log("nextTick已经更新", document.getElementById("numC").textContent);
+}
+```
+### 4、深度监听响应式和shallowRef浅层作用
+&emsp;&emsp;`ref`可以是任何类型的值，同样也会使它所持有的值具有深层响应性，无论是对象还算是数组的变化都会被检测到。
 
-### 4、深度监听响应式
-
-### 5、fallowRef()的浅层作用
+&emsp;&emsp;但是同样深层响应性也会增加开销从而影响性能；所以可以通过`shallowRef`来放弃深层响应性仅实现浅层作用，`shallowRef`仅能监听到第一层`.value`，所以对于复杂类型仅能进行完整赋值操作;
+```js
+//浅层作用
+const objShallow = shallowRef({
+  arr: [1, 2, 3]
+});
+function mutateShallow() {
+  // objShallow.value.arr.push(55); 无法赋值
+  objShallow.value = { arr: [5, 6, 7, 8] };
+}
+```
 
 ## 类与样式动态绑定
+1、通过计算属性动态绑定对象类
+
+2、样式对象绑定
+
+3、多值绑定
+
+## 列表渲染
+
+## 模板语法

@@ -103,7 +103,7 @@ export default defineConfig({
         text: 'Vue3.0精读',
           items: [
               { text: '入门基础', link: '/vue3Refined/index' },
-              { text: '深入组件', link: '/workNote/vueComponent' }
+              { text: '深入组件', link: '/vue3Refined/vueComponent' }
           ]
       }],
       '/workNote/': [{
