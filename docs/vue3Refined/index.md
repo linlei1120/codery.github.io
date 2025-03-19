@@ -184,14 +184,17 @@ const handleEmits = () => {
 ## 响应式基础
 
 ### 1、声明响应式状态
+
 &emsp;&emsp;通过`ref()`来声明响应式状态，并通过`.value`获取值，`ref`可以持有任何类型的值，也可以直接在`@click`时间监听器中直接改变一个`ref`
 
 &emsp;&emsp;`ref`根据初始化的值推导其类型，对于更复杂的类型可以用`Ref`这个类型，或者再调用`ref()`时传入一个泛型参数
 
 ### 2、为什么使用ref?
+
 &emsp;&emsp;`ref`可以用来作为响应式系统追踪和触发组件的渲染，且`.value`则更方便`Vue`中`getter`方法执行追踪和`setter`方法执行触发，且`ref`可以传递给函数并保留对最新值和响应式连接的访问；
 
 ### 3、nextTick()全局API
+
 &emsp;&emsp;因为DOM的更新不是同步的，可以使用nextTick()全局API等待DOM更新完成后执行额外的代码；
 ```js
 //DOM更新周期-nextTick()
@@ -204,6 +207,7 @@ async function increment() {
 }
 ```
 ### 4、深度监听响应式和shallowRef浅层作用
+
 &emsp;&emsp;`ref`可以是任何类型的值，同样也会使它所持有的值具有深层响应性，无论是对象还算是数组的变化都会被检测到。
 
 &emsp;&emsp;但是同样深层响应性也会增加开销从而影响性能；所以可以通过`shallowRef`来放弃深层响应性仅实现浅层作用，`shallowRef`仅能监听到第一层`.value`，所以对于复杂类型仅能进行完整赋值操作;
@@ -220,9 +224,11 @@ function mutateShallow() {
 
 ## 类与样式动态绑定
 1、通过计算属性动态绑定对象类
+
 &emsp;&emsp;通过计算属性动态绑定对象类：多个类可以放入同一个计算属性中，经过相关操作后统一进行输出；
 
 2、样式对象绑定
+
 &emsp;&emsp;直接绑定样式在元素上通常不够整洁，使用样式对象进行绑定会更加高效；
 
 3、多值绑定
@@ -235,7 +241,7 @@ function mutateShallow() {
 ## 列表渲染
 &emsp;&emsp;**特点：**
 
-&emsp;&emsp;1、再循环嵌套中，每一个v-for的作用域都可以访问到父作用域；
+&emsp;&emsp;1、在循环嵌套中，每一个v-for的作用域都可以访问到父作用域；
 
 &emsp;&emsp;2、可以使用别名来代替循环输出的`item`名进行解构赋值，对于数组对象的元素获取更方便;
 
@@ -255,3 +261,46 @@ function mutateShallow() {
 />
 ```
 ## 模板语法
+
+&emsp;&emsp;1、底层机制
+
+&emsp;&emsp;&emsp;模板的底层机制就是将模板编译成功高度优化的js代码，并结合响应式，推导出最优的方式进行DOM操作并渲染元素；
+
+&emsp;&emsp;&emsp;模板语法进阶-手写渲染函数：`h()函数`：用于创建VNodes，该方法的意思是“能生成HTML的JS”
+
+&emsp;&emsp;2、文本插值和v-html
+
+&emsp;&emsp;&emsp;在文本插值中直接写入标签会被翻译为文本，若需要渲染标签则需要使用`v-html`指令，但是不推荐频繁使用因为`v-html`指令渲染标签容易造成XSS漏洞
+
+&emsp;&emsp;3、attribute属性绑定
+
+&emsp;&emsp;&emsp;属性通过`v-bind`指令绑定，也可简写为`:`符号；如果属性名和属性值名词相同则可以只写属性名，3.4版本以上；
+属性绑定也可以是多个属性的`js对象`使用`v-bind`进行绑定；
+
+&emsp;&emsp;&emsp;`ref属性`可以用于直接访问底层 `DOM` 元素，获取特点`DOM`元素或者子组件实例的直接引用；
+
+
+&emsp;&emsp;4、指令
+
+&emsp;&emsp;&emsp;一个指令的作用就是在表达式的值变化是响应式的更新DOM；
+
+&emsp;&emsp;5、动态参数
+
+&emsp;&emsp;&emsp;动态参数主要是可以作用在v-bind和v-on，使得属性和事件都可以动态的进行绑定，但是需要注意最终的值应为一个字符串；
+
+&emsp;&emsp;6、修饰符
+
+&emsp;&emsp;&emsp;修饰符表示指令需要以一些特殊的方式被绑定，常用的修饰符包括`.stop、.trim、.prevent、.number等`
+
+&emsp;&emsp;7、模板引用
+
+&emsp;&emsp;&emsp;访问模板引用`useTemplateRef()：`用于再组合式API中获取引用，注意只可以在组件被挂在后才可以访问模板引用，所以无法再`onMounted()`周期之前访问；而在3.5+版本前无法使用该方法，需要声明一个与`ref`同名的`ref`且类型需要相同，`ref` 数组并不保证与源数组相同的顺序；
+```js
+const a = 1
+const b = ref(2)
+// 像 defineExpose 这样的编译器宏不需要导入
+defineExpose({
+  a,
+  b
+})
+```
