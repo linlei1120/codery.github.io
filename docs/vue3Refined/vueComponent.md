@@ -79,10 +79,35 @@ console.log(lastNameModifiers) // { uppercase: true }
 
 ## 9、插槽
 
-&emsp;&emsp;① 具名插槽
+&emsp;&emsp;① 具名插槽：一种将多个插槽内容传入到各自目标插槽的出口，就是具名插槽；由`v-slot:name`声明自定义的具名插槽，也可以简写为`#name`；
 
-&emsp;&emsp;② 条件插槽
+&emsp;&emsp;② 条件插槽：目的是为了根据内容是否被传入了插槽来渲染内容，需要对传入状态做出判断，此时就需要用到`$slots`结合v-if使用；如：`$slots.name`
 
-&emsp;&emsp;③ 具名作用域插槽
+&emsp;&emsp;③ 具名作用域插槽：有时需要在父组件的插槽区域获取子组件的数据状态，即可使用作用域插槽，通过在子组件对应的`slot`上绑定属性，然后在父组件中通过具名暴露出插槽上所绑定的数据状态；相比于`Vue2`的作用域插槽更加高效简洁；
+
+&emsp;&emsp;④ 使用插槽的优势总结：
+
+&emsp;&emsp;&emsp;父组件中绑定在插槽事件也可以通过插槽在子组件中渲染的同时依然绑定，避免跨组件间的事件通讯；
+
+&emsp;&emsp;&emsp;组件中制定模块的内容和样式等控制权交由父组件控制；
+```js
+    <h3>透传+具名插槽+作用域插槽</h3>
+    <childBlock @click="bindBtn">
+      <template #header="header"> 测试具名插槽Header {{ header }}</template>
+      <template>测试默认具名插槽Default</template>
+      <template #footer="footer"> 测试具名插槽Footer {{ footer }}</template>
+    </childBlock>
+```
+&emsp;&emsp;⑤ 案例：高级列表组件渲染
+
 
 ## 10、依赖注入
+&emsp;&emsp;① 概述：在多层嵌套的组件应用中，深层子组件若想获取远端父组件的数据是，通常需要props逐级递传，这会导致数据状态在传输过程中管理混乱；而依赖注入则通过provide和inject有效的解决逐级递传的问题，通过在父组件或者应用层根组件提供依赖即可在需要的子组件中注入使用；
+
+&emsp;&emsp;② 应用层的依赖注入：
+
+&emsp;&emsp;③ 依赖注入数据动态绑定：
+
+&emsp;&emsp;⑤ 如何避免依赖注入冲突：
+
+# 11、异步组件 defineSyncComponent
