@@ -76,3 +76,13 @@ console.log(lastNameModifiers) // { uppercase: true }
 &emsp;&emsp;定义：透传指的是传递给一个组件却没有被`props`或`emits`声明的属性或事件，如`class类`、`style样式`等，这些就是透传属性；若父子组件的透传属性名称相同则会被合并；同样绑定在引入子组件上的`v-on事件`也会发生透传；在模板表达式中可以在直接用 `$attrs` 访问到透传属性；
 
 &emsp;&emsp;禁止透传：在组件选项中设置`defineOptions()`的`inheritAttrs:false`就可以禁止透传继承；在JS中获取透传属性：使用引入API：useAttrs即可在js中获取透传属性
+
+## 9、插槽
+
+&emsp;&emsp;① 具名插槽
+
+&emsp;&emsp;② 条件插槽
+
+&emsp;&emsp;③ 具名作用域插槽
+
+## 10、依赖注入
