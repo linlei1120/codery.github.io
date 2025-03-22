@@ -58,9 +58,64 @@
 ```
 
 ## 2、`<TransitionGroup>`过渡和动画组件合集
+&emsp;&emsp;① `<TransitionGroup>`的主要特点：  
+
+&emsp;&emsp;&emsp;该标签不会作为一盒渲染容器，但是可以通过tag属性指定一个标签作为渲染容器元素；
+
+&emsp;&emsp;&emsp;在此标签中过渡模式不可用，因为容器中的元素不再是互斥切换；
+
+&emsp;&emsp;&emsp;容器中列表元素每一个都必须绑定唯一key值；
+
+&emsp;&emsp;&emsp;与CSS过渡动画样式结合，样式会被绑定到容器内元素上；
+
+[动画示例](https://cn.vuejs.org/examples/#list-transition)
 
 ## 3、`<KeepAlive>`缓存组件
+&emsp;&emsp;① 概述：作为缓存内置组件，其主要作用是避免组件之间在切换时被频繁地创建和销毁，通过缓存可以保证各组件之间的状态和数据被缓存，有效提高性能；
+
+&emsp;&emsp;② 常用属性：`include`、`exclude`、`max`
+```js
+    <KeepAlive include="a,b">
+        <component :is="view"></component>
+    </KeepAlive>
+
+    <KeepAlive include="/a|b/">
+        <component :is="view"></component>
+    </KeepAlive>
+
+    <KeepAlive include="['a','b']" :max="10">
+        <component :is="view"></component>
+    </KeepAlive>
+```
+&emsp;&emsp;③ 周期钩子：`onActivated()` 组件挂载时会调用/` onDeactivated()` 组件卸载时会调用；注意周期钩子不适用于keepAlive缓存的根组件；
+```js
+import { onActivated, onDeactivated } from 'vue'
+onActivated(() => {
+  // 调用时机为首次挂载
+  // 以及每次从缓存中被重新插入时
+})
+
+onDeactivated(() => {
+  // 在从 DOM 上移除、进入缓存
+  // 以及组件卸载时调用
+})
+```
 
 ## 4、`<Teleprot>`模板内置组件
+&emsp;&emsp;① 概述：该内置组件的主要作用是可以将组件内的一部分模板，传送到指定的外层DOM元素上，比如模态框、遮罩层等组件渲染到body等元素上；
+```js
+// 子组件
+  <button @click="open = true">Open Model</button>
+  <Teleport to="body">
+    <div v-if="open" class="model">
+      <p>Hello From The Model</p>
+      <button @click="open = false">Close</button>
+    </div>
+  </Teleport>
 
+// 父组件
+    <h3>Teleport模块内置组件</h3>
+    <MyModel />
+```
 ## 5、`<Suspense>`异步依赖协调组件
+&emsp;&emsp;① 概述：主要用来在组件中协调对异步依赖的处理；可以在组件树的上层等待下层的多个嵌套组件统一解析渲染状态；
