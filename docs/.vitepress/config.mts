@@ -106,7 +106,10 @@ export default defineConfig({
               { text: '深入组件', link: '/vue3Refined/vueComponent' },
               { text: '逻辑复用', link: '/vue3Refined/logicReuse' },
               { text: '内置组件', link: '/vue3Refined/introComponemt' },
-              { text: '应用模块化', link: '/vue3Refined/applyMoudel' }
+              { text: '应用模块化', link: '/vue3Refined/applyMoudel' },
+              { text: '最佳实践', link: '/vue3Refined/bestPractice' },
+              { text: 'Vue3结合TS', link: '/vue3Refined/Vue3TS' },
+              { text: 'Vue进阶主题', link: '/vue3Refined/vueAdvance' }
               
           ]
       }],
