@@ -103,6 +103,8 @@ onDeactivated(() => {
 
 ## 4、`<Teleprot>`模板内置组件
 &emsp;&emsp;① 概述：该内置组件的主要作用是可以将组件内的一部分模板，传送到指定的外层DOM元素上，比如模态框、遮罩层等组件渲染到body等元素上；
+
+&emsp;&emsp;② 解决问题：通常我们需要元素脱了文档流，需要借助css中定位属性并将元素层级进行设置，这样容易造成全局元素布局异常，而Teleprot原则则可以统一解决这个问题；
 ```js
 // 子组件
   <button @click="open = true">Open Model</button>
