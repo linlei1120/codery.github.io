@@ -49,7 +49,10 @@ export default defineConfig({
           link: '/interview/h5css-skill',
         },{
           text: 'Vue3.0精读文档',
-          link: '/vue3Refined/index',
+          link: '/refinedVue3/index',
+        },{
+          text: 'TS精读文档',
+          link: '/refinedTS/index',
         },{
           text: 'React开发文档',
           link: '/react/reactFiles',
@@ -99,17 +102,17 @@ export default defineConfig({
               { text: '实践知识积累', link: '/interview/practice-skill' }
           ]
       }],
-      '/vue3Refined/': [{
+      '/refinedVue3/': [{
         text: 'Vue3.0精读',
           items: [
-              { text: '入门基础', link: '/vue3Refined/index' },
-              { text: '深入组件', link: '/vue3Refined/vueComponent' },
-              { text: '逻辑复用', link: '/vue3Refined/logicReuse' },
-              { text: '内置组件', link: '/vue3Refined/introComponemt' },
-              { text: '应用模块化', link: '/vue3Refined/applyMoudel' },
-              { text: '最佳实践', link: '/vue3Refined/bestPractice' },
-              { text: 'Vue3结合TS', link: '/vue3Refined/Vue3TS' },
-              { text: 'Vue进阶主题', link: '/vue3Refined/vueAdvance' }
+              { text: '入门基础', link: '/refinedVue3/index' },
+              { text: '深入组件', link: '/refinedVue3/vueComponent' },
+              { text: '逻辑复用', link: '/refinedVue3/logicReuse' },
+              { text: '内置组件', link: '/refinedVue3/introComponemt' },
+              { text: '应用模块化', link: '/refinedVue3/applyMoudel' },
+              { text: '最佳实践', link: '/refinedVue3/bestPractice' },
+              { text: 'Vue3结合TS', link: '/refinedVue3/Vue3TS' },
+              { text: 'Vue进阶主题', link: '/refinedVue3/vueAdvance' }
               
           ]
       }],

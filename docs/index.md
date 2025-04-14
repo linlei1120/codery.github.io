@@ -31,7 +31,7 @@ features:
     linkText: 查看详情
   - title: SOLID设计原则
     icon:
-      src: /icon_feature21.svg
+      src: /icon_feature22.svg
     details: UML（Unified Modeling Language，统一建模语言），是一种用于软件系统分析和设计的语言工具，用于帮助软件开发人员进行思考和记录思路的结果UML本身是一套符号的规定，通过这些符号，来描述软件模型中各个元素之间的关系；比如类...
     link: /SE/UML.md
     linkText: 查看详情
@@ -62,6 +62,12 @@ features:
   - title: PWA 周边生态
     icon:
       src: /icon_feature26.svg
+    details: PWA（渐进式Web应用）生态包括Service Workers、Web App Manifest、响应式设计、离线支持、推送通知和应用缓存等技术，旨在提升Web应用的性能和用户体验，接近原生应用的功能。
+    link: https://carlosme.fun
+    linkText: 
+  - title: PWA 周边生态
+    icon:
+      src: /icon_feature28.svg
     details: PWA（渐进式Web应用）生态包括Service Workers、Web App Manifest、响应式设计、离线支持、推送通知和应用缓存等技术，旨在提升Web应用的性能和用户体验，接近原生应用的功能。
     link: https://carlosme.fun
     linkText: 查看详情
