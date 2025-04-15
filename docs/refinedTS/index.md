@@ -216,7 +216,90 @@ let nameResult01 = buildName("Li","Hua")
 ```
 
 &emsp;&emsp; ② 剩余参数：当我们不确定需要传多少个参数给函数时，就可以使用剩余参数；注意：函数的最后一个命名由 `...` 为前缀
-
+```js
+function buildShengName(firstName: string, ...restOfName: string[]) {
+  return firstName + "" + restOfName.join("")
+}
+let employeeName = buildName("Joseph", "Samuel");
+function shengyuName(firstName: string, ...lastName: string[]) {
+  return `${firstName}${lastName.join('')}`
+}
+```
 &emsp;&emsp; ③ 匿名函数：在程序运行时动态声明，除了没有函数名外，其他的与标准函数一样。通常将函数赋值给一个变量，形成一个函数表达式；
+```js
+let noNameFun = function (name: string, age: number): string {
+  return `姓名：${name} 年龄：${age}`;
+};
+// 调用函数时传入正确的参数
+console.log(noNameFun("Anna", 12));
+// 匿名函数自调用
+(function () {
+  let x = "Hello!!";
+  console.log(x);
+})();
+//语法：var res = function([arguments]) { ... }
+let noNameFuns = function () {
+  return "noNameFun匿名函数"
+}
+```
+&emsp;&emsp; ④ 构造函数：传参（多个参数数组+执行函数）
+```js
+// 语法格式：var res = function([arg1[,arg2[,...argN]]，] functionBody)
+var myFunction = new Function("a", "b", "return a * b");
+var x = myFunction(4, 3)
+// 递归函数:在函数内部直接或间接调用函数本身,注意需要设定中断条件避免陷入死循环
+function factorial(number) {
+  if (number <= 0) {
+    return 1
+  } else {
+    return (number * factorial(number - 1));
+  }
+}
+```
+&emsp;&emsp;构造函数语法：`var res = new Function ([arg1[, arg2[, ...argN]],] functionBody)` 
 
-&emsp;&emsp; ④ 构造函数：
+&emsp;&emsp; ⑤ 递归函数：指在函数内部直接或间接调用函数自身,注意需要设定中断条件避免陷入死循环
+```js
+function factorial(number) {
+  if (number <= 0) {
+    return 1
+  } else {
+    return (number * factorial(number - 1));
+  }
+}
+```
+&emsp;&emsp; ⑥ 箭头函数：
+```js
+// 语法格式：(arg) => {} / 表达式
+var fooArrow = (x:number) => 10+x
+// 函数重载：函数重载的特点包括方法名相同，但是参数不相同（类型不同、数量不同、顺序不同），而返回值既可相同，也可不同
+// 而每个重载的方法都必须有一个独一无二的参数列表
+// 注意：避免过度使用，优先使用联合类型和可选参数，更加简洁高效；
+function disp(s1: string): void;
+function disp(n1: number, s1: string): void;
+
+function disp(x: any, y?: any) {
+  return `${x}${y?y:''}`
+}
+
+```
+&emsp;&emsp; ⑦ 函数重载：特点包括方法名相同，但是参数不相同（类型不同、数量不同、顺序不同），而返回值既可相同，也可不同
+```js
+// 而每个重载的方法都必须有一个独一无二的参数列表
+// 注意：避免过度使用，优先使用联合类型和可选参数，更加简洁高效；
+function disp(s1: string): void;
+function disp(n1: number, s1: string): void;
+
+function disp(x: any, y?: any) {
+  return `${x}${y?y:''}`
+}
+// 应用场景：处理多种输入类型、API接口设计、类型守卫和联合类型、兼容旧代码
+type Input = string | number[]
+// 重载细化返回的类型
+function reHandle(input: string): string[];
+function reHandle(input: number[]): string;
+function reHandle(input: Input): string[] | string {
+  if (typeof input === "string") return input.split("");
+  return input.join(",")
+}
+```
