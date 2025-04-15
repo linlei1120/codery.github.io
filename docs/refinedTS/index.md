@@ -272,15 +272,6 @@ function factorial(number) {
 ```js
 // 语法格式：(arg) => {} / 表达式
 var fooArrow = (x:number) => 10+x
-// 函数重载：函数重载的特点包括方法名相同，但是参数不相同（类型不同、数量不同、顺序不同），而返回值既可相同，也可不同
-// 而每个重载的方法都必须有一个独一无二的参数列表
-// 注意：避免过度使用，优先使用联合类型和可选参数，更加简洁高效；
-function disp(s1: string): void;
-function disp(n1: number, s1: string): void;
-
-function disp(x: any, y?: any) {
-  return `${x}${y?y:''}`
-}
 
 ```
 &emsp;&emsp; ⑦ 函数重载：特点包括方法名相同，但是参数不相同（类型不同、数量不同、顺序不同），而返回值既可相同，也可不同
