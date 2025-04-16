@@ -3,18 +3,25 @@
 ## 1、概述
 &emsp;&emsp;① 简介：TS作为JS语言的超集，在JS语言的基础上扩展了许多新的特性，并且兼容ES6/ES5等语法；
 
-&emsp;&emsp;② 新增特性：静态类型检查、类型推导、类型断言as、类型别名、接口声明、元组、枚举、泛型、支持ES模块化规范、访问控制修饰符(public/protected/private)、类和抽象类abstract等；
+&emsp;&emsp;② 新增特性：静态类型检查、类型推导、类型断言as、类型别名、接口声明、元组、枚举、泛型、支持ES模块化规范、访问控制修饰符(`public/protected/private`)、类和抽象类abstract等；
 
 &emsp;&emsp;③ 新增类型：any、enum、ruple、unknown、void、never、symbol
+
+&emsp;&emsp;**附：**
+| 修饰符   | 类内部访问 | 子类访问 | 实例访问 | 默认行为       | 典型场景                          |
+|----------|------------|----------|----------|----------------|-----------------------------------|
+| public   | ✅          | ✅        | ✅        | 默认修饰符     | 公开接口、外部可直接调用的方法    |
+| private  | ✅          | ❌        | ❌        | 无             | 内部实现细节、敏感数据            |
+| protected| ✅          | ✅        | ❌        | 无             | 需要被子类继承/重写的成员         |
 
 ## 2、基本结构之声明
 ### 重点：
 
-&emsp;&emsp;① 接口interface：用于描述对象的形状，接口可以继承和扩展。
+&emsp;&emsp;① 接口`interface`：用于描述对象的形状，接口可以继承和扩展。
 
 &emsp;&emsp;② 类型别名：别名可以将多个类型组合进行统一处理为一个自定义类型，进行共同推导，类似于||与运算类型；允许为对象类型、联合类型、交叉类型等定义别名。
 
-&emsp;&emsp;③ 类型断言：类型断言可以用过as标识符，来强制指定某一推导变量的类型。
+&emsp;&emsp;③ 类型断言：类型断言可以用过`as`标识符，来强制指定某一推导变量的类型。
 
 &emsp;&emsp;④ 泛型：提供了在定义函数、接口或类时不需要预先指定具体类型，而是使用占位符，在使用时再指定类型的特性。
 ```js
@@ -32,7 +39,6 @@ const person = <Person>{
 };
 
 //函数声明
-
 function greet(name: string, age: number): Object {
   return {
     name: name,
@@ -92,7 +98,6 @@ async function fetchData(): Promise<string> {
   const data = await response.text();
   return data
 }
-
 
 ```
 ## 3、基本类型的使用
@@ -280,7 +285,6 @@ var fooArrow = (x:number) => 10+x
 // 注意：避免过度使用，优先使用联合类型和可选参数，更加简洁高效；
 function disp(s1: string): void;
 function disp(n1: number, s1: string): void;
-
 function disp(x: any, y?: any) {
   return `${x}${y?y:''}`
 }
