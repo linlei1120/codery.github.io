@@ -6,79 +6,251 @@ outline: deep
 
 ## 工厂方法模式
 
-### 1、概述：
+### 1. 作用
 
-&emsp;&emsp;工厂方法模式就像一个对象工厂，你告诉工厂想要什么，工厂就会为你生产对应的商品，而不需要你自己去new这个对象。工厂方法遵循开放-封闭原则，提供了一个创建对象的接口，允许子类来决定需要实例化的对象的类型。
+&emsp;&emsp;定义一个用于创建对象的接口，让子类决定实例化哪个类，实现类的实例化延迟到子类进行。
 
-### 2、特点：
+### 2. 实用场景
 
-&emsp;&emsp;① 将对象的创建和使用分离；② 便于扩展新的对象类型；③ 更加易于代码的维护和修改；④ 减少大量`if...else`语句
-![Example Image](../public/UML/factoryPattern.jpg)
+&emsp;&emsp;- 一个类不知道它所必须创建的对象的具体类型时。  
+&emsp;&emsp;- 系统希望将产品的创建集中管理或易于扩展时。  
+&emsp;&emsp;- 需要遵循开闭原则，动态添加新产品类型时。  
 
-### 3、案例：
+### 3. UML图
+
+![工厂方法模式](../public/UML/factoryPattern.jpg)
+
+### 4. 示例代码
+
 ```js
-// 传统方式
-function previewFile(file) {
-  if (file.type === 'pdf') {
-    renderPDF(file.content);
-  } else if (file.type === 'image') {
-    renderImage(file.content);
-  } else if (file.type === 'video') {
-    renderVideo(file.content);
-  }
-  // 每新增一种类型就要修改这个函数
+// 预览器工厂示例
+class PDFPreviewer {
+  render(content) { console.log('渲染 PDF:', content); }
+}
+class ImagePreviewer {
+  render(content) { console.log('渲染图片:', content); }
+}
+class VideoPreviewer {
+  render(content) { console.log('渲染视频:', content); }
+}
+class MarkdownPreviewer {
+  render(content) { console.log('渲染 Markdown:', content); }
 }
 
-// 工厂模式方式
 class PreviewerFactory {
-  static createPreviewer(fileType) {
-    switch(fileType) {
+  static createPreviewer(type) {
+    switch(type) {
       case 'pdf': return new PDFPreviewer();
       case 'image': return new ImagePreviewer();
       case 'video': return new VideoPreviewer();
-      // 新增类型只需添加case，不修改原有逻辑
-      case 'markdown': return new MarkdownPreviewer(); 
+      case 'markdown': return new MarkdownPreviewer();
+      default: throw new Error('未知类型');
     }
   }
 }
 
-// 使用
+// 使用方式
 const previewer = PreviewerFactory.createPreviewer(file.type);
 previewer.render(file.content);
 ```
-### 4、注意：
 
-&emsp;&emsp;模式适用于重复/复杂场景，简单实现不应强制使用模式，需要权衡利弊；
+### 5. 优点
 
+&emsp;&emsp;- 符合开闭原则；  
+&emsp;&emsp;- 便于扩展新产品；  
+&emsp;&emsp;- 简化客户端代码；  
+
+### 6. 缺点
+
+&emsp;&emsp;- 增加类的数量；  
+&emsp;&emsp;- 系统更加复杂；  
 
 ## 抽象工厂模式
 
-### 1、概述：
+### 1. 作用
 
-&emsp;&emsp; 抽象工厂模式类似于一个超级工厂和其他工厂的关系，超级工厂提供模板服务，其他各类工厂根据模板提供产品，无需再去指定每一个工厂。即提供一系列相关或相互依赖的对象的接口，而无需指定具体的类。
+&emsp;&emsp;提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们的具体类。
 
-### 2、特点：
+### 2. 实用场景
 
-&emsp;&emsp;① 一致性：多种类型对象保持一致；② 易扩展：新主题仅需要新增一个新的类；③ 解耦性：实例化类无需知道具体的对象或类；
+&emsp;&emsp;- 系统有多个产品族，但只消费其中某一族时。  
+&emsp;&emsp;- 需要产品族对象保持一致性时。  
+&emsp;&emsp;- 希望易于替换或扩展产品族时。  
 
-![Example Image](../public/UML/abstrctFactoryPattern.jpg)
+### 3. UML图
 
-### 3、案例：UI主题更换
+![抽象工厂模式](../public/UML/abstrctFactoryPattern.jpg)
+
+### 4. 示例代码
+
 ```js
+// 抽象工厂接口
+class UIFactory {
+  createButton() {}
+  createCheckbox() {}
+}
 
+// 具体工厂：浅色主题
+class LightUIFactory extends UIFactory {
+  createButton() { return new LightButton(); }
+  createCheckbox() { return new LightCheckbox(); }
+}
+
+// 具体工厂：深色主题
+class DarkUIFactory extends UIFactory {
+  createButton() { return new DarkButton(); }
+  createCheckbox() { return new DarkCheckbox(); }
+}
+
+// 客户端
+function renderUI(factory) {
+  const btn = factory.createButton();
+  const cb = factory.createCheckbox();
+  btn.paint();
+  cb.paint();
+}
+
+const factory = new DarkUIFactory();
+renderUI(factory);
 ```
+
+### 5. 优点
+
+&emsp;&emsp;- 易于交换产品族；  
+&emsp;&emsp;- 保持不同产品间的一致性；  
+&emsp;&emsp;- 符合开闭原则；  
+
+### 6. 缺点
+
+&emsp;&emsp;- 难以支持新种类的产品；  
+&emsp;&emsp;- 扩展困难，需修改抽象层；  
 
 ## 单例模式
 
-### 1、概述：单例模式是前端开发中常用的一种模式，适合全局唯一状态控制或共享资源的场景。单列模式确保一个类仅有一个实例，并提供一个全局访问点来访问该实例。
+### 1. 作用
 
-### 2、特点：① 唯一性：内存仅有一个实例，减少内存开销； ② 避免频繁创建和销毁实例时的资源小号； ③ 全局可访问；
+&emsp;&emsp;保证一个类只有一个实例，并提供一个全局访问点。
 
-### 3、应用场景：全局状态管理如Vuex的store、浏览器中的window对象、数据库连接池等
-![Example Image](../public/UML/singletonPattern.jpg)
-### 4、案例
+### 2. 实用场景
+
+&emsp;&emsp;- 全局配置管理；  
+&emsp;&emsp;- 日志系统；  
+&emsp;&emsp;- 数据库连接池；  
+
+### 3. UML图
+
+![单例模式](../public/UML/singletonPattern.jpg)
+
+### 4. 示例代码
+
 ```js
-// 全局日志监听器
+class Logger {
+  constructor() {
+    if (Logger.instance) {
+      return Logger.instance;
+    }
+    Logger.instance = this;
+  }
+  log(msg) { console.log('[Log]:', msg); }
+}
 
+const logger1 = new Logger();
+const logger2 = new Logger();
+console.log(logger1 === logger2); // true
 ```
+
+### 5. 优点
+
+&emsp;&emsp;- 节省资源，避免重复创建；  
+&emsp;&emsp;- 提供全局访问点；  
+
+### 6. 缺点
+
+&emsp;&emsp;- 隐藏依赖关系；  
+&emsp;&emsp;- 不易拓展和测试；  
+
+## 原型模式
+
+### 1. 作用
+
+&emsp;&emsp;通过复制已有实例来创建新对象，而不是通过 new 操作。
+
+### 2. 实用场景
+
+&emsp;&emsp;- 对象初始化成本较高时；  
+&emsp;&emsp;- 需要动态创建相似对象时；  
+&emsp;&emsp;- 避免与具体类耦合时；  
+
+### 3. UML图
+
+![原型模式](../public/UML/prototypePattern.jpg)
+
+### 4. 示例代码
+
+```js
+class Prototype {
+  constructor(name) { this.name = name; }
+  clone() { return new Prototype(this.name); }
+}
+
+const original = new Prototype('原型对象');
+const cloned = original.clone();
+console.log(cloned.name); // 原型对象
+```
+
+### 5. 优点
+
+&emsp;&emsp;- 性能优越，可快速克隆；  
+&emsp;&emsp;- 运行时动态获得对象；  
+
+### 6. 缺点
+
+&emsp;&emsp;- 需处理深浅拷贝问题；  
+&emsp;&emsp;- 依赖原型实例；  
+
+## 建造者模式
+
+### 1. 作用
+
+&emsp;&emsp;将一个复杂对象的构建与表示分离，使同样的构建过程可以创建不同的表示。
+
+### 2. 实用场景
+
+&emsp;&emsp;- 对象属性众多且复杂时；  
+&emsp;&emsp;- 需要多个配置步骤时；  
+&emsp;&emsp;- 希望通过链式调用构建对象时；  
+
+### 3. UML图
+
+![建造者模式](../public/UML/builderPattern.jpg)
+
+### 4. 示例代码
+
+```js
+class Product {
+  constructor() { this.parts = []; }
+  add(part) { this.parts.push(part); }
+}
+
+class Builder {
+  constructor() { this.product = new Product(); }
+  buildPartA() { this.product.add('部件A'); return this; }
+  buildPartB() { this.product.add('部件B'); return this; }
+  buildPartC() { this.product.add('部件C'); return this; }
+  getResult() { return this.product; }
+}
+
+const builder = new Builder();
+const product = builder.buildPartA().buildPartB().buildPartC().getResult();
+console.log(product.parts); // ['部件A','部件B','部件C']
+```
+
+### 5. 优点
+
+&emsp;&emsp;- 构建过程清晰；  
+&emsp;&emsp;- 易于扩展不同产品；  
+
+### 6. 缺点
+
+&emsp;&emsp;- 需要额外的 Builder 类；  
 
