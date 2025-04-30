@@ -71,20 +71,23 @@ export default defineConfig({
           }] },
       { text: "工作笔记",items:[
         {
-          text: '2024年12月',
-          link: '/workNote/2024年12月',
+          text: '2025年4月',
+          link: '/workNote/2025年4月',
+        },{
+          text: '2025年3月',
+          link: '/workNote/2025年3月',
+        },{
+          text: '2025年2月',
+          link: '/workNote/2025年2月',
         },{
           text: '2025年1月',
           link: '/workNote/2025年1月',
         },
+        
         {
-          text: '2025年2月',
-          link: '/workNote/2025年2月',
-        },
-        {
-          text: '2025年3月',
-          link: '/workNote/2025年3月',
-        }] },
+          text: '2024年12月',
+          link: '/workNote/2024年12月',
+        },] },
       { text: "工具导航栏", link: "/markdown-examples" },
       { text: "工作项目集", link: "/projectFiles/project-list" }
     ],
@@ -119,10 +122,11 @@ export default defineConfig({
       '/workNote/': [{
         text: '工作笔记',
           items: [
-              { text: '2024年12月', link: '/workNote/2024年12月' },
-              { text: '2025年1月', link: '/workNote/2025年1月' },
-              { text: '2025年2月', link: '/workNote/2025年2月' },
-              { text: '2025年3月', link: '/workNote/2025年3月' }
+            { text: '2025年4月', link: '/workNote/2025年4月' },
+            { text: '2025年3月', link: '/workNote/2025年3月' },
+            { text: '2025年2月', link: '/workNote/2025年2月' },
+            { text: '2025年1月', link: '/workNote/2025年1月' },
+            { text: '2024年12月', link: '/workNote/2024年12月'}
           ]
       }]
       
