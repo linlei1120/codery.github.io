@@ -32,7 +32,7 @@ features:
   - title: SOLID设计原则
     icon:
       src: /icon_feature22.svg
-    details: UML（Unified Modeling Language，统一建模语言），是一种用于软件系统分析和设计的语言工具，用于帮助软件开发人员进行思考和记录思路的结果UML本身是一套符号的规定，通过这些符号，来描述软件模型中各个元素之间的关系；比如类...
+    details: SOLID 是面向对象设计中的五大原则，不管什么面向对象的语言， 它可以提高代码的可维护性、可扩展性和可读性，使代码更加健壮、易于测试和扩展。分别是单一原则、开闭原则、里氏替换原则、接口隔离原则、依赖倒置原则...
     link: /SE/UML.md
     linkText: 查看详情
   - title: 互联网管理系统大全
