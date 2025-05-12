@@ -88,7 +88,7 @@ export default defineConfig({
           text: '2024年12月',
           link: '/workNote/2024年12月',
         },] },
-      { text: "工具导航栏", link: "/markdown-examples" },
+      { text: "工具导航栏", link: "/toolsFiles/tools-list" },
       { text: "工作项目集", link: "/projectFiles/project-list" }
     ],
 
