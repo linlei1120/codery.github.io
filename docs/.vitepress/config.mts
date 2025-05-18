@@ -59,8 +59,11 @@ export default defineConfig({
         },{
           text: 'Flutter开发文档',
           link: '/flutter/flutterFiles',
+        },{
+          text: '前端开发规范',
+          link: '/devGuide/index',
         }] },
-        { text: "后端学习文档",items:[
+        { text: "后端开发文档",items:[
           {
             text: 'Docker文档',
             link: '/endFront/dockerStudy/dockerIndex',

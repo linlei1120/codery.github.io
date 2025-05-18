@@ -53,10 +53,10 @@ features:
     details: 算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出...
     link: https://carlosme.fun
     linkText: 查看详情
-  - title: PWA 的使用场景有哪些？
+  - title: 10大执行力思维模型
     icon:
       src: /icon_feature25.svg
-    details: PWA 的应用场景非常广泛，其核心优势包括离线支持、跨平台兼容、安装便捷性等，使其适用于各种类型的应用和服务。无论是商业、教育、医疗还是娱乐领域，PWA 都能够提供流畅、高效和可靠的用户体验。
+    details: 无论是工作还是学习生活，都绕不开计划管理，合理的计划安排和行动执行才能有效地输出结果。常见的执行力思维模型包括：SMART模型、OKR工作法、甘特图工作计划、POA执行公式、WOOP思维模型等....
     link: https://carlosme.fun
     linkText: 查看详情
   - title: PWA 周边生态
