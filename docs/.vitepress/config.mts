@@ -108,6 +108,12 @@ export default defineConfig({
               { text: '实践知识积累', link: '/interview/practice-skill' }
           ]
       }],
+      '/refinedTS/': [{
+        text: 'TS精读文档',
+          items: [
+              { text: 'TS入门基础', link: '/refinedTS/index' }
+          ]
+      }],
       '/refinedVue3/': [{
         text: 'Vue3.0精读',
           items: [
@@ -120,6 +126,13 @@ export default defineConfig({
               { text: 'Vue3结合TS', link: '/refinedVue3/Vue3TS' },
               { text: 'Vue进阶主题', link: '/refinedVue3/vueAdvance' }
               
+          ]
+      }],
+      '/devGuide/': [{
+        text: '前端开发规范',
+          items: [
+            { text: '前端开发规范', link: '/devGuide/index' },
+            { text: '常用编码规范', link: '/devGuide/commonGuide' },
           ]
       }],
       '/workNote/': [{

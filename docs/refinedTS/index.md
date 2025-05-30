@@ -5,7 +5,7 @@
 
 &emsp;&emsp;② 新增特性：静态类型检查、类型推导、类型断言as、类型别名、接口声明、元组、枚举、泛型、支持ES模块化规范、访问控制修饰符(`public/protected/private`)、类和抽象类abstract等；
 
-&emsp;&emsp;③ 新增类型：any、enum、ruple、unknown、void、never、symbol
+&emsp;&emsp;③ 新增类型：`any任意类型`、`enum枚举类型`、`ruple元组类型`、`unknown未知类型`、`void无返回值`、`never`、`symbol`
 
 &emsp;&emsp;**附：**
 | 修饰符   | 类内部访问 | 子类访问 | 实例访问 | 默认行为       | 典型场景                          |

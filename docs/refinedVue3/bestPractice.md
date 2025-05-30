@@ -24,3 +24,31 @@
 &emsp;&emsp;② 配合[Tauri]()使用创建混合应用
 
 &emsp;&emsp;③ 配合[TresJS]()使用构建WebGL应用
+
+### 4、跨组件通信
+&emsp;&emsp;在 Vue 3 中，`emit('update:modelValue', selectedValue.value) `可以触发对父组件 v-model 绑定值的更新，但本质上是通过 Vue 的 双向绑定协议 实现的间接修改。
+
+**① 核心机制解析：** 
+| 机制   | 说明 |
+|----------|------------|
+| v-model 本质   | 语法糖，等价于 :modelValue + @update:modelValue 的组合    |
+| 单向数据流  | 子组件不能直接修改父组件的 prop，必须通过事件通知父组件更新            |
+| 事件驱动更新| emit('update:modelValue') 会直接触发父组件执行 v-model 绑定的变量更新         |
+
+```js
+// 父组件 (直接绑定)
+<ChildComponent v-model="parentValue" />
+
+// 等价于
+<ChildComponent 
+  :modelValue="parentValue"
+  @update:modelValue="newValue => parentValue = newValue"
+/>
+
+// 子组件正确做法
+emit('update:modelValue', newValue) // ✅ 通过事件链触发父组件赋值
+
+// 错误做法
+props.modelValue = newValue // ❌ 直接修改 prop 会触发 Vue 警告
+
+```
