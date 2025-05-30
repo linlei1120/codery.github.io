@@ -45,7 +45,7 @@ const handler = () => {
 ```
 
 ### 2、解构赋值使用
-‌&emsp;&emsp;在 ES6 中，解构赋值（Destructuring Assignment）是一种 高效提取数据的语法；[解构赋值参考文档](/docs/markdown-examples.md)
+‌&emsp;&emsp;在 ES6 中，解构赋值（Destructuring Assignment）是一种 高效提取数据的语法；[解构赋值参考文档](../markdown-examples.md)
 
 **解构赋值优势及场景**
 | 特性   | 优势 | 应用场景 |
