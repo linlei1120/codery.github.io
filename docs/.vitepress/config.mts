@@ -62,6 +62,9 @@ export default defineConfig({
         },{
           text: '前端开发规范',
           link: '/devGuide/index',
+        },{
+          text: '算法题解',
+          link: '/algorithm/addAlg',
         }] },
         { text: "后端开发文档",items:[
           {
@@ -145,7 +148,15 @@ export default defineConfig({
             { text: '2024年12月', link: '/workNote/2024年12月'}
           ]
       }]
-      
+      ,
+      '/UML/': [{
+        text: 'UML设计模式',
+          items: [
+            { text: '创建型设计模式', link: '/UML/createPattern' },
+            { text: '结构型设计模式', link: '/UML/behaviorPattern' },
+            { text: '行为型设计模式', link: '/UML/behaviorPattern' },
+          ]
+      }]
     },
     // 社交链接
     socialLinks: [{ icon: "github", link: "https://github.com/ChinaCarlos" }],

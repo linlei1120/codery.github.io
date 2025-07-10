@@ -33,13 +33,13 @@ features:
     icon:
       src: /icon_feature22.svg
     details: SOLID 是面向对象设计中的五大原则，不管什么面向对象的语言， 它可以提高代码的可维护性、可扩展性和可读性，使代码更加健壮、易于测试和扩展。分别是单一原则、开闭原则、里氏替换原则、接口隔离原则、依赖倒置原则...
-    link: /SE/UML.md
+    link: /featuresFiles/SOILD.md
     linkText: 查看详情
   - title: 互联网管理系统大全
     icon:
       src: /icon_feature27.svg
     details: 互联网中管理平台系统的分类方式多样，可以根据功能、应用场景、技术架构、部署方式、行业和用户类型进行划分。不同的系统服务于不同的需求，企业可以根据自身业务特点选择合适的系统来提升管理效率和竞争力...
-    link: https://carlosme.fun
+    link: /featuresFiles/systemPlatform.md
     linkText: 查看详情
   - title: 数据结构基础大全
     icon:
