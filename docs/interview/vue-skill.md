@@ -1,7 +1,34 @@
 # Vue面试题集
 
 ‌&emsp;&emsp;‌Vue.js是一个用于构建用户界面的渐进式‌JavaScript框架。‌‌Vue.js遵循MVVM模式（Model-View-ViewModel），实现了数据双向绑定，简化了DOM操作，使得开发者可以更加专注于应用逻辑而非页面渲染。[查看Vue官网文档地址](https://cn.vuejs.org/)。
+## **Vue中h()函数是什么？有什么作用？**
+&emsp;&emsp;`h()` 是 Vue 的虚拟 DOM 创建函数，全称是 "hyperscript"（生成 HTML 的脚本）。它的作用是用 JavaScript 的方式描述 UI 结构，替代模板写法。
+```js
+// 这个 h() 调用相当于 <div id="app">Hello</div>
+const vnode = h('div', { id: 'app' }, 'Hello')
+// 多层级嵌套
+h('div', { class: 'container' }, [
+  h('h1', '主标题'),
+  h('p', { style: { color: 'red' } }, '段落内容'),
+  h(MyComponent, { props: { msg: 'Hello' } })
+])
 
+// 参数
+h(
+  type: string | Component, // 标签名或组件
+  props?: object | null,    // 属性/Props
+  children?: string | Array // 子节点
+)
+
+```
+&emsp;&emsp;**特点：** h() 是 Vue 的虚拟 DOM 构造函数，它：
+- 提供比模板更强的灵活性 ✓
+
+- 适合动态生成的复杂 UI ✓
+
+- 是 JSX 和渲染函数的底层实现 ✓
+
+- 主流项目中使用率相对低，但在组件库开发中必不可少 ✓
 ## 1、Vue的生命周期以及各自的作用？√
 **（1）beforeCreate**：该阶段是`new Vue()`之后触发的第一个钩子，在当前阶段`data、methods、computed`以及`watch`上的数据和方法都不能被访问；  
 
