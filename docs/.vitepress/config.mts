@@ -51,6 +51,9 @@ export default defineConfig({
           text: 'Vue3.0精读文档',
           link: '/refinedVue3/index',
         },{
+          text: 'NuxtJS精读文档',
+          link: '/refinedNuxt/index',
+        },{
           text: 'TS精读文档',
           link: '/refinedTS/index',
         },{
@@ -115,6 +118,13 @@ export default defineConfig({
         text: 'TS精读文档',
           items: [
               { text: 'TS入门基础', link: '/refinedTS/index' }
+          ]
+      }],
+      '/refinedNuxt/': [{
+        text: 'NuxtJS精读文档',
+          items: [
+              { text: 'NuxtJS入门基础', link: '/refinedNuxt/index' },
+              { text: 'NuxtJS路由', link: '/refinedNuxt/nuxtRouter' },
           ]
       }],
       '/refinedVue3/': [{
