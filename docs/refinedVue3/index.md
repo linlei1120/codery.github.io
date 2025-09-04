@@ -201,7 +201,25 @@ const handleEmits = () => {
 &emsp;&emsp;&emsp;**模板语法进阶-手写渲染函数：** 
 
 &emsp;&emsp;&emsp;`h()`函数：用于创建`Vnodes`，该方法的意思是“能生成HTML的JS”
+```js
+// 等同于 <ul><li>A</li><li>B</li></ul>
+const vnode = h('ul', null, [
+  h('li', 'A'),
+  h('li', 'B')
+])
+// 组件渲染
+import SomeComponent from './SomeComponent.vue'
+// 根据条件渲染不同组件
+const dynamicComponent = h(SomeComponent, { 
+  prop1: 'value1'
+})
 
+// 事件绑定
+const vnode = h('button', {
+  onClick: () => console.log('Clicked!')
+}, '点击我')
+
+```
 &emsp;&emsp;**② 插值文本和v-html指令** 
 
 &emsp;&emsp;在文本插值中直接写入标签会被翻译为文本，若需要渲染标签则需要使用`v-html`指令，但是不推荐频繁使用因为`v-html`指令渲染标签容易造成`XSS`漏洞；
