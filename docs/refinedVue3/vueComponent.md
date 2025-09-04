@@ -44,6 +44,15 @@ app.mount('#app')
 
 &emsp;&emsp;**缺点：** 未使用的组件无法在打包时被`tree-shaking`自动移除，依赖关系不明确，可能影响长期可维护性。
 
+```js
+// ✅ 可被 Tree-Shaking
+import { funcA } from 'moduleA'
+
+// ❌ 整个模块都会被打包（即使只用一个方法）
+const _ = require('lodash')
+
+```
+
 ### ② 局部注册
 
 &emsp;&emsp;**概念：** 在具体的组件中导入并注册，只能在当前组件中使用。
@@ -98,7 +107,7 @@ const products = ref([])
 </script>
 ```
 
-&emsp;&emsp;**优点：** 依赖关系明确，支持Tree-shaking优化，便于维护和调试。
+&emsp;&emsp;**优点：** 依赖关系明确，支持`Tree-shaking`优化，便于维护和调试。
 
 &emsp;&emsp;**缺点：** 需要在每个使用的组件中重复导入。
 
@@ -151,8 +160,35 @@ watch(
 
 &emsp;&emsp;但在某些情况下需要在子组件中结合`props`传入的值进行修改，可以做一下处理，如：子组件修改`Props`的方式：重新定义一个局部组件，在`props`上获取初值；使用计算属性对`props`值进一步转换返回一个计算属性值；
 
+&emsp;&emsp;组件修改Props并同步到父组件：
+```html
+<!-- 方法一： -->
+<!-- 父组件 -->
+<ChildComp v-model:title="parentValue"  v-model:content="pageContent"/>
+
+<!-- 子组件 -->
+<script setup>
+const props = defineProps(['title','content'])
+const emit = defineEmits(['update:title','update:content'])
+
+function updateValue(newVal) {
+  emit('update:modelValue', newVal)
+}
+</script>
+<!-- 方法二： -->
+<!-- 使用VueUse代码库 -->
+<script setup>
+import { useVModel } from '@vueuse/core'
+
+const props = defineProps(['value'])
+const emit = defineEmits(['update:value'])
+
+const valueProxy = useVModel(props, 'value', emit)
+</script>
+```
+
 ## 5、组件间的事件
-&emsp;&emsp;① 事件绑定触发：在子组件中可以通过创建函数触发父组件中的emits函数，也可以直接在标签内联中进行$emits触发；
+&emsp;&emsp;① 事件绑定触发：在子组件中可以通过创建函数触发父组件中的emits函数，也可以直接在标签内联中进行`$emits`触发；
 
 &emsp;&emsp;② 事件参数：`emits` 选项和 `defineEmits()` 宏还支持对象语法。通过 `TypeScript` 为参数指定类型，它允许我们对触发事件的参数进行验证；
 

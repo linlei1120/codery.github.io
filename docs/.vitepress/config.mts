@@ -130,7 +130,6 @@ export default defineConfig({
       '/refinedVue3/': [{
         text: 'Vue3.0精读',
           items: [
-              { text: '入门基础', link: '/refinedVue3/index' },
               { text: '深入组件', link: '/refinedVue3/vueComponent' },
               { text: '逻辑复用', link: '/refinedVue3/logicReuse' },
               { text: '内置组件', link: '/refinedVue3/introComponemt' },
