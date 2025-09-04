@@ -147,7 +147,7 @@ const handleEmits = () => {
 **解释：** 编译时宏（Compile-Time Macros）是指在 Vue 模板编译阶段被处理的特殊标记或指令。这些宏在编译时会被 Vue 的编译器解析并转换为实际的 JavaScript 代码，而不是在运行时处理。主要目的是减少开销，提升性能，简介语法；
 
 ### 6、插槽slot应用
-&emsp;&emsp;插槽可以使父组件在引入的子组件中加入内容并由solt作为模板片段的出口传递到子组件中进行展示，当父组件没有模板片段时也可以在slot插槽中定义默认值
+&emsp;&emsp;Vue 中的插槽（Slot）是组件间内容分发的“占位符”，允许父组件向子组件传递 HTML 结构 或 动态内容，实现灵活复用。
 ```js
 //父组件
 <Children>定义文本传递</Children>
@@ -155,7 +155,43 @@ const handleEmits = () => {
 <slot>默认文本：Fallback content</slot>
 //children+定义文本传递
 ```
+具名插槽（多内容分发）：
+```html
+<!-- 子组件 Layout.vue -->
+<template>
+  <div>
+    <header><slot name="header"></slot></header>
+    <main><slot></slot></main> <!-- 默认插槽 -->
+    <footer><slot name="footer"></slot></footer>
+  </div>
+</template>
 
+<!-- 父组件使用 -->
+<Layout>
+  <template v-slot:header> <h1>标题</h1> </template>
+  <p>主要内容</p> <!-- 自动匹配默认插槽 -->
+  <template #footer> <span>版权信息</span> </template> <!-- # 是 v-slot 简写 -->
+</Layout>
+```
+作用域插槽（子传父数据）:
+```html
+<!-- 子组件 List.vue -->
+<template>
+  <ul>
+    <li v-for="item in items" :key="item.id">
+      <slot :item="item">{{ item.name }}</slot> <!-- 向父组件暴露 item 数据 -->
+    </li>
+  </ul>
+</template>
+
+<!-- 父组件自定义渲染方式 -->
+<List :items="list">
+  <template v-slot:default="slotProps"> <!-- 接收子组件传递的数据 -->
+    <span class="highlight">{{ slotProps.item.id }} - {{ slotProps.item.name }}</span>
+  </template>
+</List>
+
+```
 ## 7、模板语法
 
 &emsp;&emsp;**① 模板语法特性概述**
