@@ -187,13 +187,74 @@ const valueProxy = useVModel(props, 'value', emit)
 </script>
 ```
 
-## 5、组件间的事件
-&emsp;&emsp;① 事件绑定触发：在子组件中可以通过创建函数触发父组件中的emits函数，也可以直接在标签内联中进行`$emits`触发；
+## 5、组件间事件
+&emsp;&emsp;① 触发及监听事件：在子组件中可以通过创建函数触发父组件中的`emits`函数，也可以直接在标签内联中进行`$emits`触发；
+```template
+<!-- 直接触发事件 -->
+<button @click="$emit('someEvent')">Click</button>
+<!-- 事件绑定监听 -->
+ <MyComponent @some-event="callback" />
+```
+
+**注意：** 事件命名可以使用camelCase命名，也可以使用kebab-case命名；组件触发的事件没有冒泡机制，所以只能监听直接子组件触发的事件，平级组件或者跨组件多层嵌套的组件之间通信只能使用外部事件总线如EventBus，或者全局状态管理方案。
 
 &emsp;&emsp;② 事件参数：`emits` 选项和 `defineEmits()` 宏还支持对象语法。通过 `TypeScript` 为参数指定类型，它允许我们对触发事件的参数进行验证；
+```template
+<!-- 父组件 -->
+<button @click="$emit('increaseBy', 1)">
+  Increase by 1
+</button>
+<!-- 子组件 -->
+ <MyButton @increase-by="(n) => count += n" />
+```
 
-&emsp;&emsp;③ 事件校验：同`props`一样，事件校验也可以采用对象类型的方式进行，通过把事件赋值为一个函数，接受传入的内容然后进行判断并返回`boolean`值来判断校验是否成功；
+&emsp;&emsp;③ 事件声明触发：在Vue3中可以使用`defineEmits()`宏来声明触发的事件；
 
+```vue
+<script setup lang='ts'>
+  // 运行时
+  const emit = defineEmits(['change', 'update'])
+
+  // 基于选项声明
+  const emits = defineEmits({
+    change: (id:number) => {
+      // 表明验证通过或失败
+    },
+    update: (value:string) => {
+      // 表明验证通过或失败
+    }
+  })
+
+  // 基于类型标注
+  const emit = defineEmits<{
+    (e: 'change', id: number): void
+    (e: 'update', value: string): void
+  }>()
+</script>
+```
+&emsp;&emsp;③ 事件校验：同`props`相同，事件校验也可以采用对象类型的方式进行，通过把事件赋值为一个函数，接受传入的内容然后进行判断并返回`boolean`值来判断校验是否成功；
+```vue
+<script setup>
+const emit = defineEmits({
+  // 没有校验
+  click: null,
+
+  // 校验 submit 事件
+  submit: ({ email, password }) => {
+    if (email && password) {
+      return true
+    } else {
+      console.warn('Invalid submit event payload!')
+      return false
+    }
+  }
+})
+
+function submitForm(email, password) {
+  emit('submit', { email, password })
+}
+</script>
+```
 ## 6、组件缓存
 
 ### ① 动态组件 - `:is` 属性
