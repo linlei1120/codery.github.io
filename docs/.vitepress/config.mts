@@ -117,7 +117,8 @@ export default defineConfig({
       '/refinedTS/': [{
         text: 'TS入门基础',
           items: [
-              { text: 'Interface接口', link: '/refinedTS/tsInterface' }
+              { text: 'Interface接口', link: '/refinedTS/tsInterface' },
+              { text: 'Class类', link: '/refinedTS/tsClass' }
           ]
       }],
       '/refinedNuxt/': [{
