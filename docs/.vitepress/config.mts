@@ -54,7 +54,7 @@ export default defineConfig({
           text: 'NuxtJS精读文档',
           link: '/refinedNuxt/index',
         },{
-          text: 'TS精读文档',
+          text: 'TypeScript精读文档',
           link: '/refinedTS/index',
         },{
           text: 'React开发文档',
@@ -115,9 +115,9 @@ export default defineConfig({
           ]
       }],
       '/refinedTS/': [{
-        text: 'TS精读文档',
+        text: 'TS入门基础',
           items: [
-              { text: 'TS入门基础', link: '/refinedTS/index' }
+              { text: 'Interface接口', link: '/refinedTS/tsInterface' }
           ]
       }],
       '/refinedNuxt/': [{

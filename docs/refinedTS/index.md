@@ -14,7 +14,7 @@
 | private  | ✅          | ❌        | ❌        | 无             | 内部实现细节、敏感数据            |
 | protected| ✅          | ✅        | ❌        | 无             | 需要被子类继承/重写的成员         |
 
-## 2、基本结构之声明
+## 2、基本结构与声明
 ### 重点：
 
 &emsp;&emsp;① 接口`interface`：用于描述对象的形状，接口可以继承和扩展。
@@ -24,7 +24,7 @@
 &emsp;&emsp;③ 类型断言：类型断言可以用过`as`标识符，来强制指定某一推导变量的类型。
 
 &emsp;&emsp;④ 泛型：提供了在定义函数、接口或类时不需要预先指定具体类型，而是使用占位符，在使用时再指定类型的特性。
-```js
+```ts
 //类型声明
 const name: string = "Alice";
 const age: number = 25;
@@ -52,6 +52,7 @@ const arrowFun = (name: string, age: number): any => {
     age: age
   };
 };
+
 //类声明
 class Car {
   brand: string;
@@ -101,28 +102,35 @@ async function fetchData(): Promise<string> {
 
 ```
 ## 3、基本类型的使用
+### TS中的类型及扩展类型包括：布尔值boolean、数字number、字符串string、数组array、元组tuple、枚举enum、void空返回值、null和undefined、never永不存在、object对象
 ### 重点类型：
-&emsp;&emsp;① 元组类型：已知数量和子集类型的数组；
+&emsp;&emsp;① **元组类型**：已知数量和子集类型的数组；
 
-&emsp;&emsp;② 枚举类型：来定义一组命名常量，默认枚举值从0开始递增，可以限制类型只能传入枚举字段；使用场景包括：状态码管理、权限角色管理控制；
+&emsp;&emsp;② **枚举类型**：来定义一组命名常量，默认枚举值从0开始递增，可以限制类型只能传入枚举字段；使用场景包括：状态码管理、权限角色管理控制；
 
-&emsp;&emsp;③ 联合类型：定义可以是多种类型之一，使用|符号分割；
+&emsp;&emsp;③ **联合类型**：定义可以是多种类型之一，使用|符号分割；
 
-&emsp;&emsp;④ 类型断言as：明确编译器变量的类型，常用于无法推断类型的情况,当 S 类型是 T 类型的子集，或者 T 类型是 S 类型的子集时，S 能被成功断言成 T。若并非互为子集又要使用断言可以用any类型代替；
+&emsp;&emsp;④ **类型断言as**：明确编译器变量的类型，常用于无法推断类型的情况,当 S 类型是 T 类型的子集，或者 T 类型是 S 类型的子集时，S 能被成功断言成 T。若并非互为子集又要使用断言可以用any类型代替；
 
-&emsp;&emsp;⑤ unknown类型：与any类似，但是更加严格，必须通过类型检查才能赋值给其他类型变量；
+&emsp;&emsp;⑤ **unknown类型**：与any类似，但是更加严格，必须通过类型检查才能赋值给其他类型变量；
 
 ```js
-let stringS: string = '字面量类型';
+// 字符串
+let stringS: string = '字面量类型'; 
+// 数字
 let numberN: number = 123321;
+// 布尔
 let booleanB: boolean = true;
+// 数组
 let arrayA: number[] = [1, 2, 3];
+// 数组
 let arrayB: Array<string> = ['a', 'b', 'c'];
 let arrayC: Array<object> = [
   {id:0, name:'Bob'},
   {id:1, name:'Tom'}
 ]
 let arrayD: Array<any> = [1, 2, 'a', 'b']
+// 对象
 let objA: object = { name:'Alex', age:25}
 // 元组类型：表示已知数量和类型的数组
 let tupleA: [string, number] = ["Alice", 25];
@@ -142,7 +150,7 @@ function eumFun(val: Color): object {
 let anyA: any = '任意类型字符串';
 let anyB: any = 123321;
 
-// 空类型
+// 空返回值
 let voidMsg: string = '';
 function logMessage(msg: string): void {
   console.log('空类型',msg);
@@ -170,7 +178,10 @@ let strLength: number = (someValue as string).length
 let direaction: "up" | "down" | "left" | "right"
 direaction = 'right'
 
-
+// 类型断言 as
+let someValue: any = "this is a string"
+// 将变量类型进行指定使其可以使用对应的方法
+let strLength: number = (someValue as string).length
 ```
 
 ## 4、变量声明和事件循环
