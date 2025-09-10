@@ -87,3 +87,40 @@ numFn(42);    // 正确
 ```
 
 ### 泛型类
+*泛型类又与泛型接口查差不多在类名后面以及属性方法后带上对应的泛型变量*
+```ts
+class GenericNumber<T> {
+    zeroValue: T;
+    add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; };
+```
+与接口一样，直接把泛型类型放在类后面，可以帮助我们确认类的所有属性都在使用相同类型;
+
+### 泛型约束
+*泛型约束通过关键字`extends`让泛型具具备更强的类型安全性,主要作用包括确保类型具备特定能力,限制类型范围,安全访问对象属性等等;*
+
+| 约束类型 | 语法示例 | 作用场景 |
+|---------|---------|---------|
+| 属性约束 | `T extends { prop: type }` | 确保类型具有特定属性 |
+| 联合约束 | `T extends A | B` | 限制类型在指定范围内 |
+| 键名约束 | `K extends keyof T` | 安全访问对象属性 |
+| 值类型约束 | `T[K] extends type` | 确保属性值为特定类型 |
+| 构造约束 | `C extends new (...args) => T` | 类型安全的实例创建 |
+
+```ts
+// 多类型参数约束
+// 确保key是obj的合法属性
+function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
+    return obj[key];
+}
+
+const user = { name: "Alice", age: 30 };
+
+getValue(user, "age");  // 正确
+// getValue(user, "email"); // 报错："email"不是user的属性
+
+```
