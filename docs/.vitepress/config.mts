@@ -148,6 +148,14 @@ export default defineConfig({
             { text: '常用编码规范', link: '/devGuide/commonGuide' },
           ]
       }],
+      '/algorithm/': [{
+        text: '算法',
+          items: [
+            { text: '排序算法', link: '/algorithm/sortAlg' },
+            { text: '查找算法', link: '/algorithm/sreachAlg' },
+            { text: '求和算法', link: '/algorithm/addAlg' }
+          ]
+      }],
       '/workNote/': [{
         text: '工作笔记',
           items: [
