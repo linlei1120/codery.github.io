@@ -345,7 +345,7 @@ outer();
 ## 17、高阶函数的了解
 **关键字：** `函数式编程`，`高阶函数应用`
 
-**关键概念：** 高阶函数的特点包括接受一个或多个函数作为参数、返回一个新的函数作为结果，实现了对函数的抽象操作，是函数式编程的重要基础，JS内置的高阶函数包括：map()、filter()、reduce（）等等。
+**关键概念：** 高阶函数的特点包括接受一个或多个函数作为参数、返回一个新的函数作为结果，实现了对函数的抽象操作，是函数式编程的重要基础，JS内置的高阶函数包括： `map()、filter()、reduce（）`等等。
 
 ```js
 // 函数作为返回值
@@ -363,6 +363,31 @@ console.log(double(5)); // 10
 ## 18、JS如何实现继承
 关键字：`原型和原型链继承`，`构造函数继承`
 
+**关键概念：** JS早期的继承基于原型链机制，而目前在ES6中以class语法提供了更友好的使用方式，建议优先使用ES6的class继承。
+
+```js
+class Parent {
+    constructor(name) {
+        this.name = name;
+        this.colors = ['red', 'blue'];
+    }
+    sayName() {
+        console.log(this.name)
+    }
+}
+class Child extends Parent {
+    constructor(name, age) {
+        super(name);// 相当于 Parent.call(this, name)
+        this.age = age;
+        sayAge() {
+            console.log(this.age);
+        }
+    }
+}
+const child = new Child('Tom', 10)
+child.sayName();
+child.sayAge();
+```
 # TS面试题集
 
 ## 1、对于TS的了解以及与JS的区别
