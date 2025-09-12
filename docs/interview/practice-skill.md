@@ -2,17 +2,30 @@
 
 &emsp;&emsp;实践知识汇总重要包括工作中经常需要使用的功能模块代码以及解决或优化问题的方案等等，包括防抖节流、懒加载处理等等。
 
-## 1、前端如何一次性处理十万条数据？
+### 1、前端如何一次性处理十万条数据？✔️
 
-**(1) 分页加载**：可以使用requestAnimationFrame 或者setTimeout时实现动态分页加载数据；  
+**(1) 分页加载**：可以使用`requestAnimationFrame` 或者`setTimeout`时实现动态分页加载数据；  
 
-**(2) 懒加载**：可以监听用户下拉触底操作，动态加载数据，提高页面渲染速度和性能；  
+**(2) 懒加载**：懒加载也称为延时加载，即在需要时再进行加载，可以有效提高页面渲染性能以及用户体验，常用于图片、列表数据等内容进行动态加载渲染；Vue中组件懒加载实现方案则可以使用`defienAsyncComponent()`方法异步加载实现；  
+```js
+// Vue结合Vite代码分割按需加载
+const Modal = defineAsyncComponent(() => import('./Modal.vue'));
 
-**(3) 虚拟列表加载**：虚拟列表是一种在容器可见区域的动态渲染数据的技术，其优点是根据容器可视区域固定渲染的DOM节点，从而减少DOM操作，提高页面性能，如使用`vue-virtual-scroller`插件实现虚拟滚动方案，或自定义列表子项高度固定实现；  
+// React
+const Modal = lazy(() => import('./Modal'));
+```
 
-**注意**：1、需要解决的关键问题就是如何有效减少DOM节点的渲染；
+**(3) 虚拟列表加载**：虚拟列表是一种在容器可见区域的动态渲染数据的技术，其优点是根据容器可视区域固定渲染的DOM节点数量，从而减少DOM操作，提高页面性能；
 
-### 2、如何实现懒加载/虚拟列表加载?
+&emsp;&emsp;**主要实现步骤：** *初始化容器结构(滚动容器/高度占位元素/渲染列表等) → 关键数据计算(容器总高度/可视区渲染子项数/起始索引等) → 滚动逻辑处理(`ResizeObserver`监听动态高度变化)*
+
+还可以使用`vue-virtual-scroller`插件实现虚拟滚动方案，或自定义列表子项高度固定实现；  
+
+**注意**：需要解决的关键问题就是如何有效减少DOM节点的渲染；
+
+[vue-virtual-scroller官方地址](https://www.npmjs.com/package/vue-virtual-scrolle)
+
+### 2、如何实现懒加载/虚拟列表加载?  ✔️
 ① 若是图片元素则可以使用`img`标签中的`lazy`属性进行懒加载控制；若是其他元素则可以通过计算`offsetTop`和`srcollTop`的差值来判断是否小于等于元素高度，从而实现懒加载；
 
 &emsp;&emsp;若想要性能更好则可以使用`IntersectionObserver`来实现懒加载/`无限加载，IntersectionObserver（交叉观察器）` 是一个浏览器 API，用于异步监听目标元素与祖先元素或视口（Viewport）的交叉状态变化,不依赖主线程，避免频繁触发 scroll 事件导致的性能问题。。
@@ -20,11 +33,48 @@
 [懒加载实现参考](https://juejin.cn/post/7080544007834730510?searchId=2025030322343958EB49F78AD14A758A20)
 
 ② 虚拟列表的核心原理是只渲染当前可视区域内的列表元素，从而提高性能，主要步骤大致可以分为：1、根据容器高度计算当前可是区域内可以渲染的元素范围；2、根据计算出的范围从数据中加载相应的数据索引并渲染；3、通过使用一个占位元素来保持滚动过程中视觉上的连续性；
+```js
+export default {
+  data() {
+    return {
+      data: [], //总数居
+      itemHeight: 50, //单项列表高度
+      containerHeight: 500, //容器高度
+      startIndex: 0, //开始索引
+      offset: 0 //Y轴偏移量
+    },
+    computed: {
+      // 总高度计算
+      totalHeight() {
+        return this.data.length * this.itemHeight;
+      },
+      // 可视区域显示项数计算
+      visibleCount() {
+        return Math.ceil(this.containerHeight / this.itemHeight);
+      },
+      // 可视区域数据截取
+      visibleData() {
+        return this.data.slice(this.startIndex, this.startInde + this.visible);
+      }
+    },
+    methods: {
+      // 偏移量动态计算索引 @scroll="handleScroll"
+      handleScroll(e) {
+        const scrollTop = e.target.srollTop;
+        // 动态计算起始索引
+        this.startIndex = Math.floor(scrollTop / this.item.height)
+        // 计算偏移量（让内容看起来连续滚动）
+        this.offset = this.startIndex * this.itemHeight;
+      }
+    }
+  }
+}
 
+```
 [虚拟列表实现参考](https://juejin.cn/post/7389064690125832244)
 
-### 3、requestAnimationFrame是什么？如何使用
-`requestAnimationFrame`是浏览器提供的一个用于优化动画性能的API，他会在浏览器下一次重绘之前调用指定的回调函数，因为它会根据浏览器的刷新频率自行调整调用的频率，更加高效，通常用于实现平滑的动画效果；
+### 3、`requestAnimationFrame`是什么？如何使用 ✔️
+&emsp;&emsp;`requestAnimationFrame`是浏览器提供的一个用于优化动画性能的API，他会在浏览器下一次重绘之前调用指定的回调函数，因为它会根据浏览器的刷新频率自行调整调用的频率，更加高效，通常用于实现平滑的动画效果；
 
 **使用**：
 ```js
@@ -45,7 +95,7 @@ function stopAnimation() {
 setTimeout(stopAnimation, 5000);
 ```
 
-### 4、懒加载的原理是什么
+### 4、懒加载的原理是什么 ✔️
 &emsp;&emsp;懒加载是一种优化技术，它允许在需要时才加载页面的一部分或全部资源，以减少初始加载时间和网络流量。懒加载的原理主要包括按需加载、异步加载、动态加载和延迟渲染等方面，其主要原理如下：
 
 &emsp;&emsp;**(1)按需加载：** 按需加载是懒加载的核心原理之一，它是指根据用户的需求来加载相应的资源，按需加载的优点在于，可以减少初始页面加载时间，提高页面响应速度和用户体验。由于只加载用户需要的资源，因此可以减少不必要的网络流量和带宽成本；
@@ -56,8 +106,8 @@ setTimeout(stopAnimation, 5000);
 
 &emsp;&emsp;**(4)延迟加载：**  懒加载常常与延迟渲染技术结合使用，延迟渲染是指将页面的渲染过程推迟到用户需要查看时再进行。在懒加载模式下，页面的初始渲染只包含必要的结构和资源，而将其他非必要的资源通过延迟渲染的方式加载和呈现给用户；
 
-### 5、什么是防抖和节流？
-**（1）防抖**：在既在指定的时间间隔内，无论连续触发了多少次事件，只有最后一次事件会在该间隔结束后执行；适用于搜索框输入、表单验证等场景，用户完成输入后，才执行相关操作；  
+### 5、什么是防抖和节流？✔️
+**（1）防抖**：既在指定的时间间隔内，无论连续触发了多少次事件，只有最后一次事件会在该间隔结束后执行；适用于搜索框输入、表单验证等场景，用户完成输入后，才执行相关操作；  
 ```js{24}
 /**
  * 防抖函数
@@ -67,13 +117,13 @@ setTimeout(stopAnimation, 5000);
  */
 function debounce(func, delay) {
     let timer; // 定义一个定时器
-    return function(...args) {
+    return function(...args) {  // 收集所有参数到 args 数组
         const context = this; // 保存上下文
         // 清除之前的定时器
         clearTimeout(timer);
         // 设置新的定时器
         timer = setTimeout(() => {
-            func.apply(context, args); // 调用原函数
+            func.apply(context, args); // 使用 apply 将 args 数组展开传递给原函数
         }, delay);
     };
 }
@@ -105,7 +155,7 @@ function throttle(func, limit) {
     };
 }
 ```
-## 6、客户端中缓存数据的方式有哪些？
+### 6、客户端中缓存数据的方式有哪些？✔️
 **Cookies**：  
 &emsp;&emsp;**(1) 特点**：① 可以设置过期时间，客户端和服务端都可以修改；② 存储大小在4K以内，	不能超过50个cookie；③ 只能存储字符串类型；④容易受CSRF攻击；  
 &emsp;&emsp;**(2) 特点**：主要用于跟踪客户会话，存储用户偏好设置以及实现永久登录等功能；  
@@ -127,28 +177,64 @@ function throttle(func, limit) {
 &emsp;&emsp;**(1) 定义**：是浏览器中的一种 API，它用于缓存网络资源，使得网页在离线状态下也能		够访问已缓存的资源，提高网页加载速度和离线访问体验。cacheStorageAPI 		属于 ServiceWorker 的一部分，因此在使用 Cache Storage 前，需要先注		册一个 ServiceWorker；  
 &emsp;&emsp;**(2) 特点**：① 缓存网络资源以提高加载速度，减少网络请求；② 可以离线访问；③ 可	以通过设置缓存优先级提高缓存效率；④使用的是Promise，所以绝大部分操	作是异步的；
 
-### 7、POST请求为何会发送两次？
+### 7、POST请求为何会发送两次？✔️
 **（1）浏览器的重试机制**：浏览器为保证请求的可靠性，在出现网络不稳定请求	的情况下，会重新发送一次请求；    
 **（2）跨域请求与预检机制**：在进行跨域请求(CORS)时，浏览器会在正式发送	POST请求之前，发送一个OPTIONS预检请求，以确保服务器是否允许跨域请求；  
 **（3）前端事件多次触发**：前端是事件被多次绑定或监听，从而导致多次重复请求，如冒泡事件等；  
 
-### 8、WebSocket的实现和应用？
+### 8、WebSocket的实现和应用？✔️
 **定义**：WebSocket一种浏览器与服务器进行全双工通讯的网络技术，属于应用层	协议。它基于TCP传输协议，并复用HTTP的握手通道；    
 **① 服务端**：在引入`ws`模块并声明`WebSocket`实例；  
 ![Example Image](../public/ws_img.png)
 **② 客户端**：向8080端口发起WebSocket连接。连接建立后，打印日志，同时向服务端发送消息。接收到来自服务端的消息后，同样打印日志； 
 ![Example Image](../public/ws_img02.png)
 
-### 9、如何解决开发中精度计算问题？
+### 9、如何解决开发中精度计算问题？✔️
 **（1）取整计算**：将浮点数转换为整数进行计算，然后再将结果转换回浮点数。这样可以避免浮点数计算中的精度问题。例如，将浮点数乘以 10^n（n 为要保留的小数位数），进行整数计算，然后再除以 10^n，得到正确的结果。这种方法简单易行，但可能会导致结果溢出，需要根据具体情况进行适当的调整；  
 ```js{4}
 const a = 0.1;
 const b = 0.2;
 const result = ((a*10)+(b*10)) / 10
 ```   
-**（2）四舍五入计算**：通过四舍五入来解决精度问题。可以使用 JavaScript 中的内置函数 `Math.round()、toFixed、Math.floor()` 或` Math.ceil() `来对浮点数进行四舍五入、向下取整或向上取整操作，从而得到较为准确的结果；  
+**（2）四舍五入计算**：通过四舍五入来解决精度问题。可以使用 JavaScript 中的内置函数 `Math.round()、toFixed、Math.floor()` 或` Math.ceil()`来对浮点数进行四舍五入、向下取整或向上取整操作，从而得到较为准确的结果；  
+```js
+// Math.round() - 四舍五入到最近的整数
+const num1 = 4.7;
+const num2 = 4.4;
+const num3 = 4.5;
+console.log(Math.round(num1)); // 5
+console.log(Math.round(num2)); // 4
 
-### 10、深拷贝和浅拷贝有何区别？如何对数组进行深拷贝？  
+// toFixed() - 四舍五入到指定的小数位数，返回字符串
+const price = 19.996;
+console.log(price.toFixed(2)); // "20.00"
+console.log(price.toFixed(1)); // "20.0"
+console.log(price.toFixed(0)); // "20"
+
+// Math.floor() - 向下取整（向负无穷方向取整）
+const num4 = 4.9;
+const num5 = -4.1;
+console.log(Math.floor(num4)); // 4
+console.log(Math.floor(num5)); // -5
+
+// Math.ceil() - 向上取整（向正无穷方向取整）
+const num6 = 4.1;
+const num7 = -4.9;
+console.log(Math.ceil(num6)); // 5
+console.log(Math.ceil(num7)); // -4
+
+// 精度计算示例
+const a = 0.1;
+const b = 0.2;
+const result = a + b; // 0.30000000000000004
+
+// 使用不同方法处理精度问题
+console.log(Math.round(result * 100) / 100); // 0.3 (四舍五入到2位小数)
+console.log(parseFloat(result.toFixed(2))); // 0.3 (先转字符串再转数字)
+console.log(Math.floor(result * 100) / 100); // 0.3 (向下取整)
+console.log(Math.ceil(result * 100) / 100); // 0.31 (向上取整)
+```
+### 10、深拷贝和浅拷贝有何区别？如何对数组进行深拷贝？  ✔️
 **（1）浅拷贝**：  
 &emsp;&emsp;**① 定义**：新对象只复制原始对象的基本数据类型的字段或引用地址，若复制的对象发生修改可能会影响原始对象的数据；  
 &emsp;&emsp;**② 方式**：扩展运算符、`Object.assign()`方法、数组可以使用`Array.slice()`和`Array.concat()`方法； 
@@ -166,7 +252,7 @@ export default {
   }
 }
 ```
-### 11、移动端如何适配不同屏幕尺寸
+### 11、移动端如何适配不同屏幕尺寸 ✔️
 **(1) 使用Flex弹性布局**：使用 CSS Flexbox 和 Grid 布局可以更容易地创建响应式设计。
 
 **(2) 使用响应式布局**：使用CSS媒体查询设置或者Flex弹性布局根据屏幕尺寸调整页面元素的布局和大小；通过设置百分比、em或rem单位比例来实现元素的相对大小；  
@@ -174,46 +260,96 @@ export default {
 **(3) 新过使用viewport标记**：使用viewport标记设置来控制显示屏幕的参数尺寸；  
 
 **(4) 使用flexible.js框架**：是一个终端设备适配的解决方案，可以更具不同的显示屏幕动态计算出元素单位比例；
-
+```css
+dispaly:grid;
+grid-template-column:20% 20% 20% 20% 20%;
+grid-template-row:20% 20% 20% 20% 20%;
+grid-column-start: 1; /*2/3/4 占位顺序*
+justify-items:start/end/center/stratch; /*子项单元格内水平对齐*/
+align-items:start/end/center/stratch; /*子项单元格内垂直居中*/
+place-items:center center;/*水平垂直居中*/
+justify-content：space-between/space-around /*整个网格的水平对齐*/
+align-content：space-between/space-around /*整个网格的垂直对齐*/
+grid-column: 1 / 3;    /* 跨越第1~2列 */
+grid-row: span 2;      /* 跨2行 */
+justify-self: center;  /* 单个子项水平对齐 */
+align-self: end;       /* 单个子项垂直对齐 *
+```
 [资源地址](https://github.com/amfe/lib-flexible)
 
-### 12、数组去重的方法有那些
+[Grid练习](https://cssgridgarden.com/)
+
+### 12、数组去重的方法有那些 ✔️
 &emsp;&emsp;使用Set数据结构去重、使用Map数据结构去重、使用reduce()方法去重、使用sort()方法去重；
 
-&emsp;&emsp;**(1) 使用 Set：** 
+&emsp;&emsp;**(1) 使用 Set：性能最好O(n)** 
 
 ```js
 const array = [1, 2, 2, 3, 4, 4, 5];
 const uniqueArray = [...new Set(array)];
 console.log(uniqueArray); // [1, 2, 3, 4, 5]
 ```
-&emsp;&emsp;**(2) 使用 filter() 和 indexOf()：** 
+&emsp;&emsp;**(2) 使用 filter() + indexOf()：** 
 
 ```js
 const array = [1, 2, 2, 3, 4, 4, 5];
-const uniqueArray = array.filter((item, index) => array.indexOf(item) === index);
+// 使用fliter遍历后再利用indexOf方法判断是否重复
+const uniqueArray = array.fliter((item) => array.indexOf(item) === index);
 console.log(uniqueArray); // [1, 2, 3, 4, 5]
 ```
-&emsp;&emsp;**(3) 使用 reduce()和includes()：** 
-
+&emsp;&emsp;**(3) 使用 reduce()+find()：数组对象灵活性高** 
+*总结：使用redece遍历数据获取累加器以及当前元素，再使用find方法对比具体的属性值是否重复，对于不重复的元素则加入到累加其中重新返回*
 ```js
-const array = [1, 2, 2, 3, 4, 4, 5];
-const uniqueArray = array.reduce((accumulator, current) => {
-    if (!accumulator.includes(current)) {
+// 对象数组去重示例
+const objectArray = [
+    {id: 1, name: '张三', age: 25},
+    {id: 2, name: '李四', age: 30},
+    {id: 1, name: '张三', age: 25}, // 重复对象
+    {id: 3, name: '王五', age: 28},
+    {id: 2, name: '李四', age: 30}, // 重复对象
+    {id: 4, name: '赵六', age: 32}
+];
+
+// 方式1：根据id属性去重
+// acc 累加器上一次调用回调函数的返回值
+// cur 当前值当前被处理的数组元素
+const uniqueById = objectArray.reduce((accumulator, current) => {
+    // 步骤1：使用find方法检查是否已存在相同id的对象
+    const exists = accumulator.find(item => item.id === current.id);
+    if (!exists) {
+        // 步骤2：如果不存在相同id，则添加该对象
         accumulator.push(current);
     }
+    // 步骤3：返回更新后的累加器数组
     return accumulator;
 }, []);
-console.log(uniqueArray); // [1, 2, 3, 4, 5]
+  // 
+console.log('按id去重:', uniqueById);
 ```
-### 13、如何实现登录拦截
-&emsp;&emsp;Vue中实现登录拦截，通常可以通过`VueRouter`中的路由守卫和状态管理来完成，首先可以使用路由守卫来拦截导航，在全局状态管理中保存用户的登陆状态，然后在`router.beforeEach()`全局前守卫进行相关操作的设定；
+### 13、如何实现登录拦截 ✔️
+&emsp;&emsp;Vue中实现登录拦截，通常可以通过`VueRouter`中的`路由守卫`和`状态管理`来完成，首先可以使用路由守卫来拦截导航，在全局状态管理中保存用户的登陆状态，然后在`router.beforeEach()`全局前守卫进行相关操作的设定；
+```js
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = checkAuth(); //检查登录状态
 
-### 14、大文件上传如何分片
-<!-- &emsp;&emsp;首先在选取需要上传的文件后，使用`file.slice()`方法按指定大小对整个大文件进行分片形成多个文件小块，然后利用哈希算法`Spark-MD5`计算出文件的Hash值，注意计算Hash值时为节省时间资源通常采用增量模式进行计算，计算完成后即可向服务端进行上传请求及校验上传情况，可以在上传过程中跟踪每个切片的上传进度，服务器端接收所有切片并合并成完整文件。 -->
-&emsp;&emsp;大文件分片上传的步骤主要分为，① 首先使用`file.slice()`方法在前端将文件进行分片并使用哈希算法如`Spark-MD5`计算每个分片的Hash值；② 再将每个文件片段发送至服务端，服务端通过一个唯一标识符来记录每个分片，当所有分片上传完成后将其合并为原始文件并返回响应信息；
+  // 路由跳转判断
+  if(to.matched.some(record => record.meta.requiresAuth) && !isLoggedIn) {
+    next('/login') //未登录跳转登录页面
+  } else {
+    next() //放行；
+  }
+})
+```
+### 14、大文件上传如何分片 ✔️
+*&emsp;&emsp;大文件分片上传的步骤主要分为：*
 
-&emsp;&emsp;注意：注意计算Hash值时为节省时间资源通常采用增量模式进行计算，计算完成后即可向服务端进行上传请求及校验上传情况，可以在上传过程中跟踪每个切片的上传进度
+&emsp;&emsp;&emsp;① 首先使用`file.slice()`方法在前端将文件进行分片并使用哈希算法如`Spark-MD5`计算每个分片的`Hash值`；
+
+&emsp;&emsp;&emsp;② 再将每个文件片段发送至服务端，服务端通过一个唯一标识符来记录每个分片，
+
+&emsp;&emsp;&emsp;③ 当所有分片上传完成后将其合并为原始文件并返回响应信息；
+
+&emsp;&emsp;注意：注意计算`Hash值`时为节省时间资源通常采用增量模式进行计算，计算完成后即可向服务端进行上传请求及校验上传情况，可以在上传过程中跟踪每个切片的上传进度
 
 &emsp;&emsp;断点续传功能：在前端上传每个分片时就记录已成功上传的分片编号，然后在请求上传之前向服务端获取已上传分片信息确定从那个分片开始上传，最后根据服务器返回的已上传分片信息跳过已上传部分继续上传；
 
@@ -282,13 +418,12 @@ export default {
 {/* </script> */}
 ```
 
-### 15、WebWorker的理解和应用
+### 15、WebWorker的理解和应用 ✔️
 &emsp;&emsp;Web Worker 是一种在后台线程中运行 JavaScript 的机制，它独立于其他脚本，不会影响页面的性能。Web Worker 的核心原理是利用浏览器提供的多线程能力，将部分任务分配到单独创建的线程中执行。Web Workers可以处理大量计算、数据处理、文件读写等任务，并通过`postMessage()`方法和`onmessage`事件与主线程进行通信。  
 &emsp;&emsp;应用：
 ```js
 const wk = new Worker(worker.js)
 ```
-
 ### 16、H5通过webview内嵌如何实现原生通信
 &emsp;&emsp;H5与原生APP交互，需要使用WebViewJavascriptBridge桥接函数，并根据系统类型IOS或Android分别构建，然后利用callback回调函数返回；还可以在Window对象中调用原生APP创建的属性或方法；  
 ![Example Image](../public/webview-bridge.png)
