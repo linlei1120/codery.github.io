@@ -687,10 +687,9 @@ module.exports = {
 (6). **输出资源** → `output`配置确定输出文件的路径和名称
 (7). **输出完成** → 文件写入到`path`指定的目录中
 
-### 25、Webpack打包构建的工作流程
-<!-- &emsp;&emsp;基本流程：命令行中执行webpack xx命令 → 进行webpack初始化包括使用yargs读取命令行参数 → 合并webpack配置文件以及命令行参数形成最终的webpack配置 → 加载entry入口文件代码，将入口文件代码转化为AST抽象语法树 → 遍历AST通过import以及require函数分析出入口模块依赖的其他资源 → 转换AST将其中的import/require函数转化为webpack内置的导入函数 → 生成最终代码并以导入模块绝对路径为key将代码以及导出内容缓存起来 → 开始依次加载导入的其他资源内容并将其交给对应的loader进行处理并转换为webpack可以识别的js代码 → 得到依赖模块的js代码后继续按照入口模块方式进行处理(构建AST、分析依赖模块、转换导入语句和函数、缓存模块资源) → 在所有模块分析完毕后将全部内容合并转换生成一个bundle → 对bundle内容进行hash； -->
+### 25、Webpack打包构建的工作流程 ✔️
 &emsp;&emsp;**(1) 输出完成：**  
-&emsp;&emsp;Webpack 从配置文件（通常是 `webpack.config.js`）开始，读取配置项；根据配置项，Webpack 初始化一些参数，如入口文件、输出文件、模块解析规则等。
+&emsp;&emsp;Webpack 从配置文件（通常是 `webpack.config.js`）开始，读取配置项；根据配置项，Webpack初始化一些参数，如入口文件、输出文件、模块解析规则等。
 
 &emsp;&emsp;**(2) 构建依赖图：**  
 &emsp;&emsp;Webpack 从入口文件开始，递归地解析所有依赖的模块（包括 JavaScript、CSS、图片等）;每个模块都被视为一个依赖，Webpack 会分析模块之间的依赖关系，构建出一个完整的依赖图。
@@ -707,29 +706,141 @@ module.exports = {
 &emsp;&emsp;**(6) 监视和热更新-可选：**  
 &emsp;&emsp;Webpack 可以在开发模式下监视文件的变化，并在文件变化时自动重新打包；通过热模块替换（HMR），Webpack 可以在不刷新页面的情况下更新模块，提高开发效率。
 
-&emsp;&emsp;总结：解析入库文件构建依赖图、应用Loader转换解析代码文件、生成输出文件如bundle.js
+&emsp;&emsp;总结：解析入库文件构建依赖图、应用`Loader`转换解析代码文件、生成输出文件如`bundle.js`
 
-### 26、Webpack打包需要做那些优化?
-&emsp;&emsp;路由组件/三方插件组件等按需加载、优化Loader配置(优化正则匹配、通过cacheDirectort选项开启缓存等)、优化文件路径、代码压缩、提取公共代码、CDN优化；
+### 26、Webpack打包需要做那些优化? ✔️
 
-### 27、Webpack中Loder和Plugin的区别
-&emsp;&emsp;**(1) Loader加载器：** 
+**🚀 性能优化六大策略：**
 
-&emsp;&emsp;**① 作用：**  Loader用于对模块的源代码进行转换。它们主要用于在导入文件时	对其进行预处理（例如，将TypeScript编译成JavaScript，将Sass/Less	编译成CSS，等等）；
+&emsp;&emsp;**(1) 📦 按需加载优化**
+```js
+// 路由懒加载
+const Home = () => import('./views/Home.vue');
+const About = () => import('./views/About.vue');
 
-&emsp;&emsp;**② 用法：**  Loader通过在Webpack配置文件中的module.rules字段中进行	配置。它们作用于匹配特定文件类型的模块；Loader适合用于：将	TypeScript转换成JavaScript，将Sass编译成CSS，加载图片和字体等；
+// 组件按需引入
+import { Button, Input } from 'element-plus';
+```
 
-&emsp;&emsp;**③ 处理方式：**  Loader是函数，在加载资源时，Webpack会按照配置的顺序	调用这些函数，对文件进行转换。
+&emsp;&emsp;**(2) ⚡ Loader配置优化**
+```js
+module: {
+  rules: [{
+    test: /\.js$/,
+    exclude: /node_modules/,           // 排除不需要处理的文件
+    use: {
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true,          // 开启缓存，提升二次构建速度
+        cacheCompression: false        // 缓存不压缩，提升速度
+      }
+    }
+  }]
+}
+```
 
-&emsp;&emsp;**(2)Plugin插件：**  
+&emsp;&emsp;**(3) 🎯 文件路径优化**
+```js
+resolve: {
+  extensions: ['.js', '.jsx'],        // 减少文件扩展名匹配
+  alias: {                            // 路径别名，减少相对路径
+    '@': path.resolve(__dirname, 'src'),
+    '@components': path.resolve(__dirname, 'src/components')
+  }
+}
+```
 
-&emsp;&emsp;**① 作用：**  Plugin用于执行范围更广的任务，从打包优化和压缩，到重新定义	环境中的变量等，可以扩展Webpack的功能；
+&emsp;&emsp;**(4) 🗜️ 代码压缩优化**
+```js
+optimization: {
+  minimize: true,                     // 生产环境启用压缩
+  minimizer: [
+    new TerserPlugin({                // JS压缩
+      parallel: true,                 // 并行压缩
+      extractComments: false          // 不提取注释文件
+    }),
+    new CssMinimizerPlugin()          // CSS压缩
+  ]
+}
+```
 
-&emsp;&emsp;**② 用法：**  Plugin通过在Webpack配置文件中的plugins字段中进行配置，	作用于整个构建过程；Plugin适合用于：自动生成HTML文件，压缩代码，	分离CSS文件，定义环境变量等；
+&emsp;&emsp;**(5) 🔄 公共代码提取**
+```js
+optimization: {
+  splitChunks: {
+    chunks: 'all',
+    cacheGroups: {
+      vendor: {                       // 第三方库单独打包
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendors',
+        chunks: 'all'
+      },
+      common: {                       // 公共模块单独打包
+        name: 'common',
+        minChunks: 2,
+        chunks: 'all'
+      }
+    }
+  }
+}
+```
 
-&emsp;&emsp;**③ 处理方式：**  Plugin可以访问Webpack的生命周期钩子，在构建过程的不	同阶段执行操作；
+&emsp;&emsp;**(6) 🌐 CDN优化配置**
+```js
+externals: {                          // 外部依赖不打包
+  'vue': 'Vue',
+  'element-plus': 'ElementPlus'
+},
+output: {
+  publicPath: 'https://cdn.example.com/'  // CDN地址
+}
+```
 
-### 28、Webpack的配置有哪些？
+### 27、Webpack中`Loder`和`Plugin`的区别 ✔️
+&emsp;&emsp;*(1) Loader加载器：* 
+
+&emsp;&emsp;*① 作用：*  Loader用于对模块的源代码进行转换。
+
+&emsp;&emsp;*② 用法：*  Loader通过在Webpack配置文件中的module.rules字段中进行	配置。它们作用于匹配特定文件类型的模块；Loader适合用于：将	TypeScript转换成JavaScript，将Sass编译成CSS，加载图片和字体等；
+
+&emsp;&emsp;*③ 处理方式：*  Loader是函数，在加载资源时，Webpack会按照配置的顺序	调用这些函数，对文件进行转换。
+
+&emsp;&emsp;*(2)Plugin插件：*  
+
+&emsp;&emsp;*① 作用：*  Plugin用于执行范围更广的任务，从打包优化和压缩，到重新定义	环境中的变量等，可以扩展Webpack的功能；
+
+&emsp;&emsp;*② 用法：*  Plugin通过在`Webpack`配置文件中的`plugins字`段中进行配置，	作用于整个构建过程；Plugin适合用于：`自动生成HTML文件`，`压缩代码`，`	分离CSS文件`，`定义环境变量`等；
+
+&emsp;&emsp;*③ 处理方式：*  Plugin可以访问`Webpack`的生命周期钩子，在构建过程的不同阶段执行操作；
+
+**🔌 常用Plugin插件示例：**
+
+```js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DefinePlugin = require('webpack').DefinePlugin;
+const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin;
+```
+
+**📋 插件分类总结：**
+
+| 插件类型 | 插件名称 | 主要作用 | 使用场景 |
+|----------|----------|----------|----------|
+| **文件处理** | HtmlWebpackPlugin | 生成HTML文件 | 自动注入JS/CSS资源 |
+| | MiniCssExtractPlugin | 提取CSS到文件 | 生产环境CSS分离 |
+| | CopyWebpackPlugin | 复制静态文件 | 复制favicon、图片等 |
+| **构建优化** | CleanWebpackPlugin | 清理输出目录 | 每次构建前清理旧文件 |
+| | TerserPlugin | JS代码压缩 | 生产环境代码压缩 |
+| | CssMinimizerPlugin | CSS代码压缩 | 生产环境CSS压缩 |
+| **开发体验** | HotModuleReplacementPlugin | 热模块替换 | 开发环境热更新 |
+| | FriendlyErrorsWebpackPlugin | 友好错误提示 | 美化错误信息显示 |
+| **环境配置** | DefinePlugin | 定义全局变量 | 设置环境变量、版本号等 |
+| | EnvironmentPlugin | 环境变量注入 | 自动注入process.env变量 |
+
+### 28、Webpack的配置有哪些？✔️
 主要的配置包括以下几个部分：
 
 &emsp;&emsp;**entry入口：**  入口文件地址，可以是单个也可以是多个；
@@ -774,7 +885,7 @@ module.export = {
   }
 }
 ```
-### 29、轮播图的实现思路
+### 29、轮播图的实现思路 ✔️
 &emsp;&emsp;轮播图通常由三个部分组成，图片容器、左右切换按钮、小圆点
 
 **（1） 功能需求**：
@@ -834,7 +945,7 @@ function currentSlide(index) {
 setInterval(nextSlide, 3000); // 每3秒切换
 ```
 
-### 30、前端接口防止重复请求实现方案
+### 30、前端接口防止重复请求实现方案 ✔️
 &emsp;&emsp;**方案一：** 使用节流（Throttle）和防抖（Debounce）：节流和防抖是两种常用的控制函数执行频率的技术
 
 &emsp;&emsp;**方案二：** 使用状态管理：使用状态管理库（如 Redux、Vuex），可以在状态中维护请求的状态，避免重复请求。
@@ -901,7 +1012,7 @@ instance.interceptors.response.use(function (response) {
 export default instance;
 ```
 
-### 31、fetchAPI是什么？如何进行封装
+### 31、`fetchAPI`是什么？如何进行封装
 &emsp;&emsp;fetch()函数可以直接用于在JS脚本中进行请求，① 它与XMLHttpRequset不同的是，fecth()使用的是Promise，而不是回调函数，这样更加简洁且避免了回调地狱；② fecth()还采用了模块化设计，API分散在Response对象、Request对象、Headers对象上，更加合理；③ fetch()还可以通过数据流Stream对象处理数据，分块读取，有利于提高性能；
 ```js
 // src/utils/fetch.ts
@@ -993,23 +1104,106 @@ const values = Object.values(myObj);
 console.log(values); // 输出value值 [1, 2, 3]
 ```
 
-### 34、Promise中的then()方法可以连用吗？会返回什么
+### 34、Promise中的`then()`方法可以连用吗？会返回什么
 &emsp;&emsp;可以连用，‌第一个`.then()`函数‌：当`Promise`状态为`resolved`时，返回`Promise`对象执行第一个`.then()`中的函数，在第一个中也可以声明一个`Promise`并将执行结果传递给下一个`.then()`中。
+
+**📝 Promise链式调用示例：**
 ```js
-   const promise1 = new Promise((resolve) => {
-       setTimeout(() => resolve('第一个操作完成'), 1000);
-   });
-   const promise2 = new Promise((resolve) => {
-       setTimeout(() => resolve('第二个操作完成'), 500);
-   });
-   promise1.then(result => {
-        console.log(result);
-        return promise2; // 返回下一个 Promise
-    })
-    .then(result => {
-        console.log(result);
-    });
+const promise1 = new Promise((resolve) => {
+    setTimeout(() => resolve('第一个操作完成'), 1000);
+});
+const promise2 = new Promise((resolve) => {
+    setTimeout(() => resolve('第二个操作完成'), 500);
+});
+promise1.then(result => {
+     console.log(result);
+     return promise2; // 返回下一个 Promise
+ })
+ .then(result => {
+     console.log(result);
+ });
 ```
+
+**🔧 Promise其他常用方法：**
+
+&emsp;&emsp;**(1) Promise.all() - 并行执行多个Promise**
+```js
+const promise1 = fetch('/api/user');
+const promise2 = fetch('/api/posts');
+const promise3 = fetch('/api/comments');
+
+Promise.all([promise1, promise2, promise3])
+  .then(responses => {
+    // 所有请求都成功
+    console.log('所有数据加载完成');
+    return Promise.all(responses.map(res => res.json()));
+  })
+  .then(data => {
+    const [user, posts, comments] = data;
+    console.log('用户:', user);
+    console.log('文章:', posts);
+    console.log('评论:', comments);
+  })
+  .catch(error => {
+    console.error('任一请求失败:', error);
+  });
+```
+
+&emsp;&emsp;**(2) Promise.allSettled() - 等待所有Promise完成**
+```js
+const promises = [
+  fetch('/api/data1').catch(err => ({ error: err })),
+  fetch('/api/data2').catch(err => ({ error: err })),
+  fetch('/api/data3').catch(err => ({ error: err }))
+];
+
+Promise.allSettled(promises)
+  .then(results => {
+    results.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        console.log(`请求${index + 1}成功:`, result.value);
+      } else {
+        console.log(`请求${index + 1}失败:`, result.reason);
+      }
+    });
+  });
+```
+
+&emsp;&emsp;**(3) Promise.race() - 竞争执行，返回最快完成的**
+```js
+const timeout = new Promise((_, reject) => 
+  setTimeout(() => reject(new Error('请求超时')), 5000)
+);
+const dataPromise = fetch('/api/slow-data');
+
+Promise.race([dataPromise, timeout])
+  .then(response => response.json())
+  .then(data => console.log('数据:', data))
+  .catch(error => console.error('错误:', error));
+```
+
+&emsp;&emsp;**(4) Promise.resolve() / Promise.reject() - 创建已确定状态的Promise**
+```js
+// 创建已成功的Promise
+const resolvedPromise = Promise.resolve('立即成功');
+resolvedPromise.then(value => console.log(value)); // "立即成功"
+
+// 创建已失败的Promise
+const rejectedPromise = Promise.reject(new Error('立即失败'));
+rejectedPromise.catch(error => console.error(error)); // Error: 立即失败
+```
+
+**📊 Promise方法对比总结：**
+| 方法 | 执行方式 | 失败处理 | 适用场景 |
+|------|----------|----------|----------|
+| `then()` | 链式调用 | 需要catch | 单步异步操作 |
+| `catch()` | 错误捕获 | 专门处理 | 错误处理 |
+| `finally()` | 最终执行 | 不处理错误 | 清理资源 |
+| `Promise.all()` | 并行执行 | 任一失败即失败 | 多个依赖请求 |
+| `Promise.allSettled()` | 并行执行 | 等待所有完成 | 多个独立请求 |
+| `Promise.race()` | 竞争执行 | 最快完成决定结果 | 超时控制 |
+| `Promise.resolve()` | 立即成功 | - | 包装同步值 |
+| `Promise.reject()` | 立即失败 | - | 包装错误 |
 
 ### 35、前端如何实现截图功能
 &emsp;&emsp;**方案一 html2canvas：** 使用html2canvas可以将 HTML 元素渲染为 Canvas，并生成图像；
@@ -1116,8 +1310,152 @@ console.log(values); // 输出value值 [1, 2, 3]
  ```
 
   ### 41、什么是SEO?如何进行SEO优化操作
+&emsp;&emsp;**SEO定义**：SEO（Search Engine Optimization）即搜索引擎优化，是通过优化网站内容、结构和技术，提高网站在搜索引擎中的排名和可见性的技术。
+
+**主要SEO优化操作：**
+
+&emsp;&emsp;**(1) 技术SEO优化：**
+- 使用语义化HTML标签（`<header>`、`<nav>`、`<main>`、`<article>`等）
+- 优化页面加载速度（压缩图片、启用Gzip、CDN加速）
+- 实现响应式设计，适配移动端
+- 设置合理的URL结构，避免动态参数
+- 配置robots.txt和sitemap.xml
+
+&emsp;&emsp;**(2) 内容SEO优化：**
+- 合理使用标题标签（`<h1>`-`<h6>`），保持层级结构
+- 优化meta标签（title、description、keywords）
+- 为图片添加alt属性描述
+- 创建高质量、原创内容
+- 合理使用关键词密度
+
+&emsp;&emsp;**(3) 页面结构优化：**
+- 使用面包屑导航
+- 实现内部链接策略
+- 优化页面布局和用户体验
+- 添加结构化数据标记（Schema.org）
+
+&emsp;&emsp;**(4) 前端框架SEO处理：**
+```js
+// Vue/React SSR示例
+// 服务端渲染确保搜索引擎能抓取到内容
+const app = createSSRApp(App);
+const html = await renderToString(app);
+```
+
+**常用SEO工具：**
+- Google Search Console（网站管理工具）
+- Google Analytics（流量分析）
+- Lighthouse（性能检测）
+- 站长工具（百度、搜狗等）
 
   ### 42、script标签中defer和async的作用
+&emsp;&emsp;**定义**：`defer`和`async`都是HTML5中为`<script>`标签新增的属性，用于控制脚本的加载和执行时机，优化页面性能和用户体验。
+
+**三种脚本加载方式对比：**
+
+&emsp;&emsp;**(1) 默认行为（阻塞式加载）：**
+```html
+<!-- 默认情况：同步加载，阻塞HTML解析 -->
+<script src="script1.js"></script>
+<script src="script2.js"></script>
+```
+**特点：**
+- HTML解析暂停，等待脚本下载和执行完成
+- 脚本按顺序执行
+- 阻塞页面渲染，影响用户体验
+
+&emsp;&emsp;**(2) async异步加载：**
+```html
+<!-- async：异步下载，下载完成后立即执行 -->
+<script async src="script1.js"></script>
+<script async src="script2.js"></script>
+```
+**特点：**
+- 脚本异步下载，不阻塞HTML解析
+- 下载完成后立即执行，不保证执行顺序
+- 可能在DOM未完全构建时执行
+- 适合独立的第三方脚本（如统计代码）
+
+**执行时序示例：**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <script async src="script1.js"></script> <!-- 可能最先执行 -->
+    <script async src="script2.js"></script> <!-- 可能比script1后执行 -->
+</head>
+<body>
+    <div>页面内容</div> <!-- HTML继续解析 -->
+</body>
+</html>
+```
+
+&emsp;&emsp;**(3) defer延迟执行：**
+```html
+<!-- defer：异步下载，HTML解析完成后按顺序执行 -->
+<script defer src="script1.js"></script>
+<script defer src="script2.js"></script>
+```
+**特点：**
+- 脚本异步下载，不阻塞HTML解析
+- HTML解析完成后，按脚本在文档中的顺序执行
+- 保证DOM完全构建后再执行
+- 适合依赖DOM的脚本
+
+**执行时序示例：**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <script defer src="script1.js"></script> <!-- 第1个执行 -->
+    <script defer src="script2.js"></script> <!-- 第2个执行 -->
+</head>
+<body>
+    <div>页面内容</div> <!-- HTML解析完成 -->
+    <!-- 然后按顺序执行defer脚本 -->
+</body>
+</html>
+```
+
+**实际应用场景：**
+
+&emsp;&emsp;**使用async的场景：**
+```html
+<!-- 第三方统计代码 -->
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+<!-- 广告脚本 -->
+<script async src="https://ads.example.com/ad.js"></script>
+
+<!-- 不依赖DOM的独立脚本 -->
+<script async src="utils.js"></script>
+```
+
+&emsp;&emsp;**使用defer的场景：**
+```html
+<!-- 依赖DOM的脚本 -->
+<script defer src="dom-manipulation.js"></script>
+
+<!-- 需要按顺序执行的脚本 -->
+<script defer src="library.js"></script>
+<script defer src="app.js"></script> <!-- 依赖library.js -->
+
+<!-- 模块化脚本 -->
+<script defer type="module" src="main.js"></script>
+```
+
+**性能对比总结：**
+| 方式 | 下载时机 | 执行时机 | 执行顺序 | DOM就绪 | 适用场景 |
+|------|----------|----------|----------|---------|----------|
+| 默认 | 同步 | 立即 | 按顺序 | 不一定 | 简单脚本 |
+| async | 异步 | 立即 | 不保证 | 不一定 | 独立脚本 |
+| defer | 异步 | DOM解析后 | 按顺序 | 保证 | 依赖DOM的脚本 |
+
+**最佳实践建议：**
+- 关键脚本使用`defer`确保DOM就绪
+- 第三方统计代码使用`async`避免阻塞
+- 避免在`async`脚本中操作DOM
+- 模块化开发推荐使用`type="module"`
 
   ### 43、Java 与 Node.js后端开发对比
   **Java 后端开发的优点**
