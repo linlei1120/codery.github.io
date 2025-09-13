@@ -482,7 +482,7 @@ const flattenedArray = nestedArray.flat(2); // 2 表示扁平化的深度
 console.log(flattenedArray); // [1, 2, 3, 4, 5, 6]
 ```
 
-### 22、如何减少项目中过多的if-else
+### 22、如何减少项目中过多的if-else ✔️
 <!-- &emsp;&emsp;去除不必要的else、使用三目运算符、使用Optional优化判空、使用枚举做多条件判断； -->
 
 &emsp;&emsp;**(1) 使用对象字面量替代条件语句:** 
@@ -540,7 +540,7 @@ function getAnimalSound(animal) {
            'Unknown animal';
 }
 ```
-### 23、设计登录模块可以考虑那些方式
+### 23、设计登录模块可以考虑那些方式 ✔️
 &emsp;&emsp;**(1) 账号+密码：** 自定义账号+密码、手机号+密码、邮箱+密码
 
 &emsp;&emsp;**(2) 手机号+验证码**
@@ -551,7 +551,7 @@ function getAnimalSound(animal) {
 
 &emsp;&emsp;**(5)其他方式登录：** 刷脸登录、扫码登录、指纹登录、手势登录等；
 
-### 24、Webpack的打包流程有哪些
+<!-- ### 24、Webpack的打包流程有哪些
 &emsp;&emsp;**初始化参数：** 从配置文件和 Shell 语句中读取与合并参数,得出最终的参数。
 
 &emsp;&emsp;**开始编译：** 用上一步得到的参数初始化 Compiler 对象,加载所有配置的插件,执行对象的 run 方法开始执行编译。
@@ -564,7 +564,128 @@ function getAnimalSound(animal) {
 
 &emsp;&emsp;**输出资源：** 根据入口和模块之间的依赖关系,组装成一个个包含多个模块的 Chunk,再把每个 Chunk 转换成一个单独的文件加入到输出列表,这步是可以修改输出内容的最后机会。
 
-&emsp;&emsp;**输出完成：** 在确定好输出内容后,根据配置确定输出的路径和文件名,把文件内容写入到文件系统
+&emsp;&emsp;**输出完成：** 在确定好输出内容后,根据配置确定输出的路径和文件名,把文件内容写入到文件系统 -->
+
+**完整Webpack配置文件示例：**
+```js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+module.exports = {
+  // 步骤3：确定入口 - 根据配置中的entry找出所有的入口文件
+  entry: {
+    main: './src/index.js',        // 主入口文件
+    vendor: './src/vendor.js'      // 第三方库入口
+  },
+
+  // 步骤7：输出完成 - 确定输出的路径和文件名
+  output: {
+    path: path.resolve(__dirname, 'dist'),           // 输出目录
+    filename: '[name].[contenthash].js',             // 输出文件名（带hash）
+    chunkFilename: '[name].[contenthash].chunk.js',  // 代码分割后的文件名
+    publicPath: '/',                                 // 公共路径
+    clean: true                                      // 清理输出目录
+  },
+
+  // 步骤4：编译模块 - 配置Loader对模块进行翻译
+  module: {
+    rules: [
+      {
+        test: /\.js$/,                    // 匹配JS文件
+        exclude: /node_modules/,          // 排除node_modules
+        use: {
+          loader: 'babel-loader',         // 使用babel-loader翻译ES6+代码
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
+        test: /\.css$/,                   // 匹配CSS文件
+        use: [
+          MiniCssExtractPlugin.loader,    // 提取CSS到单独文件
+          'css-loader',                   // 解析CSS文件
+          'postcss-loader'                // 添加浏览器前缀
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,     // 匹配图片文件
+        type: 'asset/resource',           // 作为资源文件处理
+        generator: {
+          filename: 'images/[name][ext]'  // 图片输出路径
+        }
+      }
+    ]
+  },
+
+  // 步骤2：开始编译 - 加载所有配置的插件
+  plugins: [
+    new CleanWebpackPlugin(),             // 清理输出目录
+    new HtmlWebpackPlugin({               // 生成HTML文件
+      template: './src/index.html',
+      filename: 'index.html',
+      chunks: ['main', 'vendor']
+    }),
+    new MiniCssExtractPlugin({            // 提取CSS到单独文件
+      filename: '[name].[contenthash].css'
+    })
+  ],
+
+  // 步骤5：完成模块编译 - 优化配置
+  optimization: {
+    splitChunks: {                        // 代码分割
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {                         // 第三方库单独打包
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    },
+    usedExports: true,                    // Tree Shaking
+    sideEffects: false                    // 标记无副作用
+  },
+
+  // 模块解析配置
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'], // 文件扩展名
+    alias: {                              // 路径别名
+      '@': path.resolve(__dirname, 'src'),
+      '@components': path.resolve(__dirname, 'src/components')
+    }
+  },
+
+  // 开发环境配置
+  devServer: {
+    static: './dist',                     // 静态文件目录
+    hot: true,                           // 热模块替换
+    port: 3000,                          // 开发服务器端口
+    open: true                           // 自动打开浏览器
+  },
+
+  // 模式配置
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  
+  // 性能配置
+  performance: {
+    hints: false,                         // 关闭性能提示
+    maxEntrypointSize: 512000,           // 入口文件最大体积
+    maxAssetSize: 512000                 // 资源文件最大体积
+  }
+};
+```
+
+**配置文件执行流程对应：**
+(1). **初始化参数** → `module.exports`导出配置对象
+(2). **加载配置插件** → `plugins`数组中的插件被加载执行
+(3). **确定入口** → `entry`配置确定打包入口文件
+(4). **编译模块** → `module.rules`中的Loader处理各种文件类型
+(5). **完成模块编译** → `optimization`配置优化打包结果
+(6). **输出资源** → `output`配置确定输出文件的路径和名称
+(7). **输出完成** → 文件写入到`path`指定的目录中
 
 ### 25、Webpack打包构建的工作流程
 <!-- &emsp;&emsp;基本流程：命令行中执行webpack xx命令 → 进行webpack初始化包括使用yargs读取命令行参数 → 合并webpack配置文件以及命令行参数形成最终的webpack配置 → 加载entry入口文件代码，将入口文件代码转化为AST抽象语法树 → 遍历AST通过import以及require函数分析出入口模块依赖的其他资源 → 转换AST将其中的import/require函数转化为webpack内置的导入函数 → 生成最终代码并以导入模块绝对路径为key将代码以及导出内容缓存起来 → 开始依次加载导入的其他资源内容并将其交给对应的loader进行处理并转换为webpack可以识别的js代码 → 得到依赖模块的js代码后继续按照入口模块方式进行处理(构建AST、分析依赖模块、转换导入语句和函数、缓存模块资源) → 在所有模块分析完毕后将全部内容合并转换生成一个bundle → 对bundle内容进行hash； -->
