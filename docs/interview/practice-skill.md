@@ -476,8 +476,14 @@ const wk = new Worker(worker.js)
 ### 21、如何实现数组扁平化? ✔️
 &emsp;&emsp;数组扁平化就是将多维数组转换为一维数组的过程：常用的实现方式是使用数组的`flat(int)`方法；
 ```js
-// 方法1
 const nestedArray = [1, [2, [3, 4], 5], 6];
+// 传统递归方法
+const flatten = (arr) => {
+  return arr.reduce((acc,val) => {
+    acc.concat(Arraay.isArray(val)? flatten(val):val),[]
+  })
+}
+// 新方法
 const flattenedArray = nestedArray.flat(2); // 2 表示扁平化的深度
 console.log(flattenedArray); // [1, 2, 3, 4, 5, 6]
 ```
@@ -1013,7 +1019,13 @@ export default instance;
 ```
 
 ### 31、`fetchAPI`是什么？如何进行封装
-&emsp;&emsp;fetch()函数可以直接用于在JS脚本中进行请求，① 它与XMLHttpRequset不同的是，fecth()使用的是Promise，而不是回调函数，这样更加简洁且避免了回调地狱；② fecth()还采用了模块化设计，API分散在Response对象、Request对象、Headers对象上，更加合理；③ fetch()还可以通过数据流Stream对象处理数据，分块读取，有利于提高性能；
+&emsp;&emsp;fetch()函数可以直接用于在JS脚本中进行请求：
+
+&emsp;&emsp;&emsp;① 它与`XMLHttpRequset`不同的是，`fecth()`使用的是`Promise`，而不是回调函数，这样更加简洁且避免了回调地狱；
+
+&emsp;&emsp;&emsp;② `fecth()`还采用了模块化设计，API分散在`Response对象`、`Request对象`、`Headers对象上`，更加合理；
+
+&emsp;&emsp;&emsp;③ `fetch()`还可以通过`数据流Stream对象`处理数据，分块读取，有利于提高性能；
 ```js
 // src/utils/fetch.ts
 import { Response, RequsetInit } from 'node-fetch'
@@ -1291,7 +1303,7 @@ rejectedPromise.catch(error => console.error(error)); // Error: 立即失败
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`git reset + git push -f(私有需强制提交) `
 
  ### 39、IntersectionObserver的了解及使用
-`IntersectionObserver` 是浏览器提供的一个 API，可以更高效地监听元素是否进入可视区域;相比于常用图片懒加载的实现，使用 `IntersectionObserver` 可以进一步提升性能，但是为了满足兼容性推荐在现代浏览器中使用。
+`IntersectionObserver` 是浏览器提供的一个 API，可以更高效地监听元素是否进入可视区域；相比于常用图片懒加载的实现，使用 `IntersectionObserver` 可以进一步提升性能，但是为了满足兼容性推荐在现代浏览器中使用。
 
 [参考文档](https://cloud.tencent.com/developer/article/1528620)
 
@@ -1319,7 +1331,7 @@ rejectedPromise.catch(error => console.error(error)); // Error: 立即失败
 - 优化页面加载速度（压缩图片、启用Gzip、CDN加速）
 - 实现响应式设计，适配移动端
 - 设置合理的URL结构，避免动态参数
-- 配置robots.txt和sitemap.xml
+- 配置`robots.txt`和`sitemap.xml`
 
 &emsp;&emsp;**(2) 内容SEO优化：**
 - 合理使用标题标签（`<h1>`-`<h6>`），保持层级结构
