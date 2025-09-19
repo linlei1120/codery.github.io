@@ -112,7 +112,9 @@ export default defineConfig({
               { text: 'Vue知识积累', link: '/interview/vue-skill' },
               { text: 'Hybrid知识积累', link: '/interview/hybrid-skill' },
               { text: '常用面试积累', link: '/interview/interview-skill' },
-              { text: '实践知识积累', link: '/interview/practice-skill' }
+              { text: '实践知识积累', link: '/interview/practice-skill' },
+              { text: 'Monorepo架构详解', link: '/interview/Monorepo架构详解' },
+              
           ]
       }],
       '/refinedTS/': [{
