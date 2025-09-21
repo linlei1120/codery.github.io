@@ -71,6 +71,9 @@ export default defineConfig({
         }] },
         { text: "后端开发文档",items:[
           {
+            text: 'SQL',
+            link: '/endFront/sqlStudy/index',
+          },{
             text: 'Docker文档',
             link: '/endFront/dockerStudy/dockerIndex',
           },
