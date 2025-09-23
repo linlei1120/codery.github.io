@@ -48,6 +48,9 @@ export default defineConfig({
           text: '前端面经',
           link: '/interview/h5css-skill',
         },{
+          text: 'ES6精读文档',
+          link: '/es6Study/destructur',
+        },{
           text: 'Vue3.0精读文档',
           link: '/refinedVue3/index',
         },{
@@ -118,6 +121,21 @@ export default defineConfig({
               { text: '实践知识积累', link: '/interview/practice-skill' },
               { text: 'Monorepo架构详解', link: '/interview/Monorepo架构详解' },
               
+          ]
+      }],
+      '/es6Study/': [{
+        text: 'ES6精读文档',
+          items: [
+            { text: '变量的解构赋值', link: '/es6Study/destructur' },
+            { text: '字符串类型', link: '/es6Study/es6String' },
+            { text: '数值类型', link: '/es6Study/es6Number' },
+            { text: '函数类型', link: '/es6Study/es6Function' },
+            { text: '对象类型', link: '/es6Study/es6Object' },
+            { text: '数组类型', link: '/es6Study/es6Array' },
+            { text: '正则表达式', link: '/es6Study/es6Regex' },
+            { text: 'Symbol类型', link: '/es6Study/es6Symbol' },
+            { text: 'Set和Map类型', link: '/es6Study/es6SetMap' },
+            { text: 'Proxy和Reflect类型', link: '/es6Study/es6ProxyReflect' },
           ]
       }],
       '/refinedTS/': [{
