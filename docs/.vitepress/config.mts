@@ -71,6 +71,9 @@ export default defineConfig({
         },{
           text: '算法题解',
           link: '/algorithm/addAlg',
+        },{
+          text: 'WebRTC文档',
+          link: '/webRTC/index',
         }] },
         { text: "后端开发文档",items:[
           {
@@ -197,6 +200,15 @@ export default defineConfig({
             { text: '创建型设计模式', link: '/UML/createPattern' },
             { text: '结构型设计模式', link: '/UML/behaviorPattern' },
             { text: '行为型设计模式', link: '/UML/behaviorPattern' },
+          ]
+      }],
+      '/webRTC/': [{
+        text: 'webRTC文档',
+          items: [
+            { text: 'webRTC设备', link: '/webRTC/index' },
+            { text: 'webRTC连接', link: '/webRTC/connect' },
+            { text: 'webRTC服务器', link: '/webRTC/server' },
+            { text: 'webRTC案例', link: '/webRTC/example' },
           ]
       }]
     },
