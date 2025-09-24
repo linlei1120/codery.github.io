@@ -102,13 +102,84 @@ peerConnection.addEventListener('connectionstatechange', event => {
 ## 二、远程流
 
 ### （1） 入门
+&emsp;&emsp;一旦`RTCPeerConnection`连接到远程对等端，就可以在它们之间传输音频和视频。这是我们将从`getUserMedia（）`接收到的流连接到`RTCPeerConnection`的地方。媒体流至少由一个媒体轨道组成，当我们想要将媒体传输到远程对等端时，这些轨道被单独添加到`RTCPeerConnection`中。
+```js
+const localStream = await getUserMedia({video:true, audio:true});
+const peerConnection = new RTCPeerConnection(iceConfig);
+localStream.getTracks().forEach(track => {
+  peerConenction.addTrack(track, localStream);
+})
+```
+&emsp;&emsp;轨道可以在`RTCPeerConnection`连接到远程对等点之前添加到`RTCPeerConnection`，因此尽早执行此设置而不是等待连接完成是有意义的。
 
 ### （2） 添加远程轨道
+&emsp;&emsp;为了接收由另一个对等端添加的远程轨道，我们在本地`RTCPeerConnectionlistening`上为轨道事件注册一个侦听器。`RTCTrackEvent`包含一个具有相同`MediaStream`的`MediaStream对象数组`。`Id值`作为对等体对应的本地流。在我们的示例中，每个音轨只与单个流相关联。
 
+&emsp;&emsp;请注意，虽然`MediaStream id`在对等端连接的两端都匹配，但`mediastreamtrack id`通常不是这样。
+```js
+const remoteVideo = document.querySelector('#remoteVideo');
+peerConnection.addEventListener('track', async (event) => {
+    const [remoteStream] = event.streams;
+    remoteVideo.srcObject = remoteStream;
+});
+```
 ## 三、数据通道
 
 ### （1） 入门
+&emsp;&emsp;`WebRTC标准`还涵盖了通过`RTCPeerConnection`发送任意数据的API。这是通过在`RTCPeerConnection对象`上调用`createdatachannel（）`来完成的，该对象返回一个`RTCDataChannel对象`。
+```js
+const peerConenction = new RTCPeerConnection(configuration);
+const dataChannel = peerConnection.createDataChannel();
+```
+&emsp;&emsp;远程对等体可以通过监听`RTCPeerConnection对象`上的数据通道事件来接收数据通道。接收到的事件类型为`RTCDataChannelEvent`，并包含一个通道属性，表示在对等体之间连接的`RTCDataChannel`。
+```js
+const peerConnection = new RTCPeerCOnnection(configuration);
+peerConnection.addEventListener('datachannel', event => {
+  const dataChannel = event.channel;
+})
+```
 
 ### （2） 打开和关闭事件
+&emsp;&emsp;在一个数据通道被用来发送数据之前，客户端需要等待，直到它被打开。这是通过监听开放事件来完成的。同样，当任何一方关闭通道时，也有一个关闭事件。
+```js
+const messageBox = document.querySelector('#messageBox');
+const sendButton = document.querySelector('#sendButton');
+const peerConnection = new RTCPeerConnection(configuration);
+const dataChannel = peerConnection.createDataChannel();
 
+// 打开时启用文本区和按钮
+dataChannel.addEventListener('open', event => {
+    messageBox.disabled = false;
+    messageBox.focus();
+    sendButton.disabled = false;
+});
+
+// 关闭时禁用输入
+dataChannel.addEventListener('close', event => {
+    messageBox.disabled = false;
+    sendButton.disabled = false;
+});
+```
 ### （3） 消息
+&emsp;&emsp;在`RTCDataChannel`上发送消息是通过使用我们想要发送的数据调用`send（）函数`来完成的。这个函数的data参数可以是`字符串`、`Blob`、`ArrayBuffer`或`ArrayBufferView`。
+```js
+const messageBox = document.querySelector('#messageBox');
+const sendButton = document.querySelector('#sendButton');
+
+// 当我们点击按钮时，发送一条简单的短信
+sendButton.addEventListener('click', event => {
+    const message = messageBox.textContent;
+    dataChannel.send(message);
+})
+```
+&emsp;&emsp;远程对等体将通过侦听消息事件接收在`RTCDataChannel`上发送的消息。
+```js
+const incomingMessages = document.querySelector('#incomingMessages');
+const peerConnection = new RTCPeerConnection(configuration);
+const dataChannel = peerConnection.createDataChannel();
+//将新邮件附加到传入邮件框中
+dataChannel.addEventListener('message', event => {
+    const message = event.data;
+    incomingMessages.textContent += message + '\n';
+});
+```
