@@ -29,7 +29,45 @@ const Modal = lazy(() => import('./Modal'));
 ① 若是图片元素则可以使用`img`标签中的`lazy`属性进行懒加载控制；若是其他元素则可以通过计算`offsetTop`和`srcollTop`的差值来判断是否小于等于元素高度，从而实现懒加载；
 
 &emsp;&emsp;若想要性能更好则可以使用`IntersectionObserver`来实现懒加载/`无限加载，IntersectionObserver（交叉观察器）` 是一个浏览器 API，用于异步监听目标元素与祖先元素或视口（Viewport）的交叉状态变化,不依赖主线程，避免频繁触发 scroll 事件导致的性能问题。。
-
+```js
+// 初始化IntersectionObserver
+    onMounted(() => {
+      nextTick(() => {
+        const observerOptions = {
+          root: null,
+          rootMargin: '50px',
+          threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            
+            // 找到对应的数据索引
+            const index = listItemRefs.value.findIndex(el => el === entry.target);
+            if (index !== -1) {
+              // 显示列表项
+              setTimeout(() => {
+                listItems[index].style.opacity = 1;
+                listItems[index].style.transform = 'translateY(0)';
+              }, 100);
+              
+              // 加载图片
+              listItems[index].isLoaded = true;
+              
+              // 停止观察该元素
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+        
+        // 开始观察所有列表项
+        listItemRefs.value.forEach((item) => {
+          observer.observe(item);
+        });
+      });
+    });
+```
 [懒加载实现参考](https://juejin.cn/post/7080544007834730510?searchId=2025030322343958EB49F78AD14A758A20)
 
 ② 虚拟列表的核心原理是只渲染当前可视区域内的列表元素，从而提高性能，主要步骤大致可以分为：1、根据容器高度计算当前可是区域内可以渲染的元素范围；2、根据计算出的范围从数据中加载相应的数据索引并渲染；3、通过使用一个占位元素来保持滚动过程中视觉上的连续性；
