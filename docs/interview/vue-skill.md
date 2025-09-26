@@ -1,7 +1,9 @@
 # Vue面试题集
 
-‌&emsp;&emsp;‌Vue.js是一个用于构建用户界面的渐进式‌JavaScript框架。‌‌Vue.js遵循MVVM模式（Model-View-ViewModel），实现了数据双向绑定，简化了DOM操作，使得开发者可以更加专注于应用逻辑而非页面渲染。[查看Vue官网文档地址](https://cn.vuejs.org/)。
-## **Vue中h()函数是什么？有什么作用？**
+‌&emsp;&emsp;‌Vue.js是一个用于构建用户界面的渐进式‌JavaScript框架。‌‌Vue.js遵循MVVM模式（Model-View-ViewModel），实现了数据双向绑定，简化了DOM操作，使得开发者可以更加专注于应用逻辑而非页面渲染。
+
+[查看Vue官网文档地址](https://cn.vuejs.org/)。
+## 1、Vue中h()函数是什么？有什么作用？
 &emsp;&emsp;`h()` 是 Vue 的虚拟 DOM 创建函数，全称是 "hyperscript"（生成 HTML 的脚本）。它的作用是用 JavaScript 的方式描述 UI 结构，替代模板写法。
 ```js
 // 这个 h() 调用相当于 <div id="app">Hello</div>
@@ -29,30 +31,61 @@ h(
 - 是 JSX 和渲染函数的底层实现 ✓
 
 - 主流项目中使用率相对低，但在组件库开发中必不可少 ✓
-## 1、Vue的生命周期以及各自的作用？√
-**（1）beforeCreate**：该阶段是`new Vue()`之后触发的第一个钩子，在当前阶段`data、methods、computed`以及`watch`上的数据和方法都不能被访问；  
 
-**（2）created**：将该阶段在实例创建完成后发生，当前已完成`数据观测`，可以使用数据或更改数据，但是不会触发`updated`函数，只能做一些初始数据的获取，无法与DOM进行交互，但是可以通过`vm.$nextTick`来访问DOM；  
+## 2、Vue的生命周期以及各自的作用？√
+**（1）beforeCreate（Vue实例化完成）**：
 
-**（3）beforeMount**：该阶段发生在挂载之前，此时`template模板`已导入渲染函数编译，而该阶段虚拟DOM已经创建完成，即将开始渲染，此时可以操作数据，但不会触发`updated`；  
+&emsp;&emsp;*该阶段是`new Vue()`之后触发的第一个钩子，在当前阶段`data、methods、computed`以及`watch`上的数据和方法都不能被访问；* 
 
-**（4）mounted**：该阶段发生在挂载之后，此时`真实的DOM已经挂载完成`，`数据完成双向绑定`，可以访问到DOM节点并使用`$ref`对节点进行操作；  
+**（2）created（数据观测完成）**：
 
-**（5）beforeUpdate**：该阶段发生在数据更新之前，此时虚拟DOM还未重渲染，在当前阶段修改数据不会发生重渲染；  
+&emsp;&emsp;*将该阶段在实例创建完成后发生，当前已完成`数据观测`，可以使用数据或更改数据，但是不会触发`updated`函数，只能做一些初始数据的获取，无法与DOM进行交互，但是可以通过`vm.$nextTick`来访问DOM；*  
 
-**（6）updated**：该阶段发生在数据更新之后，此时组件DOM已完成更新，在该阶段要避免修改数据；  
+**（3）beforeMount（template模板已导入渲染函数）**：
 
-**（7）beforeDestory**：Vue3改名为`beforeUnmount`，该阶段发生实例销毁之前，此时实例依然可以使用，通常在该阶段进行善后收尾工作，如清除定时器等；  
+&emsp;&emsp;*该阶段发生在挂载之前，此时`template模板`已导入渲染函数编译，而该阶段虚拟DOM已经创建完成，即将开始渲染，此时可以操作数据，但不会触发`updated`；*
 
-**（8）destoryed**：Vue3改名为`unmounted`，该阶段发生在实例销毁之后，此时`组件已经被拆解`，`数据绑定已被卸除`，`监听被移除`，`子实例等也全部销毁`；  
+**（4）mounted（完成挂着和双向绑定）**：
 
-**（9）setup**：该阶段由vue3.0新增，发生在`beforeCreate`之前，此时不需要使用`data、methods`等方法，所以属性和方法都利用return返回出去；  
+&emsp;&emsp;*该阶段发生在挂载之后，此时`真实的DOM已经挂载完成`，`数据完成双向绑定`，可以访问到DOM节点并使用`$ref`对节点进行操作；*  
 
-## 2、Vue2.0和Vue3.0有何不同？√
+**（5）beforeUpdate（DOM修改未渲染）**：
 
-**Vue3.0的主要变化**：① 新增setup函数以替代beforeCreate和created函数；② 新增CompositionAPI组织组件逻辑更加灵活；③ 响应式改为Proxy实现；④ 源码开发更适合于TS编写；⑤ templete模板支持多个根标签；⑥ VueX状态管理创建由new Store改为createStore等；
+&emsp;&emsp;*该阶段发生在数据更新之前，此时虚拟DOM还未重渲染，在当前阶段修改数据不会发生重渲染；*  
 
-## 3、Object.defineProperty()和Proxy有何不同？√
+**（6）updated**：
+
+&emsp;&emsp;*该阶段发生在数据更新之后，此时组件DOM已完成更新，在该阶段要避免修改数据；*  
+
+**（7）beforeDestory**：
+
+&emsp;&emsp;*Vue3改名为`beforeUnmount`，该阶段发生实例销毁之前，此时实例依然可以使用，通常在该阶段进行善后收尾工作，如清除定时器等；*  
+
+**（8）destoryed**：
+
+&emsp;&emsp;*Vue3改名为`unmounted`，该阶段发生在实例销毁之后，此时`组件已经被拆解`，`数据绑定已被卸除`，`监听被移除`，`子实例等也全部销毁`；*  
+
+**（9）setup**：
+
+&emsp;&emsp;*该阶段由vue3.0新增，发生在`beforeCreate`之前，此时不需要使用`data、methods`等方法，所以属性和方法都利用return返回出去；*  
+
+## 3、Vue2.0和Vue3.0有何不同？√
+
+**Vue3.0的主要变化**：
+
+① 新增setup函数以替代beforeCreate和created函数；
+
+② 新增CompositionAPI组织组件逻辑更加灵活；
+
+③ 响应式改为Proxy实现；
+
+④ 源码开发更适合于TS编写；
+
+⑤ templete模板支持多个根标签；
+
+⑥ VueX状态管理创建由new Store改为createStore等；
+
+## 4、`Object.defineProperty`()和`Proxy`有何不同？√
 **（1）Object.defineProperty**：`Object.defineProperty`是一种直接通过API设置对象属性的方法，可以更精确的控制某个属性的行为；支持对单个属性进行精确控制并设置`getter`和`setter`;
 ```js
 let obj = {};
@@ -103,7 +136,7 @@ let proxy = new Proxy(person, {
 })
 ```
 
-## 4、Vue2.0和Vue3.0的响应式有何不同？√
+## 5、Vue2.0和Vue3.0的响应式有何不同？√
 **（1）Vue2.0响应式**：
 
 ‌&emsp;&emsp;① 核心思想：使用了`Object.defineProperty`来实现响应式，首先基于数据劫持，当我们创建Vue实例时，它会遍历data选项中的所有属性，并使用`Object.defineProperty`将它们转换为`getter`和`setter`；
@@ -157,13 +190,9 @@ console.log(obj.name);
 
 ‌&emsp;&emsp;② 实现原理为：`get依赖收集`、`set/delete`等派发更新；`Proxy`相对于`Object.defineProperty`来说所能操作的数据更加广泛，但由于是ES6的内容，所以对于浏览器兼容性就需要更加注意；
 
-## 5、v-model双向数据绑定的原理是什么？√
+## 6、v-model双向数据绑定的原理是什么？√
 &emsp;&emsp;v-model是一种语法糖，`是v-on和v-bind的语法糖`，它基于数据劫持机制，通过劫持表单中的`value`和`input事件`，建立视图与数据之间的双向绑定关系，使其数据可以同步；
 
-## 6、Vue模板语法的解析原理 √
-&emsp;&emsp;模板语法是一种基于HTML语法，模板语法使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上；
-
-&emsp;&emsp;解析原理主要是：将模板解析成`AST抽象语法树`，对AST进行优化，然后将其转换为`渲染函数的JS代码`，最终生成能够接受数据并返回虚拟DON的JS函数。
 
 ## 7、keep-alive的常用属性有哪些以及实现原理？ √
 **（1）概述**：`keep-alive`是一种Vue的内置组件，用于对组件进行缓存，当切换组件时避免其频繁被创建和销毁；常用属性有`include/exclude/max`，指定需要缓存或排除缓存的组件的名称，`max`定义最大缓存个数；有两个生命周期`activated/deactivated`，用来得知当前组件是否处于活跃状态；
@@ -177,7 +206,7 @@ console.log(obj.name);
 
 **（3）LRU算法**：也称为最近最少使用算法，是一种常用的缓存淘汰策略，根据数据的历史访问记录来决定那些数据应该被淘汰，其核心思想就是：最近访问的优先级最高，最少访问的优先删除，从而有效地优化缓存性能；
 
-## 6、next-Tick的作用以及实现原理？ √
+## 8、next-Tick的作用以及实现原理？ √
 &emsp;&emsp;用于等待下一次 DOM 更新的工具方法，是一种异步更新DOM机制，由于Vue在更改响应式状态时，DOM的更新并不是同步生效的，而是先将他们缓存到一个队列中，`nextTick()` 则可以在状态改变后立即使用，然后在下一次DOM更新循环结束后返回一个回调函数。
 ```js
 //vue2.0使用
@@ -198,14 +227,16 @@ async function increment() {
 }
 ```
 
-## 7、什么是虚拟DOM？ √
-&emsp;&emsp;虚拟DOM其实是真实DOM的`JS对象`，对象中包含的字段有标签名，标签属性以及子标签名子标签属性，文本节点；当真实DOM节点发生变化，会产生新旧两个虚拟DOM，然后通过diff算法对两者进行对比不同。虚拟DOM会先在内存中计算差异，然后批量更新真实DOM从而减少操作次数；
+## 9、什么是虚拟DOM？ √
+&emsp;&emsp;虚拟DOM其实是真实DOM的`JS对象`，对象中包含的字段有标签名，标签属性以及子标签名子标签属性，文本节点；
+
+&emsp;&emsp;当真实DOM节点发生变化，会产生新旧两个虚拟DOM，然后通过`diff算法`对两者进行对比不同。虚拟DOM会先在内存中计算差异，然后批量更新真实DOM从而减少操作次数；
 
 &emsp;&emsp;虚拟DOM的作用是减少直接操作真实DOM的性能损耗(直接操作DOM会频繁触发重绘/回流)；虚拟DOM作为纯JS对象可以渲染到不同平台；
 
-&emsp;&emsp;虚拟DOM的核心价值是平衡开发效率与性能，通过 差异更新 减少DOM操作，同时提供 声明式编程 和 跨平台能力。
+&emsp;&emsp;虚拟DOM的核心价值是***平衡开发效率与性能***，通过差异更新减少DOM操作，同时提供声明式编程和跨平台能力。
 
-## 8、虚拟DOM是如何生成的？√
+## 10、虚拟DOM是如何生成的？√
 &emsp;&emsp;在vue中通常会为组件编写模板`template`，该模板会被编译器编译为渲染函数`render`，然后再挂载过程中调用`render函数`就会返回`虚拟DOM`;
 ```js
 // Vue 组件
@@ -235,9 +266,9 @@ const vNode = MyComponent.render();
 console.log(vNode);
 ```
 
-## 9、Vue2.0和Vue3.0渲染器的diff算法有何区别？√
+## 11、`Vue2.0`和`Vue3.0`渲染器的diff算法有何区别？√
 **（1）Vue2的diff算法**：  
-&emsp;&emsp;**原理**：核心就是比较两个虚拟DOM 树的差异，返回一个 `patch(补丁) 对象`，这	个对象的作用就是存储两个节点不同的地方，最后用 `patch` 里记录的信息更新`真实DOM`；  
+&emsp;&emsp;**原理**：核心就是比较两个虚拟DOM 树的差异，返回一个 `patch(补丁) 对象`，这个对象的作用就是存储两个节点不同的地方，最后用 `patch` 里记录的信息更新`真实DOM`；  
 &emsp;&emsp;**特点**：① 只会在同级进行比较，然后再比较子节点，不会跨级比较；② 循环从两端向中间进行比较；    
 
 **（2）Vue3的快速diff算法**：  
@@ -246,49 +277,15 @@ console.log(vNode);
 &emsp;&emsp;**特点**：该算法中还运用到了动态规划的思想`求解最长递归子序列`;
 
 
-## 10、Vue中data为什么必须是函数？√
+## 12、Vue中data为什么必须是函数？√
 &emsp;&emsp;一个组件若被复用多次，则会创建多个实例。本质上，这些实例用的都是同一个`构造函数`。若data是对象的话，则属于引用类型，会影响到所有的实例，所以为了保证组件不同的实例之间data不冲突，data必须是一个函数。
 
 
-## 11、接口请求一般放在哪个生命周期中？为什么要这样做？√
+## 13、接口请求一般放在哪个生命周期中？为什么要这样做？√
 &emsp;&emsp;接口请求可以放在钩子函数 `created、beforeMount、mounted` 中进行调用，因为在这三个钩子函数中，data已经创建，可以将服务端返回的数据进行赋值。  
 &emsp;&emsp;推荐在 `created` 钩子函数中调用异步请求，因为在 `created` 钩子函数中调用异步请求有以下优点：① 获取服务端数据更快；② SSR不支持`beforeMount、mounted`函数，所以使用created函数有助于代码一致性；③ 在mounted函数中可能会出现闪屏问题,因为此时页面已经渲染完成。
 
-## 12、Vue中computed和watch的区别是什么？√
-**（1）computed计算属性**：  
-&emsp;&emsp;① 用于计算属性，主要用于基于已有数据计算出`新值`;  
-&emsp;&emsp;② 计算属性的值会被`缓存`，只有当其依赖的数据发生变化时，才会重新计算;  
-&emsp;&emsp;③ 不支持异步，本质是一个惰性观察者;  
-```js[4]
-computed: {
-  fullName() {
-    return `${this.firstName} ${this.lastName}`;
-  },
-  formattedName() {
-    return this.fullName.toUpperCase();
-  }
-}
-//返回一个值，可以在模板中直接使用
-```
-**（2）watch监听器**：  
-&emsp;&emsp;① watch用于监听观察数据的变化，如`data、props`中的数据变化;  
-&emsp;&emsp;② `没有缓存`，适合用于执行异步操作或在数据变化时执行某些副作用;  
-&emsp;&emsp;③ 支持异步，有两个参数分别是deep深度监听、immediate组件加载立即触发回调函数执行;
-````js
-watch: {
-  firstName: 'updateFullName',
-  lastName: 'updateFullName'
-},
-methods: {
-  updateFullName() {
-    this.fullName = `${this.firstName} ${this.lastName}`;
-  }
-}
-//不返回值，主要用于执行副作用
-````
-**注意**：某些情况下，可以使用watch选项来替代computed属性，以实现更细粒度的控制和性能优化。
-
-## 13、VueX的核心属性分别是？
+## 14、VueX的核心属性分别是？
 **（1）State**：用于存储数据状态，类似于Vue中的`Data`，可以通过 `this.$store.state`访问； 
 
 **（2）Getter**：用于从`store`中的`state`派生出一些状态，可以将其看作是`store的计算属性`，组件可以通过 `mapGetters` 辅助函数或直接访问 `this.$store.getters `来获取派生状态； 
@@ -332,39 +329,127 @@ methods: {
 
 **（5）Module**：使用于将`store`切割成不同模块，每个模块都拥有自己的`state、getter、mutation、action，`避免了`store`对象因为应用复杂而变得过于臃肿； 
 
-## 14、VueX中的Action和Mutation有什么区别？
+## 15、VueX中的Action和Mutation有什么区别？
 &emsp;&emsp;Mutation专注于修改Vuex状态，是修改状态的唯一途径，且必须是同步执行，适合用于响应事件时同步更新状态；而Action主要用于处理异步操作，适合用于执行异步操作，如从服务器获取数据后通过提交Mutation来更新状态‌。
 
-## 15、VueX和Pinia有什么不同？
-**（1）体积和性能**：Pinia相较于VueX更加轻量级，文件体积更小，加载速度更快，性能表现也更好；
+## 16、VueX和Pinia有什么不同？
+**（1）取消Mutations和Modules**：取消Mutations改用Actions进行同步/异步统一操作；取消Modules改为Store为原生模板化由多个store文件控制；
 
 **（2）对TS的支持**：Vuex主要用于Vue2.0中，早期对TS的支持较弱，需要一些额外的插件来实现类型推导和类型检查，而Pinia则会有更好的支持；
 
+**（1）体积和性能**：Pinia相较于VueX更加轻量级，文件体积更小，加载速度更快，性能表现也更好；
+
 **（3）架构设计**：VueX是采用集中式架构，所有状态都存储在单一的全局状态数中，而Pinia则是采用分布式架构，每个模块都有自己的状态树；
 
-## 16、简述VueX的数据传递过程
+## 17、简述VueX的数据传递过程
 &emsp;&emsp;通过`new VueX()`创建一个实例，就可以在`state`中存储公共状态，通过 `mapState` 辅助函数或直接访问 `this.$store.state `来获取状态调用公共状态中的内容进行页面渲染；
 
-&emsp;&emsp;当需要修改数据时，必须遵循单向数据流，可以通过`this.$store.dispatch`来触发`actions`中的方法；action中的每一个方法都接受一个对象，该对象里面有一个`commit`方法，用来触发`mutations`里面的方法；而`mutations`里面的方法就可以用来修改`state`中的数据；
+&emsp;&emsp;当需要修改数据时，必须遵循单向数据流，可以通过`this.$store.dispatch`来触发`actions`中的方法；`action`中的每一个方法都接受一个对象，该对象里面有一个`commit`方法，用来触发`mutations`里面的方法；而`mutations`里面的方法就可以用来修改`state`中的数据；
 
-## 17、VueX的数据在页面刷新时会丢失吗？为什么
-&emsp;&emsp;会丢失，因为VueX的数据时保存在运行内存的，刷新页面会造成初始化，数据也就会丢失；如果想避免这种情况可以将数据保存在浏览器缓存中，如cookies、storage中等；或者再刷新时再去请求数据，达到动态更新的需求；
+***VueX的创建及使用过程***
 
-## 18、VueRouter的实现原理是什么？
-&emsp;&emsp;VueRouter作为前端路由，其作用是在无需刷新页面的情况下更新视图；VueRouter的底层原理主要有两种模式，一种是Hash模式，另外一种是History模式： 
+① **安装并引入VueX**
+```js
+// 在store/index.js中创建store实例
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+```
+② **创建Store实例**
+```js
+export default new Vuex.Store({
+  state: {
+    count: 0,
+    userInfo: {}
+  },
+  getters: {
+    doubleCount: state => state.count * 2
+  },
+  mutations: {
+    INCREMENT(state) {
+      state.count++
+    },
+    SET_USER_INFO(state, userInfo) {
+      state.userInfo = userInfo
+    }
+  },
+  actions: {
+    // 异步操作
+    async getUserInfo({ commit }) {
+      const response = await fetch('/api/user')
+      const userInfo = await response.json()
+      commit('SET_USER_INFO', userInfo)
+    }
+  }
+})
+```
+
+③**在Vue应用中注入store**
+```js
+// main.js
+import store from './store'
+
+new Vue({
+  store,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+④ **在组件中使用VueX**
+```js
+export default {
+  computed: {
+    // 使用mapState辅助函数
+    ...mapState(['count', 'userInfo']),
+    // 使用mapGetters辅助函数
+    ...mapGetters(['doubleCount'])
+  },
+  methods: {
+    // 使用mapMutations辅助函数
+    ...mapMutations(['INCREMENT']),
+    // 使用mapActions辅助函数
+    ...mapActions(['getUserInfo']),
+    
+    // 直接调用方式
+    updateCount() {
+      this.$store.commit('INCREMENT')
+    },
+    async fetchUserInfo() {
+      await this.$store.dispatch('getUserInfo')
+    }
+  }
+}
+// **最佳实践**
+// - 遵循单向数据流
+// - Mutations只做同步操作
+// - Actions处理异步操作
+// - 使用命名空间模块化管理状态
+// - 合理使用getters处理派生状态
+```
+
+
+
+## 18、VueX的数据在页面刷新时会丢失吗？为什么
+&emsp;&emsp;会丢失，因为VueX的数据时保存在运行内存的，刷新页面会造成初始化，数据也就会丢失；如果想避免这种情况可以将数据保存在浏览器缓存中，如`cookies、storage`等；或者再刷新时再去请求数据，达到动态更新的需求；
+
+## 19、VueRouter的实现原理是什么？
+&emsp;&emsp;VueRouter作为前端路由，其作用是在无需刷新页面的情况下更新视图；VueRouter的底层原理主要有两种模式，一种是***Hash模式***，另外一种是***History模式***： 
 
 &emsp;&emsp;① Hash模式：关键技术为`hashchange`事件，利用URL的hash来模拟一个完整的URL，路径中会存在`#`符号；  
 
 &emsp;&emsp;② History模式：通关键技术为HTML5History中新增的`pushState()`和`replaceState()`2个方法来修改历史信息，并更新URL及视图且不会刷新页面；
 
 
-## 19、Vue的导航守卫是什么？
-&emsp;&emsp;**(1) 定义**：导航守卫也称为路由守卫，是VueRouter中的一种机制，用于实时监控路由跳转的过程以及在路由跳转的各个过程中设置执行相关操作；应用场景包括：全局检查用户是否登录、权限检查、验证路由参数等等；分为`全局守卫`、`路由独享的守卫`和`组件内的守卫`；  
+## 20、Vue的导航守卫是什么？
+&emsp;&emsp;**(1) 定义**：导航守卫也称为路由守卫，是VueRouter中的一种机制，用于实时监控路由跳转的过程以及在路由跳转的各个过程中设置执行相关操作；
+
+&emsp;&emsp;应用场景包括：全局检查用户是否登录、权限检查、验证路由参数等等；分为`全局守卫`、`路由独享的守卫`和`组件内的守卫`；  
 &emsp;&emsp;**(2) 全局路守卫**：主要分为三种`router.beforeEach()`全局前守卫、`router.beforeResolve()`全局解析守卫、`router.afterEach()`全局后置守卫；  
 &emsp;&emsp;**(3) 路由独享守卫**：组只有`router.beforeEnter()`，只有在路由跳转配置后才会有效；  
 &emsp;&emsp;**(4) 组件内守卫**：主要分为三种`router.beforeRouterEnter()`进入该路由时执行、`router.beforeRouteUpdate()`该路由中参数改变时执行、`router.beforeRouteLeave()`离开该路由时执行；  
 
-## 20、Vue3.0为什么对TS更友好
+## 21、Vue3.0为什么对TS更友好
 &emsp;&emsp;**(1) 更好的类型推导和类型检查**：Vue3.0使用了更强大的类型推导和类型检查，使得开发中更早发现潜在错误并且可以自动提示补齐，与TS的强类型相兼容；  
 &emsp;&emsp;**(2) ComponsitionAPI**：Vue3.0提供了一种更灵活、可组合的组件编码方式，在使用CompositionAPI时可以更好的推导出函数的参数及返回值，使得代码质量更高，也更方便扩展维护；  
 &emsp;&emsp;**(3) 模块化支持更好**：Vue 3.0中的模块化支持得到了改进，在使用TypeScript开发项目时，可以更好地结合模块化开发的思想，使得代码更具可读性和可维护性。
@@ -373,7 +458,11 @@ methods: {
 ## 22、Vue中父组件/子组件的执行顺序
 **（1）渲染过程**：父beforeCreate()→父created()→父beforeMounte()→子beforeCreate()→子created()→子beforeMounte()→子mounted()→父mounted()  
 
-**（2）更新过程**：父beforeUpdate()→子beforeUpdate()→子updated())→父updated()   
+***先执行父组件创建，在挂载前执行子组件生命周期，最后执行父组件挂载完成***
+
+**（2）更新过程**：父beforeUpdate()→子beforeUpdate()→子updated()→父updated()   
+
+***子组件生命周期在父组件更新钩子之间完成***
 
 **（3）销毁过程**：父beforeDestory()→子beforeDestory()→子destory()→父子destory()  
 
@@ -384,13 +473,13 @@ methods: {
 
 &emsp;&emsp;**（3）鼠标键盘按钮修饰符**`.left`鼠标左键、`.right`鼠标右键、`.middle`鼠标空格、`.keyCode`键盘修饰符；
 
-## 24、Vue3的Suepose是什么
+## 24、Vue3的`Susepose`是什么
 &emsp;&emsp;`<Suepense></Suepense>
-`是vue3 中新增的内置组件，用于处理异步组件加载的状态，使页面视觉可以更加平滑的过渡，用于异步组件/异步数据的获取与处理，并提供一种新的组件加载状态，直到组件解析加载完成；
+`是vue3 中新增的内置组件，用于协调的对异步依赖的处理；
 
-&emsp;&emsp;其作用包括：异步组件加载、数据异步获取、代码分割、用户体验更好；
+&emsp;&emsp;***其作用包括：*** 异步组件加载、数据异步获取、代码分割、用户体验更好；
 
-&emsp;&emsp;应用场景包括：懒加载组件、组件异步渲染、路由懒加载、动态导入等；
+&emsp;&emsp;***应用场景包括：*** 懒加载组件、组件异步渲染、路由懒加载、动态导入等；
 
 ```js
 <template>
@@ -436,14 +525,14 @@ export default {
 &emsp;&emsp;Composition API通过提供一系列的函数和钩子函数来实现组件的逻辑编写。这些函数包括：`ref`、`reactive`、`setup`等等；相比与Vue2.0的OptionAPI选项式API灵活性更高、可维护性更好、能更好的复用代码；
 
 
-## 28、Vue中Key的作用是什么？
+## 28、Vue中`Key`的作用是什么？
 &emsp;&emsp;key 的作用主要是为了高效的更新虚拟 DOM 。另外 vue 中在使用相同标签名元素的过渡切换时，也会使用到 key 属性，其目的也是为了让 vue 可以区分它们，否则 vue 只会替换其内部属性而不会触发过渡效果。主要作用有：
 
-**(1) 唯一标识**：key 属性用于标识每个节点的唯一性。当 Vue 渲染一个列表时，它会使用 key 来跟踪每个节点的身份。这样可以确保在更新时，Vue 能够准确地识别哪些元素发生了变化、添加或删除。
+***(1) 唯一标识***：key 属性用于标识每个节点的唯一性。当 Vue 渲染一个列表时，它会使用 key 来跟踪每个节点的身份。这样可以确保在更新时，Vue 能够准确地识别哪些元素发生了变化、添加或删除。
 
-**(2) 提高性能**：使用 key 可以显著提高性能，尤其是在处理动态列表时。没有 key 的情况下，Vue 可能会使用就地复用的方式来更新 DOM，这可能导致不必要的重渲染和性能损失。
+***(2) 提高性能***：使用 key 可以显著提高性能，尤其是在处理动态列表时。没有 key 的情况下，Vue 可能会使用就地复用的方式来更新 DOM，这可能导致不必要的重渲染和性能损失。
 
-**(3) 解决渲染问题**：在某些情况下，使用 key 可以解决渲染问题。例如，当列表中的元素顺序发生变化时，使用 key 可以确保 Vue 正确地更新元素，而不是错误地复用旧的 DOM 元素。
+***(3) 解决渲染问题***：在某些情况下，使用 key 可以解决渲染问题。例如，当列表中的元素顺序发生变化时，使用 key 可以确保 Vue 正确地更新元素，而不是错误地复用旧的 DOM 元素。
 
 ## 29、OptionsAPI与CompositionAPI的区别
 **(1) OptionsAPI选项式：** 
@@ -469,9 +558,9 @@ export default {
 }
 ```
 
-## 31、Vue2 和Vue3 的 Tree Shaking 的区别（打包内容体积差异）
-&emsp;&emsp;Vue2中的代码不支持Tree Shaking，因为它是基于CommonJS编写的。所以，这意味着即使你只使用了 Vue 的一部分功能，你的最终打包文件仍然会包含整个 Vue 库的代码；  
-&emsp;&emsp;在Vue3中源码是支持 tree shaking，因为Vue3被重写为ES Module格式 。这意味着如果你只使用了 Vue 的一部分功能，那么你的最终打包文件只会包含你实际使用的那部分代码，未使用的代码会被移除。这可以帮助减小最终打包文件的大小，提高应用的加载性能。
+## 31、Vue2 和Vue3 的 `Tree Shaking` 的区别（打包内容体积差异）
+&emsp;&emsp;Vue2中的代码不支持`Tree Shaking`，因为它是基于`CommonJS`编写的。所以，这意味着即使你只使用了 Vue 的一部分功能，你的最终打包文件仍然会包含<mark>整个 Vue 库的代码</mark>；  
+&emsp;&emsp;在Vue3中源码是支持 `tree shakin`g，因为Vue3被重写为`ES Module格式` 。这意味着如果你只使用了 Vue 的一部分功能，那么你的最终打包文件只会包含你实际使用的那部分代码，未使用的代码会被移除。这可以帮助减小最终打包文件的大小，提高应用的加载性能。
 ```js
 //Vue3的ES Module格式
 import { setup, ref ,reactive } from "vue";
@@ -522,3 +611,43 @@ import { setup, ref ,reactive } from "vue";
 </template>
 ```
 &emsp;&emsp;在渲染过程中，如果组件返回的是一个数组，Vue 会将这个数组视为 Fragment，并将其中的每个元素作为独立的节点进行处理；Fragment 的实现原理依赖于虚拟 DOM 的灵活性和渲染机制，`<h1>` 和 `<p>`被视为 Fragment 的子节点，Vue 会将它们直接渲染到父节点中，而不需要额外的包裹元素。
+
+
+## 38、Vue中computed和watch的区别是什么？√
+**（1）computed计算属性**：  
+&emsp;&emsp;① 用于计算属性，主要用于基于已有数据计算出`新值`;  
+&emsp;&emsp;② 计算属性的值会被`缓存`，只有当其依赖的数据发生变化时，才会重新计算;  
+&emsp;&emsp;③ 不支持异步，本质是一个惰性观察者;  
+```js[4]
+computed: {
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+  formattedName() {
+    return this.fullName.toUpperCase();
+  }
+}
+//返回一个值，可以在模板中直接使用
+```
+**（2）watch监听器**：  
+&emsp;&emsp;① watch用于监听观察数据的变化，如`data、props`中的数据变化;  
+&emsp;&emsp;② `没有缓存`，适合用于执行异步操作或在数据变化时执行某些副作用;  
+&emsp;&emsp;③ 支持异步，有两个参数分别是deep深度监听、immediate组件加载立即触发回调函数执行;
+````js
+watch: {
+  firstName: 'updateFullName',
+  lastName: 'updateFullName'
+},
+methods: {
+  updateFullName() {
+    this.fullName = `${this.firstName} ${this.lastName}`;
+  }
+}
+//不返回值，主要用于执行副作用
+````
+**注意**：某些情况下，可以使用watch选项来替代computed属性，以实现更细粒度的控制和性能优化。
+
+## 39、Vue模板语法的解析原理 √
+&emsp;&emsp;模板语法是一种基于HTML语法，模板语法使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上；
+
+&emsp;&emsp;解析原理主要是：将模板解析成`AST抽象语法树`，对AST进行优化，然后将其转换为`渲染函数的JS代码`，最终生成能够接受数据并返回虚拟DON的JS函数。
