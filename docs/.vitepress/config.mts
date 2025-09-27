@@ -164,7 +164,8 @@ export default defineConfig({
               { text: '应用模块化', link: '/refinedVue3/applyMoudel' },
               { text: '最佳实践', link: '/refinedVue3/bestPractice' },
               { text: 'Vue3结合TS', link: '/refinedVue3/Vue3TS' },
-              { text: 'Vue进阶主题', link: '/refinedVue3/vueAdvance' }
+              { text: 'Vue进阶主题', link: '/refinedVue3/vueAdvance' },
+              { text: 'Vue常见问题合集', link: '/refinedVue3/interview' }
               
           ]
       }],
