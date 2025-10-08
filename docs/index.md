@@ -26,7 +26,7 @@ features:
   - title: UML设计模式
     icon:
       src: /icon_feature21.svg
-    details: UML（Unified Modeling Language，统一建模语言），是一种用于软件系统分析和设计的语言工具，用于帮助软件开发人员进行思考和记录思路的结果UML本身是一套符号的规定，通过这些符号，来描述软件模型中各个元素之间的关系；比如类...
+    details: UML即统一建模语言，是一种用于软件系统分析和设计的语言工具，用于帮助软件开发人员进行思考和记录思路的结果UML本身是一套符号的规定，通过这些符号，来描述软件模型中各个元素之间的关系；比如类...
     link: /UML/createPattern.md
     linkText: 查看详情
   - title: SOLID设计原则
