@@ -66,14 +66,11 @@ export default defineConfig({
           text: 'Flutter开发文档',
           link: '/flutter/flutterFiles',
         },{
+          text: '微前端开发文档',
+          link: '/microFrontend/index',
+        },{
           text: '前端开发规范',
           link: '/devGuide/index',
-        },{
-          text: '算法题解',
-          link: '/algorithm/addAlg',
-        },{
-          text: 'WebRTC文档',
-          link: '/webRTC/index',
         }] },
         { text: "后端开发文档",items:[
           {
@@ -90,6 +87,9 @@ export default defineConfig({
           {
             text: 'Redis开发文档',
             link: '/endFront/redisStudy/index',
+          },{
+            text: '算法题解',
+            link: '/algorithm/addAlg',
           }] },
       { text: "AI知识文库", link: "/aiFiles/index" },
       { text: "工作笔记",items:[
