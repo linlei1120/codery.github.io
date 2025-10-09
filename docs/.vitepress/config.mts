@@ -86,6 +86,10 @@ export default defineConfig({
           {
             text: 'K8S文档',
             link: '/endFront/k8s-study/k8sIndex',
+          },
+          {
+            text: 'Redis开发文档',
+            link: '/endFront/redisStudy/index',
           }] },
       { text: "AI知识文库", link: "/aiFiles/index" },
       { text: "工作笔记",items:[
