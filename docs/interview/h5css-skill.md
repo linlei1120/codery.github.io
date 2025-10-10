@@ -57,9 +57,10 @@ H5新增的标签包括：`<video>`、`<audio>`、`<source>`、`<section>`、`<h
 
 `<time>`定义日期或时间，或者两者、`<progress>`显示 JavaScript 中耗费时间的函数的进程;
 
+
 # CSS3面试题集
 
-CSS3 是CSS（层叠样式表）技术的最新标准。主要包括盒子模型、列表模块、超链接方式、语言模块、背景和边框、文字特效、多栏布局、过渡动画、2D/3D转换等模块。[查看CSS文档](https://www.w3school.com.cn/css/index.asp)
+&emsp;&emsp;CSS3 是CSS（层叠样式表）技术的最新标准。主要包括盒子模型、列表模块、超链接方式、语言模块、背景和边框、文字特效、多栏布局、过渡动画、2D/3D转换等模块。[查看CSS文档](https://www.w3school.com.cn/css/index.asp)
 
 ### 1、px/em/rem的区别？√
 
@@ -78,33 +79,44 @@ CSS3 是CSS（层叠样式表）技术的最新标准。主要包括盒子模型
 **注意：** 重绘不一定导致回流，回流一定会导致重绘，回流的性能开销更大
 
 ## 3、CSS常用的伪元素有哪些，如何使用√
-&emsp;&emsp;常用的伪元素有：  
+常用的伪元素有：  
 &emsp;&emsp;`::before`（在元素之前插入内容并修改样式）、`::after`（在元素之后插入内容并修改样式）、`::first-letter`（设置第一个字符的样式）、`::first-line`（设置第一行的样式）、`::placeholder`（设置输入字段的占位符）
 
 ## 4、CSS选择器的优先级
 !important > 内联样式1000 > Id选择器100 > 属性选择器10 > 伪类选择器10 > Class选择器10 > 伪元素选择器1 > 元素选择器1
 
 ## 5、标准盒模型和怪异盒模型的区别√
-**标准盒模型**：width = content + margin 
+**标准盒模型**：`width = content + margin`
 
-**怪异盒模型**：width = content + border + padding + margin  
+**怪异盒模型**：`width = content + border + padding + margin `
 
 ## 6、Flex弹性布局常用属性有哪些√
-**flex-direction:** 弹性容器中子元素排列方式,其包含的值有：row、row-reverse、column、column-reverse
+***flex-direction:*** 弹性容器中子元素排列方式,其包含的值有：row、row-reverse、column、column-reverse
 
-**flex-warp:** 设置弹性盒子的子元素的换行
+***flex-warp:*** 设置弹性盒子的子元素的换行
 
-**flex-flow:** 上面这两种属性的简写形式
+***flex-flow:*** 上面这两种属性的简写形式
 
-**align-item:** 设置弹性盒子元素在侧轴上的对齐方式
+***align-item:*** 设置弹性盒子元素在侧轴上的对齐方式
 
-**align-content:** 设置行对齐
+***align-content:*** 设置行对齐
 
-**justify-content:** 设置弹性盒子元素在主轴上的对齐方式
+***justify-content:*** 设置弹性盒子元素在主轴上的对齐方式
 
-**flex-basis:**   设置子元素在主轴上的初始大小，其值有：auto、%、px
+***flex-basis:***   设置子元素在主轴上的初始大小，其值有：auto、%、px
 
-**flex-grow:** 设置flex的增长系数，与flex-basis类似，以比例设置
+***flex-grow:*** 设置`flex`的增长系数，与flex-basis类似，以比例设置
+
+***flex:1;*** 用于当前子项拉伸的比例；
+
+```js
+flex: 1;  
+/* 等同于 👇 */
+flex-grow: 1;  
+flex-shrink: 1;  
+flex-basis: 0%;  
+
+```
 
 ## 7、对于BFC的理解√
 &emsp;&emsp;BFC（块级格式化上下文）可以理解为CSS元素的一个属性，它属于普通流元素，可以创建一个隔离的/独立的渲染容器。并且可以用于处理外边距重叠现象，可用于清除浮动、阻止元素被浮动元素覆盖等问题；
@@ -112,13 +124,13 @@ CSS3 是CSS（层叠样式表）技术的最新标准。主要包括盒子模型
 &emsp;&emsp;触发BFC的方式有：html根元素、浮动元素、`绝对定位元素`、`overflow属性元素等`；
 
 ## 8、import和require的区别，加载模块的区别√
-&emsp;&emsp;`‌require`和`import`的主要区别在于它们所属的``模块化规范不同`，`加载时机不同`，以及`动态绑定和缓存方式的不同`。
+&emsp;&emsp;`‌require`和`import`的主要区别在于它们所属的`模块化规范不同`，`加载时机不同`，以及`动态绑定和缓存方式的不同`。
 
-&emsp;&emsp;**(1) 所属规范不同：** import是ES6（ECMAScript 2015）引入的关键字，属于ES模块化语法规范，主要用于浏览器端；require是CommonJS规范的一部分，主要用于Node.js环境，无法直接用于浏览器端；
+&emsp;&emsp;**(1) 所属规范不同：** `import`是ES6（ECMAScript 2015）引入的关键字，属于ES模块化语法规范，主要用于浏览器端；`require`是CommonJS规范的一部分，主要用于Node.js环境，无法直接用于浏览器端；
 
-&emsp;&emsp;**(2) 加载时机不同：** import是`静态引入`，必须在文件的顶部使用，提高了加载效率，但也限制了其使用位置，`编译时加载`；require是`动态引入`，可以在代码的任何位置使用，`运行时加载`，更加灵活但可能影响性能‌。
+&emsp;&emsp;**(2) 加载时机不同：** `import`是***静态引入***，必须在文件的顶部使用，提高了加载效率，但也限制了其使用位置，***编译时加载***；`require`是***动态引入***，可以在代码的任何位置使用，***运行时加载***，更加灵活但可能影响性能‌。
 
-&emsp;&emsp;**(3) 动态绑定和缓存方式不同：** import提供静态分析，支持宏类型检验，但无法实现动态绑定；require提供动态绑定，适合服务器或浏览器环境，多次要求相同的模块时，只会执行一次，因为`缓存机制`的存在‌。
+&emsp;&emsp;**(3) 动态绑定和缓存方式不同：** `import`提供静态分析，支持宏类型检验，但无法实现动态绑定；`require`提供动态绑定，适合服务器或浏览器环境，多次要求相同的模块时，只会执行一次，因为`缓存机制`的存在‌。
 
 ## 9、CSS加载是阻塞的吗√
 &emsp;&emsp;CSS加载不会阻塞DOM的解析，但是会阻塞DOM的渲染，因为解析过程两者是独立并行的，而渲染过程这是两者合并进行的；所以要避免CSS加载时间过长，因此就需要对CSS进行包括`合并css文件或压缩`、`减少请求数`等性能优化操作；

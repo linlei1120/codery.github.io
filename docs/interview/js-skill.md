@@ -1,7 +1,9 @@
-# JavaScript面试题集
+## JavaScript面试题集
 
-JavaScript是一种动态的编程语言，广泛应用于网页开发中，主要用于增强网页的交互性和动态性。[查看JavaScript文档地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)。
-## 1、原生JS如何添加、删除、移动、复制、创建和查找节点？√
+&emsp;&emsp;JavaScript是一种动态的编程语言，广泛应用于网页开发中，主要用于增强网页的交互性和动态性。
+
+[查看JavaScript文档地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)。
+### 1、原生JS如何添加、删除、移动、复制、创建和查找节点？√
 **（1）添加创建**：`document.createElement()`
 
 **（2）删除**：`document.parentNode.removeChild()`
@@ -12,7 +14,7 @@ JavaScript是一种动态的编程语言，广泛应用于网页开发中，主�
 
 **（3）查找**：`document.getElementById()`、`getElementsByClassName()`、`querySelector()`、`querySelectorAll()`、`getElementsByTagName()`
 
-## 2、数组对象的操作方法有哪些？√
+### 2、数组对象的操作方法有哪些？√
 **（1）插入和删除**：  
 &emsp;&emsp;`push()`、`pop()`：尾部插入和删除数组中一个或多个元素，会修改数组；  
 &emsp;&emsp;`unshift()` 、`shift()`：首部插入和删除数组中一个或多个元素，会修改数组；
@@ -33,7 +35,7 @@ JavaScript是一种动态的编程语言，广泛应用于网页开发中，主�
 **（3）其他方法**：  
 &emsp;&emsp;`reverse()`反转数组、`sort()`数组排序、`concat()`连接数组、`forEach()`数组循环； 
  
-## 3、Call\Apply\Bind的区别√
+### 3、Call\Apply\Bind的区别√
 **（1）相同点**：都可以用于改变this的指向，传入的第一个参数都是绑定this的指向，若第一个参数是null或undefined，则会把全局对象window作为this的值；  
 
 **（2）不同点**：   
@@ -72,22 +74,22 @@ newFun("参数01","参数02")
 ```
 
 
-## 4、什么是事件循环(EventLoop)？
-‌&emsp;&emsp;首先由于JS是单线程的，所以为了避免阻塞，JS会将事件分为同步事件和异步事件，同步事件会在执行栈中立即执行并等待结果，而异步事件则会先放到宿主环境中，然后推送到执行队列，每次当执行栈中的同步事件执行完毕之后就回到执行队列中查找是否有异步事件需要执行，以此循环的查找过程就称为事件循环。
+### 4、什么是事件循环(EventLoop)？
+‌&emsp;&emsp;由于JS是单线程的，所以为了避免阻塞，JS会将事件分为同步事件和异步事件，同步事件会在执行栈中立即执行并等待结果，而异步事件则会先放到宿主环境中，然后推送到执行队列，每次当执行栈中的同步事件执行完毕之后就回到执行队列中查找是否有异步事件需要执行，以此循环的查找过程就称为事件循环。
 
 ![事件循环](https://wy-static.wenxiaobai.com/aigc-online/delogo_17f19d97-4bd1-d30a-540a-11ac6b9e65ae.webp?ratioWH=1.8772563176895&type=opt)
 
 ‌&emsp;&emsp;浏览器中事件循环和NodeJS中事件循环的主要区别就在于前者的异步任务分别为宏任务队列和微任务队列，而NodeJS中的事件循环的异步任务分成了6个任务队列:①`process.nextTick`进程队列、②`Promise等`微任务队列、③`setTimeout`计时器执行等。
 
 
-## 5、什么是宏任务和微任务？
-‌&emsp;&emsp;首先JS是单线程的，所以为了避免阻塞，JS会将事件分为同步任务和异步任务，而异步任务则会分为宏任务和微任务，宏任务通常由浏览器或者Node发起如script/请求事件/定时器等，而微任务则由JS引擎自身发起如`Promise`(注意`Promise`本身是同步的，但是`.then()`和`.catch()`会让其异步执行)，`Async/Await`等；
+### 5、什么是宏任务和微任务？
+‌&emsp;&emsp;由于JS是单线程的，所以为了避免阻塞，JS会将事件分为同步任务和异步任务，而异步任务则会分为宏任务和微任务，宏任务通常由浏览器或者Node发起如script/请求事件/定时器等，而微任务则由JS引擎自身发起如`Promise`(注意`Promise`本身是同步的，但是`.then()`和`.catch()`会让其异步执行)，`Async/Await`等；
 
 ![宏任务微任务](../public/hrenwu.png)
 
 ‌&emsp;&emsp;事件会按照首先在执行栈中同步任务、将微任务放入任务队列、将宏任务放入宏任务队列，待同步任务执行完毕后回去查找微任务队列中的事件执行，然后再去查找宏任务中的队列去执行。
 
-## 6、什么是事件响应链？
+### 6、什么是事件响应链？
 &emsp;&emsp;事件响应链是指当一个事件发生在DOM元素上时，该事件会从特定的事件目标开始逐级传播到其他事件监听者；这个事件传播的过程分为三个阶段：
 
 ① `捕获阶段`(最外层开始逐级向内传播) → ② `目标阶段`(事件到达事件目标) → ③ `冒泡阶段`(目标事件开始开始逐级向内传播)；   
@@ -117,7 +119,7 @@ newFun("参数01","参数02")
 ```
 `参考资料`[JS监听器及事件](https://blog.csdn.net/qq_46344419/article/details/130320656)
 
-## 7、什么是事件委托
+### 7、什么是事件委托
 &emsp;&emsp;事件委托是一种利用事件冒泡机制优化事件处理的方式，它的核心思想则是：将子元素事件监听交由父元素上统一处理，而不是绑定到每一个子元素上；
 
 &emsp;&emsp;应用场景：
@@ -143,7 +145,7 @@ newFun("参数01","参数02")
 ```
 
 
-## 8、JS的垃圾回收机制(GC)
+### 8、JS的垃圾回收机制(GC)
 &emsp;&emsp;垃圾回收是一种自动内存管理机制，用于检测和清除不再使用的对象以释放内存空间，当一个对象不再被引用，垃圾回收器会将其进行标记，然后在适当的时候清除这些垃圾，并将内存回收给系统以供其他对象使用，其目的是减少内存泄露和提高程序的性能，而JS引擎的垃圾回收是自动执行的，无需像C和C++语言需要手动管理；  
 **垃圾回收算法：**   
 &emsp;&emsp;**① 引用计数**：记录每个对象被引用的次数，当对象被创建时计数器为1，引用则加1，不被引用时减1，减至0时，则可以被垃圾收集器回收；  
@@ -168,7 +170,7 @@ function leak() {
 &emsp;&emsp;**③ 标记-整理**：主要分为标记阶段、整理阶段、清除阶段；相当于标记-清除的增强操作，在清除阶段会先执行整理操作，移动对象位置，对内存空间进行压缩；解决了内存碎片化的问题；  
 &emsp;&emsp;**注意**：标记-整理算法同样会暂停程序的执行，进行垃圾回收操作；
 
-## 9、`map`和`forEach`的区别
+### 9、`map`和`forEach`的区别
 &emsp;&emsp;**相同点:**
 
 &emsp;&emsp;(1) 都可用于循环遍历数组中的每一项。
@@ -205,7 +207,7 @@ let arrB1=arrB.map((item) => {
 
 ```
 
-## 10、JS为什么是单线程
+### 10、JS为什么是单线程
 &emsp;&emsp;JavaScript 语言采用的是单线程模型，也就是说，所有任务只能在一个线程上完成，一次只能做一件事。前面的任务没做完，后面的任务只能等待。因为JS脚本语言主要是作为交互功能使用，比如操作DOM结点等，所以使用单线程，若使用多线程一边增加DOM节点，一边删除DOM节点，这样则会增加复杂性；
 
 &emsp;&emsp;但是通过事件循环机制和异步API可以实现非阻塞执行，且还有`Web Worker`等方法补充了计算密集型任务的并行处理能力；
@@ -219,28 +221,61 @@ self.onmessage = (e) => {
 }
 ```
 
-## 11、对于WebWorker的了解
+### 11、对于WebWorker的了解
 &emsp;&emsp;Web Worker是一种为Web后台新增线程的一种简单方法，也就行单独运行JS的一种方法，新增线程的脚本独立于其他脚本，不会影响页面的性能，包括使用Ajax或Fetch发送请求等；WebWorker分为专用worker和共享worker；
 
 &emsp;&emsp;创建方式：`w = new Worker("demo_workers.js");`
-## 12、JS原生判断页面加载完成的方式
-&emsp;&emsp;(1)、利用Window对象中的onLoad方法判断。
+```js
+// 主线程代码
+// 1. 创建Worker
+const myWorker = new Worker('worker.js');
+// 2. 向Worker发送消息
+myWorker.postMessage({data: '需要处理的数据'});
+// 3. 接收Worker返回的结果
+myWorker.onmessage = function(e) {
+  console.log('从Worker收到的结果:', e.data);
+};
+// 4. 错误处理
+myWorker.onerror = function(error) {
+  console.error('Worker错误:', error.message);
+};
+// 5. 终止Worker
+function stopWorker() {
+  myWorker.terminate();
+}
+```
 
-- 触发时机：页面所有资源（包括图片、脚本、CSS 等）完全加载完成后触发。
+### 12、JS原生判断页面加载完成的方式
+####(1) 利用Window对象中的onLoad方法判断。
+
+&emsp;&emsp; 触发时机：页面所有资源（包括图片、脚本、CSS 等）完全加载完成后触发。
 ```js
     window.onload = function(){}
 ```
 
-&emsp;&emsp;(2)、DOMContentLoaded事件。
+####(2) DOMContentLoaded事件。
 
-- 触发时机：HTML 文档完全加载和解析完成后触发，无需等待样式表、图像和子框架完成加载。
+&emsp;&emsp; 触发时机：HTML 文档完全加载和解析完成后触发，无需等待样式表、图像和子框架完成加载。
 ```js
     document.addEventLister('DOMContentLoaded', function() {
          console.log('DOM完全加载并解析完成');
     })
 ```
-## 13、什么是纯函数？数组的纯函数API有哪些？
-&emsp;&emsp;**1、定义：** 纯函数是函数式编程的核心概念，能提高代码的可预测性和可测试性。JavaScript数组提供了一系列纯函数方法，最常用的是`map/filter/reduce`等。
+
+####(3) 使用监听器监听`load`事件，`load`事件在页面所有资源（包括样式表、图片等）加载完成后触发.
+```js
+window.addEventListener("load", () => {
+  if (document.readyState === "complete") {
+    console.log('所有资源已加载完成');
+  } else if (document.readyState === "interactive") {
+    console.log('DOM已准备好，但资源仍在加载');
+  }
+});
+//并结合document.readyState属性来判断DOM是否已准备好
+```
+
+### 13、什么是纯函数？数组的纯函数API有哪些？
+&emsp;&emsp;**1、定义：** 纯函数具有确定性即相同输入总返回相同输出；且没有副作用不会改变外部源数据。JavaScript数组提供了一系列纯函数方法，最常用的是`map/filter/reduce`等。
 
 &emsp;&emsp;**2、纯函数的特点：** 
 
@@ -281,14 +316,14 @@ console.log(newArr); // [1, 2, 6, 4, 5]
 console.log(arr);    // [1, 2, 3, 4, 5] 原数组未改变
 ```
 
-## 14、JS是阻塞的还是非阻塞的？
+### 14、JS是阻塞的还是非阻塞的？
 &emsp;&emsp;JS是阻塞的，所有浏览器在下载JS的时候，会阻止一切其他活动，比如其他资源的下载，内容的呈现等等。直到JS下载、解析、执行完毕后才开始继续并行下载其他资源并呈现内容。
 
-&emsp;&emsp;JS无阻塞加载方式：
+&emsp;&emsp;**JS无阻塞加载方式：**
 
 &emsp;&emsp;(1) 将脚本放在底部: `<link>`还是放在head中，用以保证在js加载前，能加载出正常显示的页面。`<script>`标签放在`</body>`前。
 
-&emsp;&emsp;(2) 使用`<script>`标签的defer属性，翻译成中文就是推迟的意思。这样该标签引入的JavaScript代码能够提前加载，但是会延迟到整个页面文档都解析完毕之后再运行。如果有多个带有defer属性的`<script>`标签，它们会按照顺序进行执行。
+&emsp;&emsp;(2) 使用`<script>`标签的`defer属性`，翻译成中文就是推迟的意思。这样该标签引入的JavaScript代码能够提前加载，但是会延迟到整个页面文档都解析完毕之后再运行。如果有多个带有defer属性的`<script>`标签，它们会按照顺序进行执行。
 ```js
 <head>
     <title>Example HTML Page</title>
@@ -297,9 +332,10 @@ console.log(arr);    // [1, 2, 3, 4, 5] 原数组未改变
 </head>
 ```
 
-## 15、对于执行上下文的了解
+### 15、对于执行上下文的了解
 关键字：`全局执行上下文`，`局部(函数)执行上下文`，`eval执行上下文(不推荐使用易被攻击)`
-**核心概念：** *执行上下文是JS代码执行时的环境信息容器，每当调用函数或执行全局代码时就会创建一个新的执行上下文；常见的三种执行上下文分别是：全局执行上下文、函数执行上下文、eval()内部代码执行上下文(基本不用)* 
+
+**核心概念：** *执行上下文是JS代码执行时的`环境信息容器`，每当调用函数或执行全局代码时就会创建一个新的执行上下文；常见的三种执行上下文分别是：全局执行上下文、函数执行上下文、`eval()`内部代码执行上下文(基本不用)* 
 
 **关键组成部分：** *环境变量、词法环境、this绑定、外部环境调用*
 
@@ -321,10 +357,10 @@ closure(); // 输出 "globalouterinner"
 
 ```
 
-## 16、对于作用域及作用域链的理解
+### 16、对于作用域及作用域链的理解
 **关键字：** `隔离变量`，`全局作用域`，`局部作用域`
 
-**关键概念：** 作用域是变量和函数的可访问范围，作用域链则是变量查找的路径规则。
+**关键概念：** 作用域是变量和函数的`可访问范围`，作用域链则是变量查找的`路径规则`。
 
 **作用域链查找规则：** 先在当前作用域查找变量，若找不到再沿着作用域链向外层查找，直到全局作用域，找不到则报错。
 ```js
@@ -342,10 +378,11 @@ function outer() {
 }
 outer();
 ```
-## 17、高阶函数的了解
+
+### 17、高阶函数的了解
 **关键字：** `函数式编程`，`高阶函数应用`
 
-**关键概念：** 高阶函数的特点包括接受一个或多个函数作为参数、返回一个新的函数作为结果，实现了对函数的抽象操作，是函数式编程的重要基础，JS内置的高阶函数包括： `map()、filter()、reduce（）`等等。
+**关键概念：** 高阶函数的特点包括接受一个或多个函数作为参数、***返回一个新的函数作为结果，实现了对函数的抽象操作***，是函数式编程的重要基础，JS内置的高阶函数包括： `map()、filter()、reduce（）`等等。
 
 ```js
 // 函数作为返回值
@@ -360,7 +397,7 @@ console.log(double(5)); // 10
 ```
 &emsp;&emsp;实际开发中，高阶函数常用于抽象通用逻辑、实现装饰器模式、构建函数管道等场景；
 
-## 18、JS如何实现继承
+### 18、JS如何实现继承
 关键字：`原型和原型链继承`，`构造函数继承`
 
 **关键概念：** JS早期的继承基于原型链机制，而目前在ES6中以class语法提供了更友好的使用方式，建议优先使用ES6的class继承。
@@ -388,10 +425,60 @@ const child = new Child('Tom', 10)
 child.sayName();
 child.sayAge();
 ```
-# TS面试题集
 
-## 1、对于TS的了解以及与JS的区别
-&emsp;&emsp;TS是JS的超集，它在JS的基础上添加了`强类型`、`接口`、`类`、`泛型`、`元组`、`枚举`等等特性，并提供了静态类型检查等工具，可以是开发者在编写代码时更加安全、可靠；
+## JavaScript事件
+
+### 1、什么是事件和事件流？
+&emsp;&emsp;***`事件`就是在应用程序或浏览器中执行的一些特定的交互瞬间，网页中的交互就是通过事件实现的，常用的事件有click点击事件、load加载事件、mouseover事件等；`事件流`是描述从网页中接收事件的顺序，通常包括事件捕获流、事件冒泡流；***
+
+
+### 2、什么是事件冒泡和事件捕获？
+&emsp;&emsp;***`事件冒泡`是指事件开始时由最具体的元素接收，然后再逐级向上传递到较为不具体的节点；`事件捕获`的思想是开始时先从不太具体的节点接收事件，而最具体的节点则在最后接收到事件，目的在于事件到达预定目标之前预先捕获它；***
+
+注意：虽然规范要求事件应该从document开始传播，但浏览器一般都是从window开始捕获；
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+  </head>
+  <body>
+    <div id="myDiv">Click</div>
+  </body>
+</html>
+<!-- 事件冒泡的执行顺序为div->body->html->document -->
+<!-- 事件捕获的执行顺序为document->html->body->iv -->
+```
+### 3、JSDOM的事件流执行顺序是怎样的？
+&emsp;&emsp;***事件流的执行通常有三个阶段：① 事件捕获阶段：为截获事件提供条件；② 目标事件阶段：实际接收到目标；③ 事件冒泡阶段：可以在该阶段对事件做出响应；***
+
+### 4、什么是事件处理程序？
+&emsp;&emsp;***`事件处理程序`指的是对事件的响应函数，也称为事件侦听器，如onclick、addEventListener()等；在编码过程中通常会将事件处理程序放在`try-catch`中来捕获异常；***
+
+### 5、DOM2级的事件有什么特性？
+&emsp;&emsp;***`DOM2级事件`定义了两种方法用来处理指定和删除事件处理程序，分别是`addEventListener()`和`removeEventListener()`，它们都接受三种参数分别是：① 要处理的事件名、② 处理事件的函数、③ 冒泡/捕获设置；而两个方法传入的事件处理程序必须相同，否则无效，因此不建议使用匿名函数作为事件处理程序；***
+
+### 6、EventUtil对象是什么？
+&emsp;&emsp;***`EventUtil`不是一个JavaScript原生提供的对象或API，而是开发者为处理浏览器跨浏览器事件兼容性问题而创建的工具对象。***
+
+### 7、什么是事件对象？
+&emsp;&emsp;***在DOM上触发事件时，会默认产生一个事件对象即`event`，这个对象包含了所有与事件相关的信息，属性和方法等，包括是否冒泡、是否可取消默认行为、事件类型、事件目标等；***
+### 8、如何取消事件的捕获及冒泡？
+&emsp;&emsp;***取消事件的捕获及冒泡可以使用事件默认的event对象，调用对象中的`stopPropagetion()`方法；***
+
+### 9、JS常见的事件类型有哪些？
+&emsp;&emsp;***JS中常见的事件类型包括：UI事件、焦点事件、鼠标与滚轮事件、文本事件、键盘事件、合成事件、变动事件等；***
+
+&emsp;&emsp;***(1) UI事件：*** DOMActive、load、unload、abort、error、select、resize、scroll；
+
+&emsp;&emsp;***(2) 焦点事件：*** blur、DOMFocusIn、DOMFoucsOut、focus、focusin、focusout；
+
+&emsp;&emsp;***(3) 鼠标与滚轮事件：*** click、dbclick、mousedown、mouseenter、mouseleave、mousemove、mouseout、mouseover、mouseup；
+
+## TS面试题集
+
+### 1、对于TS的了解以及与JS的区别
+&emsp;&emsp;TS是JS的超集，它在JS的基础上添加了`强类型`、`接口`、`类`、`泛型`、`元组`、`枚举`等等特性，并提供了静态类型检查等工具，可以使开发者在编写代码时更加安全、可靠；
 
 &emsp;&emsp;与JS相比，TS具有更强的类型系统，更严格的类型检查，更好的代码可读性以及维护性等优点。TS更加适合中大型的应用开发，更注重可持续性和可维护性等。
 
@@ -423,8 +510,11 @@ declare function create(o: object | null): void;
 create({prop: 0});
 create(null)
 ```
-## 2、TS中类型别名和接口有什么作用和区别？
-&emsp;&emsp;TS中类型别名和接口的主要作用是提供类型定义，提高代码的可读性和可维护性。`接口interface`可以用于定义对象类型，以对象的形式进行描述，接口interface可以重复声明自动合并；`别名type`则是创建一个新类型名称，也就是别名，不能重复声明，但是可以定义基本类型别名、声明联合类型、声明元组类型；
+
+### 2、TS中类型别名和接口有什么作用和区别？
+&emsp;&emsp;TS中类型别名和接口的主要作用是提供类型定义，提高代码的可读性和可维护性。`接口interface`可以用于定义对象类型，以对象的形式进行描述，接口可以重复声明自动合并；
+
+&emsp;&emsp;`别名type`则是创建一个新类型名称，也就是别名，不能重复声明，但是可以定义基本类型别名、声明联合类型、声明元组类型；
 
 **使用场景：** 
 
@@ -462,8 +552,10 @@ function printCoord(pt: Ponit){
 printCoord(x:100, y:200)
 ```
 
-## 3、TS的重载函数是什么
-&emsp;&emsp;TypeScript中的函数重载是指定义多个具有相同名称的函数，但可以有不同的参数类型或参数数量。通过函数重载，可以为不同的参数类型或参数数量提供不同的函数实现；总结：当我们在声明函数的时候直截了当的告诉函数使用者有哪些参数组合；
+### 3、TS的重载函数是什么
+&emsp;&emsp;TypeScript中的函数重载是指***定义多个具有相同名称的函数，但可以有不同的参数类型或参数数量***。通过函数重载，可以为不同的参数类型或参数数量提供不同的函数实现；
+
+&emsp;&emsp;总结：当我们在声明函数的时候直截了当的告诉函数使用者有哪些参数组合；
 ```js
 //声明一个函数
 function message(options: object): void;
@@ -486,7 +578,7 @@ message("text",() => {});
 message("text", "mode", 3000);
 ```
 
-## 4、TS中的类型断言有什么作用？
+### 4、TS中的类型断言有什么作用？
 &emsp;&emsp;类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。 它没有运行时的影响，只是在编译阶段起作用。TS会假设程序员进行了必须的检查。
 ```js
 //写法一
@@ -496,34 +588,3 @@ let strLength: number = (`<string>`someValue).length;
 let strLength: number = (someValue as string).length
 ```
 
-
-&emsp;&emsp;2、使用监听器监听`DomContentLoaded`来判断页面加载是否完成，`DOMContentLoaded`事件在初始的HTML被完全加载和解析完成后触发，但不等待样式表、图片等资源加载，需要注意兼容性问题。
-```js
-if('addEventListener' in document){
-   window.addEventListener("DOMContentLoaded", () => {
-    if (document.readyState === "complete") {
-        console.log('DOM已完全加载');
-    } else if (document.readyState === "interactive") {
-        console.log('DOM已准备好，但资源仍在加载');
-    }
-    },false)//false代表在冒泡阶段触发，true在捕获阶段触发
-}
-//并结合document.readyState属性来判断DOM是否已准备好
-```
-&emsp;&emsp;3、使用监听器监听`load`事件，`load`事件在页面所有资源（包括样式表、图片等）加载完成后触发.
-```js
-window.addEventListener("load", () => {
-  if (document.readyState === "complete") {
-    console.log('所有资源已加载完成');
-  } else if (document.readyState === "interactive") {
-    console.log('DOM已准备好，但资源仍在加载');
-  }
-});
-//并结合document.readyState属性来判断DOM是否已准备好
-```
-&emsp;&emsp;4、JQuery中可以使用的方法
-```js
-$(function(){})
-$(document).ready(function(){
-})// document 不写默认document
-```
