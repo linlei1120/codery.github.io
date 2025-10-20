@@ -651,3 +651,23 @@ methods: {
 &emsp;&emsp;模板语法是一种基于HTML语法，模板语法使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上；
 
 &emsp;&emsp;解析原理主要是：将模板解析成`AST抽象语法树`，对AST进行优化，然后将其转换为`渲染函数的JS代码`，最终生成能够接受数据并返回虚拟DON的JS函数。
+
+## 40、Vue中`v-once`和`v-memo`有什么不同？
+
+&emsp;&emsp;***`v-once`用于仅渲染元素和组件一次，之后的更新则会跳过，可以有效优化性能；`v-memo`指令同样也是用于缓存模板的子树，但是它需要传入固定长度的依赖值数组进行比较，增加了缓存的灵活性，通常与`v-for`指令一起使用；***
+
+```html
+<!--  v-once -->
+<span v-once>This will never change: {{msg}}</span>
+<!-- 带有子元素的元素 -->
+<div v-once>
+  <h1>Comment</h1>
+  <p>{{msg}}</p>
+</div>
+
+<!-- v-memo -->
+<div v-for="item in list" :key="item.id" v-memo="[item.id === selected]">
+  <p>ID: {{ item.id }} - selected: {{ item.id === selected }}</p>
+  <p>...more child nodes</p>
+</div>
+```

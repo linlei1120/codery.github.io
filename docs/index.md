@@ -57,7 +57,7 @@ features:
     icon:
       src: /icon_feature25.svg
     details: 无论是工作还是学习生活，都绕不开计划管理，合理的计划安排和行动执行才能有效地输出结果。常见的执行力思维模型包括：SMART模型、OKR工作法、甘特图工作计划、POA执行公式、WOOP思维模型等....
-    link: https://carlosme.fun
+    link: /abilityModel.md
     linkText: 查看详情
   - title: PWA 周边生态
     icon:

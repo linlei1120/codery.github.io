@@ -1,0 +1,11 @@
+# 十大执行力模型
+![Example Image](./public/actionMoudle/model01.jpg)
+![Example Image](./public/actionMoudle/model02.jpg)
+![Example Image](./public/actionMoudle/model03.jpg)
+![Example Image](./public/actionMoudle/model04.jpg)
+![Example Image](./public/actionMoudle/model05.jpg)
+![Example Image](./public/actionMoudle/model06.jpg)
+![Example Image](./public/actionMoudle/model07.jpg)
+![Example Image](./public/actionMoudle/model08.jpg)
+![Example Image](./public/actionMoudle/model09.jpg)
+![Example Image](./public/actionMoudle/model10.jpg)
