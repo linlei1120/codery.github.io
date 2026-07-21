@@ -4,6 +4,21 @@ hero:
   name: 工作项目合集
 features:
   - icon: 
+      src: /dj-life-icon.png
+    title: 嘀加智享车生活后台管理系统
+    details: 该项目是企业级 SaaS 管理后台，面向汽车后市场/车生活业务，覆盖销售、营销、订单、商品、库存、财务、人员驻店、预警与系统配置等全流程运营与管理。...
+    link: https://pixso.cn/app/recent
+  - icon: 
+      src: /tapd-app-icon.png
+    title: 展业工具APP
+    details: 展业助手是一款面向汽车门店销售顾问的 Pad 端 uni-app 应用，用于客户接待录音、产品讲解、权益/案例办理及日常展业工具支持...
+    link: https://pixso.cn/app/recent
+  - icon: 
+      src: /glsk-bi-icon.png
+    title: 广联BI经营分析系统
+    details: 该项目面向汽车后市场业务的移动端 BI 报表系统，在企微内为总部、区域、门店和业务员提供经营总览、人效监测、业绩分析、预警推送和人才洞察等数据可视化能力...
+    link: https://codesign.qq.com/app/s/626893302170912
+  - icon: 
       src: /henqing-icon.png
     title: 横琴深合产业招商平台
     details: 该项目由深智城集团承建，主要用于高效管控合作区的招商关键信息，通过领导看板呈现招商信息、招商总览、招商动态、招商成果等数据，为合作区招商工作提供管理和决策支撑...
