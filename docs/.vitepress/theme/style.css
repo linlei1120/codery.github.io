@@ -140,3 +140,131 @@
 .vp-doc [class*="language-"] {
   background-color: #0d2135; /* 浅灰色背景 */
 }
+
+/* 可运行代码块：保留默认样式，追加运行按钮 */
+.vp-runnable-code {
+  position: relative;
+}
+
+.vp-runnable-code .vp-code-run-btn {
+  position: absolute;
+  top: 9px;
+  right: 44px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-brand-1);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.vp-runnable-code .vp-code-run-btn:hover {
+  color: var(--vp-c-brand-2);
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+}
+
+.vp-code-runner-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.vp-code-runner-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(1100px, 96vw);
+  height: min(760px, 92vh);
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg);
+  box-shadow: var(--vp-shadow-3);
+}
+
+.vp-code-runner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+}
+
+.vp-code-runner-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.vp-code-runner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--vp-c-brand-1);
+}
+
+.vp-code-runner-lang {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg);
+}
+
+.vp-code-runner-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--vp-c-text-2);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.vp-code-runner-close:hover {
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-1);
+}
+
+.vp-code-runner-body {
+  flex: 1;
+  min-height: 0;
+}
+
+.vp-code-runner-body .sp-wrapper {
+  height: 100% !important;
+}
+
+.vp-code-runner-fade-enter-active,
+.vp-code-runner-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.vp-code-runner-fade-enter-from,
+.vp-code-runner-fade-leave-to {
+  opacity: 0;
+}

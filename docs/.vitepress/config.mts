@@ -1,4 +1,8 @@
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitepress";
+import container from "markdown-it-container";
+import { renderSandbox } from "vitepress-plugin-sandpack";
+import { runnableCodePlugin } from "./theme/plugins/runnableCode";
 
 export default defineConfig({
   base:'/codery.github.io/',
@@ -6,6 +10,23 @@ export default defineConfig({
   description: "Codery's Blog Site",
   // header标签里面插入的内容
   head: [["link", { rel: "icon", href: "/favicon.ico" }]],
+  markdown: {
+    config(md) {
+      md.use(runnableCodePlugin);
+      md.use(container, "sandbox", {
+        render(tokens, idx) {
+          return renderSandbox(tokens, idx, "sandbox");
+        },
+      });
+    },
+  },
+  vite: {
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("../", import.meta.url)),
+      },
+    },
+  },
   themeConfig: {
     // 网站的logo
     logo: "/logo.svg",
