@@ -224,7 +224,7 @@ export default defineConfig({
         text: 'UML设计模式',
           items: [
             { text: '创建型设计模式', link: '/UML/createPattern' },
-            { text: '结构型设计模式', link: '/UML/behaviorPattern' },
+            { text: '结构型设计模式', link: '/UML/structurePattern' },
             { text: '行为型设计模式', link: '/UML/behaviorPattern' },
           ]
       }],
