@@ -90,6 +90,9 @@ export default defineConfig({
           text: '微前端开发文档',
           link: '/microFrontend/index',
         },{
+          text: 'WebRTC开发文档',
+          link: '/webRTC/index',
+        },{
           text: '前端开发规范',
           link: '/devGuide/index',
         }] },
