@@ -1,10 +1,12 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitepress";
+import { withMermaid } from "vitepress-plugin-mermaid";
 import container from "markdown-it-container";
 import { renderSandbox } from "vitepress-plugin-sandpack";
 import { runnableCodePlugin } from "./theme/plugins/runnableCode";
 
-export default defineConfig({
+export default withMermaid(
+  defineConfig({
   base:'/codery.github.io/',
   title: "Codery's 的开发文档",
   description: "Codery's Blog Site",
@@ -20,11 +22,15 @@ export default defineConfig({
       });
     },
   },
+  mermaid: {},
   vite: {
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("../", import.meta.url)),
       },
+    },
+    optimizeDeps: {
+      include: ["mermaid"],
     },
   },
   themeConfig: {
@@ -246,4 +252,5 @@ export default defineConfig({
     // 部署的时候需要注意该参数避免样式丢失
     // base: "/vitepress-blog-template/",
   }
-});
+  })
+);
