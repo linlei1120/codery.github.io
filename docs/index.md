@@ -59,12 +59,12 @@ features:
     details: 无论是工作还是学习生活，都绕不开计划管理，合理的计划安排和行动执行才能有效地输出结果。常见的执行力思维模型包括：SMART模型、OKR工作法、甘特图工作计划、POA执行公式、WOOP思维模型等....
     link: /abilityModel.md
     linkText: 查看详情
-  - title: PWA 周边生态
+  - title: 网络安全入门
     icon:
       src: /icon_feature26.svg
-    details: PWA（渐进式Web应用）生态包括Service Workers、Web App Manifest、响应式设计、离线支持、推送通知和应用缓存等技术，旨在提升Web应用的性能和用户体验，接近原生应用的功能。
-    link: https://carlosme.fun
-    linkText: 
+    details: 梳理 XSS、CSRF、SQL注入、越权、SSRF、JWT误用等常见网络安全问题，覆盖攻击原理、防护手段、Cookie/响应头配置与纵深防御自检清单，适合前端与全栈日常排障参考...
+    link: /networkSecurity/index
+    linkText: 查看详情
   - title: PWA 周边生态
     icon:
       src: /icon_feature28.svg
