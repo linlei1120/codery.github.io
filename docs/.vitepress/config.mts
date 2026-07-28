@@ -262,6 +262,19 @@ export default withMermaid(
             { text: '插件开发', link: '/frontRefined/rollupFiles#插件开发' },
             { text: '常见问题速查', link: '/frontRefined/rollupFiles#常见问题速查' },
           ]
+      }],
+      '/react/': [{
+        text: 'React 开发文档',
+          items: [
+            { text: '学习路线总览', link: '/react/reactFiles' },
+            { text: '① 入门基础', link: '/react/reactIntro' },
+            { text: '② 组件与数据流', link: '/react/reactComponents' },
+            { text: '③ Hooks 精讲', link: '/react/reactHooks' },
+            { text: '④ 路由与页面', link: '/react/reactRouter' },
+            { text: '⑤ 状态管理', link: '/react/reactState' },
+            { text: '⑥ 综合实战', link: '/react/reactPractice' },
+            { text: '⑦ 性能与工程化', link: '/react/reactAdvanced' },
+          ]
       }]
     },
     // 社交链接
