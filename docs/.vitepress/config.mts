@@ -99,6 +99,9 @@ export default withMermaid(
           text: 'WebRTC开发文档',
           link: '/webRTC/index',
         },{
+          text: 'Rollup开发文档',
+          link: '/frontRefined/rollupFiles',
+        },{
           text: '前端开发规范',
           link: '/devGuide/index',
         }] },
@@ -244,6 +247,20 @@ export default withMermaid(
             { text: 'webRTC连接', link: '/webRTC/connect' },
             { text: 'webRTC服务器', link: '/webRTC/server' },
             { text: 'webRTC案例', link: '/webRTC/example' },
+          ]
+      }],
+      '/frontRefined/': [{
+        text: 'Rollup开发文档',
+          items: [
+            { text: 'Rollup概述', link: '/frontRefined/rollupFiles#rollup-概述' },
+            { text: '常用命令行', link: '/frontRefined/rollupFiles#常用命令行' },
+            { text: 'API的使用', link: '/frontRefined/rollupFiles#api-的使用' },
+            { text: '实践入门', link: '/frontRefined/rollupFiles#rollup-实践入门' },
+            { text: 'ESM语法', link: '/frontRefined/rollupFiles#rollup-的-esm-语法' },
+            { text: 'Rollup集成', link: '/frontRefined/rollupFiles#rollup-集成' },
+            { text: '配置选项', link: '/frontRefined/rollupFiles#配置选项' },
+            { text: '插件开发', link: '/frontRefined/rollupFiles#插件开发' },
+            { text: '常见问题速查', link: '/frontRefined/rollupFiles#常见问题速查' },
           ]
       }]
     },
