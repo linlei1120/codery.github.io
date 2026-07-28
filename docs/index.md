@@ -45,13 +45,13 @@ features:
     icon:
       src: /icon_feature23.svg
     details: 在计算机科学中，数据结构是一种数据组织、管理和存储的格式。它是相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术相关...
-    link: https://carlosme.fun
+    link: /featuresFiles/dataStructure.md
     linkText: 查看详情
   - title: 算法基础大全
     icon:
       src: /icon_feature24.svg
     details: 算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出...
-    link: https://carlosme.fun
+    link: /featuresFiles/algorithmBasics.md
     linkText: 查看详情
   - title: 10大执行力思维模型
     icon:
