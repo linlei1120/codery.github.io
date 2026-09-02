@@ -246,14 +246,14 @@ function stopWorker() {
 ```
 
 ### 12、JS原生判断页面加载完成的方式
-####(1) 利用Window对象中的onLoad方法判断。
+(1) 利用Window对象中的onLoad方法判断。
 
 &emsp;&emsp; 触发时机：页面所有资源（包括图片、脚本、CSS 等）完全加载完成后触发。
 ```js
     window.onload = function(){}
 ```
 
-####(2) DOMContentLoaded事件。
+(2) DOMContentLoaded事件。
 
 &emsp;&emsp; 触发时机：HTML 文档完全加载和解析完成后触发，无需等待样式表、图像和子框架完成加载。
 ```js
@@ -261,8 +261,7 @@ function stopWorker() {
          console.log('DOM完全加载并解析完成');
     })
 ```
-
-####(3) 使用监听器监听`load`事件，`load`事件在页面所有资源（包括样式表、图片等）加载完成后触发.
+(3) 使用监听器监听`load`事件，`load`事件在页面所有资源（包括样式表、图片等）加载完成后触发.
 ```js
 window.addEventListener("load", () => {
   if (document.readyState === "complete") {
@@ -586,5 +585,918 @@ let someValue: any = "this string"
 let strLength: number = (`<string>`someValue).length;
 //写法二 推荐as写法
 let strLength: number = (someValue as string).length
+```
+
+### 5、TS中的泛型是什么？有什么作用？
+&emsp;&emsp;泛型是指在定义函数、接口或类时，不预先指定具体类型，而是在使用时动态指定类型的一种特性。它可以**提高代码的可复用性和类型安全性**。
+
+**泛型基础语法：**
+```ts
+// 泛型函数
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+// 使用方式一：类型推断
+let output1 = identity<string>("hello");
+
+// 使用方式二：类型参数推断
+let output2 = identity(42); // TS自动推断为 number
+```
+
+**泛型接口：**
+```ts
+interface GenericInterface<T, U> {
+    key: T;
+    value: U;
+}
+
+const info: GenericInterface<string, number> = {
+    key: "age",
+    value: 25
+};
+```
+
+**泛型约束：**
+```ts
+// 限制泛型必须包含特定属性
+interface Lengthwise {
+    length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);  // 可以访问 length 属性
+    return arg;
+}
+
+loggingIdentity({ length: 10, value: "test" }); // ✓
+loggingIdentity(123); // ✗ 数字没有 length 属性
+```
+
+### 6、TS中的类（Class）有哪些特性？
+&emsp;&emsp;TypeScript中的类是对ES6类的扩展，提供了更强大的类型系统支持，包括访问修饰符、抽象类、接口实现等特性。
+
+**访问修饰符：**
+```ts
+class Person {
+    public name: string;      // 公有属性，默认为 public
+    protected age: number;    // 受保护属性，仅自己和子类可访问
+    private hobby: string;    // 私有属性，仅自身可访问
+    readonly id: string;      // 只读属性，不能修改
+
+    constructor(name: string, age: number, hobby: string, id: string) {
+        this.name = name;
+        this.age = age;
+        this.hobby = hobby;
+        this.id = id;
+    }
+
+    public introduce(): void {
+        console.log(`我是${this.name}，今年${this.age}岁`);
+    }
+}
+
+const person = new Person("张三", 20, "coding", "001");
+console.log(person.name);    // ✓ 公有属性可访问
+console.log(person.age);     // ✗ 受保护属性不可访问
+console.log(person.hobby);   // ✗ 私有属性不可访问
+```
+
+**类的继承和重写：**
+```ts
+class Student extends Person {
+    public grade: string;
+
+    constructor(name: string, age: number, hobby: string, id: string, grade: string) {
+        super(name, age, hobby, id);
+        this.grade = grade;
+    }
+
+    // 重写父类方法
+    public introduce(): void {
+        super.introduce(); // 调用父类方法
+        console.log(`我的年级是${this.grade}`);
+    }
+}
+```
+
+**抽象类：**
+```ts
+// 抽象类不能被实例化，只能被继承
+abstract class Animal {
+    abstract makeSound(): void; // 抽象方法，子类必须实现
+
+    move(): void {
+        console.log("动物移动");
+    }
+}
+
+class Dog extends Animal {
+    makeSound(): void {
+        console.log("汪汪汪");
+    }
+}
+```
+
+### 7、TS中的枚举（Enum）有什么作用？
+&emsp;&emsp;枚举是一组有名字的常量集合，可以更清晰地表达意图，提高代码可读性。TypeScript支持数字枚举和字符串枚举。
+
+**数字枚举：**
+```ts
+enum Direction {
+    Up,      // 默认值为 0
+    Down,    // 1
+    Left,    // 2
+    Right    // 3
+}
+
+console.log(Direction.Up);      // 0
+console.log(Direction[0]);      // "Up" 反向映射
+
+// 支持自定义起始值
+enum Status {
+    Pending = 1,
+    Success,
+    Error
+}
+console.log(Status.Success);   // 2
+```
+
+**字符串枚举：**
+```ts
+enum Message {
+    Success = "SUCCESS",
+    Error = "ERROR",
+    Loading = "LOADING"
+}
+
+console.log(Message.Success);  // "SUCCESS"
+```
+
+**常量枚举：**
+```ts
+// 使用 const 声明的枚举会被编译为常量，提高性能
+const enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+console.log(Color.Red); // 直接编译为 0
+```
+
+### 8、TS中的联合类型和交叉类型有什么区别？
+&emsp;&emsp;联合类型表示值可以是多种类型之一，交叉类型表示同时具备多种类型的特性。
+
+**联合类型（Union Types）：**
+```ts
+type StringOrNumber = string | number;
+
+// 函数参数可以是字符串或数字
+function printId(id: string | number): void {
+    // 在联合类型中，只能访问所有类型的共有属性
+    console.log("ID:", id);
+}
+
+printId("123");   // ✓
+printId(456);     // ✓
+
+// 类型收窄（Type Guard）
+function padLeft(value: string | number): string {
+    if (typeof value === "string") {
+        return value + " world"; // value 在这里是 string
+    }
+    return value.toFixed(2);     // value 在这里是 number
+}
+```
+
+**交叉类型（Intersection Types）：**
+```ts
+interface Person {
+    name: string;
+}
+
+interface Employee {
+    code: number;
+}
+
+// 同时具备两个接口的特性
+type EmployeePerson = Person & Employee;
+
+const employee: EmployeePerson = {
+    name: "张三",
+    code: 1001
+};
+```
+
+### 9、TS中的 keyof 和 typeof 有什么作用？
+&emsp;&emsp;`keyof`用于获取对象类型的键名组成的联合类型，`typeof`用于获取变量的类型。
+
+**keyof 操作符：**
+```ts
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+// 获取 User 的所有键名
+type UserKeys = keyof User; // "id" | "name" | "email"
+
+// 泛型约束：确保属性存在
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+    return obj[key];
+}
+
+const user: User = { id: 1, name: "张三", email: "zhangsan@example.com" };
+const userName = getProperty(user, "name");    // string
+const userId = getProperty(user, "id");        // number
+getProperty(user, "age");                       // ✗ "age" 不在 User 中
+```
+
+**typeof 操作符：**
+```ts
+const user = {
+    name: "张三",
+    age: 25,
+    isActive: true
+};
+
+// 获取对象的类型
+type UserType = typeof user;
+// 等同于：
+// {
+//     name: string;
+//     age: number;
+//     isActive: boolean;
+// }
+
+// 配合 keyof 使用
+type UserKeys2 = keyof typeof user; // "name" | "age" | "isActive"
+```
+
+### 10、TS中的装饰器（Decorator）是什么？
+&emsp;&emsp;装饰器是一种特殊类型的声明，可以附加到类声明、方法、访问符、属性或参数上，用于修改类的行为。装饰器采用 `@decorator` 形式。
+
+**注意：启用装饰器需要在 `tsconfig.json` 中设置 `"experimentalDecorators": true`**
+
+**类装饰器：**
+```ts
+function sealed(constructor: Function) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
+
+@sealed
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+```
+
+**方法装饰器：**
+```ts
+function readonly(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    descriptor.writable = false;
+}
+
+class Person {
+    @readonly
+    name(): string {
+        return "张三";
+    }
+}
+```
+
+**参数装饰器：**
+```ts
+function log(target: any, methodName: string, paramIndex: number) {
+    console.log(`参数位置: ${paramIndex}, 方法名: ${methodName}`);
+}
+
+class Calculator {
+    add(@log a: number, @log b: number): number {
+        return a + b;
+    }
+}
+```
+
+### 11、TS中的映射类型（Mapped Types）是什么？
+&emsp;&emsp;映射类型是通过已有类型创建新类型的方式，可以对类型的每个属性进行转换。
+
+**基础映射类型：**
+```ts
+// 将所有属性变为可选
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+
+// 将所有属性变为必填
+type Required<T> = {
+    [P in keyof T]-?: T[P];
+};
+
+// 将所有属性变为只读
+type Readonly<T> = {
+    readonly [P in keyof T]: T[P];
+};
+
+interface User {
+    id: number;
+    name: string;
+    age: number;
+}
+
+type PartialUser = Partial<User>;
+// 等同于 { id?: number; name?: string; age?: number; }
+
+type RequiredUser = Required<User>;
+// 所有属性都变为必填
+
+type ReadonlyUser = Readonly<User>;
+// 所有属性都变为只读
+```
+
+**自定义映射类型：**
+```ts
+// 将所有属性值变为 string 类型
+type Stringify<T> = {
+    [P in keyof T]: string;
+};
+
+type UserStringify = Stringify<User>;
+// { id: string; name: string; age: string; }
+
+// 条件映射
+type PickByValueType<T, U> = {
+    [P in keyof T]: T[P] extends U ? P : never;
+};
+
+type StringKeys = PickByValueType<User, string>; // "name"
+type NumberKeys = PickByValueType<User, number>; // "id" | "age"
+```
+
+### 12、TS中的条件类型（Conditional Types）是什么？
+&emsp;&emsp;条件类型用于根据其他类型的结构来决定最终的类型，类似于编程语言中的三元运算符。
+
+**基础条件类型：**
+```ts
+type T1 = string extends number ? "yes" : "no";  // "no"
+type T2 = any extends string ? "yes" : "no";      // "yes"
+
+// 泛型条件类型
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+type T3 = NonNullable<string | null | undefined>; // string
+type T4 = NonNullable<number | undefined>;        // number
+```
+
+**分发条件类型：**
+```ts
+type Extract<T, U> = T extends U ? T : never;
+
+type T5 = Extract<"a" | "b" | "c", "a" | "b">; // "a" | "b"
+type T6 = Extract<number | string | boolean, string>; // string
+
+type Exclude<T, U> = T extends U ? never : T;
+
+type T7 = Exclude<"a" | "b" | "c", "a" | "b">; // "c"
+type T8 = Exclude<number | string | boolean, string>; // number | boolean
+```
+
+**条件类型与泛型结合：**
+```ts
+type MessageOf<T> = T extends { message: any } ? T["message"] : never;
+
+interface Dog {
+    message: string;
+    name: string;
+}
+
+interface Cat {
+    name: string;
+}
+
+type DogMessage = MessageOf<Dog>;   // string
+type CatMessage = MessageOf<Cat>;   // never
+```
+
+### 13、TS中的 infer 关键字有什么用？
+&emsp;&emsp;`infer`用于在条件类型中声明一个类型变量，可以在条件类型的"extends"语句中推断这个变量。
+
+**推断返回类型：**
+```ts
+type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
+
+function fetchUser(): Promise<{ id: number; name: string }> {
+    return Promise.resolve({ id: 1, name: "张三" });
+}
+
+type FetchResult = ReturnType<typeof fetchUser>; // Promise<{ id: number; name: string }>
+```
+
+**推断函数参数：**
+```ts
+type Parameters<T> = T extends (...args: infer P) => any ? P : never;
+
+function createUser(name: string, age: number): User {
+    return { name, age };
+}
+
+type UserParams = Parameters<typeof createUser>; // [name: string, age: number]
+```
+
+**推断数组元素类型：**
+```ts
+type ElementType<T> = T extends (infer E)[] ? E : T;
+
+type Numbers = ElementType<number[]>;  // number
+type String = ElementType<string[]>;   // string
+```
+
+### 14、TS中的内置工具类型有哪些？
+&emsp;&emsp;TypeScript提供了一系列内置的工具类型，用于常见的类型转换。
+
+**Partial 和 Required：**
+```ts
+// Partial: 将所有属性变为可选
+interface Config {
+    host: string;
+    port: number;
+    timeout?: number;
+}
+
+// Partial 的手动实现
+type MyPartial<T> = {
+    [P in keyof T]?: T[P];
+};
+
+// Required: 将所有属性变为必填
+type MyRequired<T> = {
+    [P in keyof T]-?: T[P]; // -? 表示移除可选标记
+};
+```
+
+**Pick 和 Omit：**
+```ts
+// Pick: 从类型中选取部分属性
+type MyPick<T, K extends keyof T> = {
+    [P in K]: T[P];
+};
+
+interface Todo {
+    title: string;
+    description: string;
+    completed: boolean;
+}
+
+type TodoPreview = MyPick<Todo, "title" | "completed">;
+// { title: string; completed: boolean; }
+
+// Omit: 从类型中移除部分属性
+type MyOmit<T, K extends keyof T> = MyPick<T, Exclude<keyof T, K>>;
+
+type TodoInfo = MyOmit<Todo, "completed">;
+// { title: string; description: string; }
+```
+
+**Record：**
+```ts
+// Record: 创建具有特定键值对的类型
+type MyRecord<K extends keyof any, T> = {
+    [P in K]: T;
+};
+
+type PageInfo = "home" | "about" | "contact";
+
+const pageContent: MyRecord<PageInfo, { title: string; content: string }> = {
+    home: { title: "首页", content: "欢迎" },
+    about: { title: "关于", content: "关于我们" },
+    contact: { title: "联系", content: "联系方式" }
+};
+```
+
+**Exclude 和 Extract：**
+```ts
+// Exclude: 从联合类型中排除某些类型
+type T1 = Exclude<"a" | "b" | "c", "a" | "b">; // "c"
+
+// Extract: 从联合类型中提取某些类型
+type T2 = Extract<"a" | "b" | "c", "a" | "b">; // "a" | "b"
+```
+
+**ReturnType 和 Parameters：**
+```ts
+// ReturnType: 获取函数返回类型
+type T3 = ReturnType<() => string>;  // string
+type T4 = ReturnType<() => Promise<number>>;  // Promise<number>
+
+// Parameters: 获取函数参数类型为元组
+type T5 = Parameters<(name: string, age: number) => void>;  // [name: string, age: number]
+```
+
+### 15、TS中的模块（Module）和命名空间（Namespace）有什么区别？
+&emsp;&emsp;模块和命名空间都是组织代码的方式，但使用场景和语法有所不同。
+
+**模块（Module）：**
+```ts
+// user.ts
+export interface User {
+    id: number;
+    name: string;
+}
+
+export function getUser(): User {
+    return { id: 1, name: "张三" };
+}
+
+// main.ts
+import { User, getUser } from "./user";
+const user: User = getUser();
+```
+
+**命名空间（Namespace）：**
+```ts
+// 在早期TypeScript中常用，现在推荐使用模块
+namespace Validation {
+    export interface StringValidator {
+        isAcceptable(s: string): boolean;
+    }
+
+    const lettersRegexp = /^[A-Za-z]+$/;
+
+    export class LettersOnlyValidator implements StringValidator {
+        isAcceptable(s: string): boolean {
+            return lettersRegexp.test(s);
+        }
+    }
+}
+
+// 使用命名空间
+let validator = new Validation.LettersOnlyValidator();
+console.log(validator.isAcceptable("abc")); // true
+```
+
+**主要区别：**
+| 特性 | 模块 | 命名空间 |
+|------|------|---------|
+| 导入方式 | import/export | 命名空间引用 |
+| 编译目标 | ES6模块 | 可编译为单个文件 |
+| 使用场景 | 现代项目首选 | 旧项目兼容 |
+| 循环依赖 | 支持 | 有限支持 |
+
+### 16、TS中的类型收窄（Narrowing）有哪些方式？
+&emsp;&emsp;类型收窄是TypeScript通过代码分析确定更精确类型的过程，常见方式包括类型守卫、条件检查等。
+
+**typeof 类型收窄：**
+```ts
+function padLeft(value: string | number): string {
+    if (typeof value === "string") {
+        return value + " world"; // value 收窄为 string
+    }
+    return value.toFixed(2); // value 收窄为 number
+}
+```
+
+**instanceof 类型收窄：**
+```ts
+class Cat {
+    meow(): void {
+        console.log("喵喵喵");
+    }
+}
+
+class Dog {
+    bark(): void {
+        console.log("汪汪汪");
+    }
+}
+
+function sound(animal: Cat | Dog): void {
+    if (animal instanceof Cat) {
+        animal.meow();
+    } else {
+        animal.bark();
+    }
+}
+```
+
+**in 操作符收窄：**
+```ts
+interface Fish {
+    swim(): void;
+}
+
+interface Bird {
+    fly(): void;
+}
+
+function move(animal: Fish | Bird): void {
+    if ("swim" in animal) {
+        animal.swim();
+    } else {
+        animal.fly();
+    }
+}
+```
+
+**自定义类型守卫：**
+```ts
+interface Person {
+    name: string;
+    age: number;
+}
+
+function isPerson(obj: any): obj is Person {
+    return obj && typeof obj.name === "string" && typeof obj.age === "number";
+}
+
+function introduce(obj: any): string {
+    if (isPerson(obj)) {
+        return `我叫${obj.name}，今年${obj.age}岁`;
+    }
+    return "未知类型";
+}
+```
+
+### 17、TS中的类型守卫（Type Guard）有哪些实现方式？
+&emsp;&emsp;类型守卫是用于缩小类型范围的条件表达式，帮助TypeScript更精确地推断类型。
+
+**in 操作符守卫：**
+```ts
+interface Admin {
+    role: "admin";
+    permissions: string[];
+}
+
+interface User {
+    role: "user";
+    username: string;
+}
+
+function checkAccess(person: Admin | User): string {
+    if ("permissions" in person) {
+        return `管理员权限: ${person.permissions.join(", ")}`;
+    }
+    return `用户: ${person.username}`;
+}
+```
+
+**字面量类型守卫：**
+```ts
+type Shape = { kind: "circle"; radius: number } | { kind: "rectangle"; width: number; height: number };
+
+function getArea(shape: Shape): number {
+    if (shape.kind === "circle") {
+        return Math.PI * shape.radius ** 2;
+    }
+    return shape.width * shape.height;
+}
+```
+
+**可辨识联合类型：**
+```ts
+interface SuccessState {
+    result: "success";
+    data: string;
+}
+
+interface ErrorState {
+    result: "error";
+    message: string;
+}
+
+type Response = SuccessState | ErrorState;
+
+function handleResponse(response: Response): void {
+    if (response.result === "success") {
+        console.log("数据:", response.data);
+    } else {
+        console.log("错误:", response.message);
+    }
+}
+```
+
+### 18、TS中的 this 类型如何定义？
+&emsp;&emsp;TypeScript允许显式声明函数中 this 的类型，this 类型必须在返回值类型之前声明。
+
+**基础 this 类型：**
+```ts
+function f(this: void): void {
+    console.log("不依赖 this 上下文");
+}
+```
+
+**在类方法中使用：**
+```ts
+class Handler {
+    info: string = "";
+
+    // 显式指定 this 类型
+    greet(this: Handler): void {
+        console.log(`Hello, ${this.info}`);
+    }
+
+    // 使用箭头函数则不需要指定 this 类型
+    greetArrow = (): void => {
+        console.log(`Hello Arrow, ${this.info}`);
+    };
+}
+
+const handler = new Handler();
+handler.greet(); // ✓ 正确
+handler.greetArrow(); // ✓ 正确
+```
+
+**泛型约束中的 this：**
+```ts
+interface Typed {
+    name: string;
+}
+
+function withName<T extends Typed>(obj: T): T & { getName: () => string } {
+    return {
+        ...obj,
+        getName: () => this.name // 这里 this 需要类型
+    };
+}
+```
+
+### 19、TS中的 declare 关键字有什么作用？
+&emsp;&emsp;`declare`用于声明全局类型、环境变量、模块等，不会生成实际的JavaScript代码，仅用于类型检查。
+
+**声明全局变量：**
+```ts
+declare var $: (selector: string) => any;
+
+$("#myDiv").hide();
+```
+
+**声明模块：**
+```ts
+declare module "my-module" {
+    export function doSomething(): void;
+    export const VERSION: string;
+}
+
+// 使用
+import { doSomething, VERSION } from "my-module";
+```
+
+**声明文件：**
+```ts
+// global.d.ts
+declare global {
+    interface Window {
+        myGlobalFunction: () => void;
+    }
+
+    namespace NodeJS {
+        interface ProcessEnv {
+            NODE_ENV: "development" | "production";
+        }
+    }
+}
+```
+
+### 20、TS的高级技巧：递归类型
+&emsp;&emsp;TypeScript支持递归类型定义，用于处理嵌套结构。
+
+**深度只读类型：**
+```ts
+type DeepReadonly<T> = {
+    readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
+};
+
+interface NestedConfig {
+    database: {
+        host: string;
+        port: number;
+    };
+    cache: {
+        enabled: boolean;
+    };
+}
+
+type ReadonlyConfig = DeepReadonly<NestedConfig>;
+// 所有嵌套属性都变为只读
+```
+
+**深度可选类型：**
+```ts
+type DeepPartial<T> = {
+    [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+interface Company {
+    name: string;
+    departments: {
+        name: string;
+        employees: { name: string; salary: number }[];
+    }[];
+}
+
+type PartialCompany = DeepPartial<Company>;
+// 所有层级都可以选
+```
+
+### 21、TS中的 Mixin（混入）模式
+&emsp;&emsp;Mixin是一种代码复用模式，允许将多个类的功能组合到一个新类中。
+
+```ts
+// 可混入类
+function Timestamped<T extends new (...args: any[]) => any>(Base: T) {
+    return class extends Base {
+        timestamp = Date.now();
+    };
+}
+
+function Serializable<T extends new (...args: any[]) => any>(Base: T) {
+    return class extends Base {
+        serialize(): string {
+            return JSON.stringify(this);
+        }
+    };
+}
+
+// 使用混入
+class User {
+    constructor(public name: string) {}
+}
+
+const TimestampedUser = Timestamped(User);
+const SerializableUser = Serializable(User);
+
+// 多重混入
+const UserMixin = Serializable(Timestamped(User));
+
+const user = new UserMixin("张三");
+console.log(user.timestamp);      // 时间戳
+console.log(user.serialize());   // JSON 序列化
+```
+
+### 22、TS中的协变与逆变（Covariance & Contravariance）
+&emsp;&emsp;协变和逆变是类型系统中的重要概念，用于描述类型之间的子类型关系。
+
+**协变（Covariance）：**
+```ts
+// 返回类型可以协变
+class Animal {}
+class Dog extends Animal {
+    bark(): void {}
+}
+
+type AnimalFn = () => Animal;
+type DogFn = () => Dog;
+
+// DogFn 是 AnimalFn 的子类型（可以安全赋值）
+const animalFn: AnimalFn = (() => new Dog()) as DogFn;
+```
+
+**逆变（Contravariance）：**
+```ts
+// 参数类型逆变
+class Animal {}
+class Dog extends Animal {
+    bark(): void {}
+}
+
+type AnimalConsumer = (animal: Animal) => void;
+type DogConsumer = (dog: Dog) => void;
+
+// AnimalConsumer 是 DogConsumer 的子类型
+const dogConsumer: DogConsumer = ((animal: Animal) => {
+    console.log(animal);
+}) as AnimalConsumer;
+```
+
+**TS中的处理：**
+```ts
+// TypeScript默认使用双变（Bivariant）策略：
+// 1. 函数参数是双向协变的（对于方法兼容）
+// 2. 函数参数是非协变的（对于函数声明）
+
+interface Animal {
+    name: string;
+}
+
+interface Dog extends Animal {
+    breed: string;
+}
+
+function visitAnimal(animal: Animal): void {
+    console.log(animal.name);
+}
+
+function visitDog(dog: Dog): void {
+    console.log(dog.name, dog.breed);
+}
+
+const animalFn: (dog: Dog) => void = visitAnimal; // ✓ 允许
 ```
 
