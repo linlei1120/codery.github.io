@@ -89,6 +89,10 @@ export default withMermaid(
         },{
           text: 'React开发文档',
           link: '/react/reactFiles',
+        },
+        {
+          text: 'Electron开发文档',
+          link: '/ElectronStudy/ElectronIndex'
         },{
           text: 'Flutter开发文档',
           link: '/flutter/flutterFiles',
