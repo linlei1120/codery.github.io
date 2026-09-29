@@ -19,6 +19,21 @@ features:
     details: 该项目面向汽车后市场业务的移动端 BI 报表系统，在企微内为总部、区域、门店和业务员提供经营总览、人效监测、业绩分析、预警推送和人才洞察等数据可视化能力...
     link: https://codesign.qq.com/app/s/626893302170912
   - icon: 
+      src: /dj-logo.png
+    title: 嘀加数智SCRM系统
+    details: 该项目面向汽车行业的私域流量数字化营销平台，定位为专注汽车行业数字化+智能营销解决方案，帮助商户将流量转化为销量，该项目基于微前端架构，将大型后台拆分...
+    link: https://pixso.cn/app/recent
+  - icon: 
+      src: /dj-logo.png
+    title: 广联AI孪生智能体平台
+    details: 车行业智能助理 / 智能体场景，为汽车领域提供智能体全生命周期管理平台，覆盖知识库维护、岗位助理配置、智能体训练与质检等能力，帮助业务团队搭建、运营和优化 AI 智能助理...
+    link: https://pixso.cn/app/recent
+  - icon: 
+      src: /dj-logo.png
+    title: 广联生意助手员工版
+    details: 面向汽车 4S 店、园区店及驻店团队开发的微信小程序员工端，对外名称「精品升级」/「生意助手员工版」。小程序服务于门店一线销售、技师、驻店负责人、区域督导等角色，覆盖从...
+    link: https://pixso.cn/app/recent
+  - icon: 
       src: /henqing-icon.png
     title: 横琴深合产业招商平台
     details: 该项目由深智城集团承建，主要用于高效管控合作区的招商关键信息，通过领导看板呈现招商信息、招商总览、招商动态、招商成果等数据，为合作区招商工作提供管理和决策支撑...
@@ -28,6 +43,12 @@ features:
       light: /yunhan-icon-light.png
     title: 云焓EHS-Tools平台
     details: 该项目集成了ERP企业管理系统、工作危害分析（JHA）软件、智能巡检(IP)软件、设备完整性管理(MI)软件、作业许可证(PTW)软件、双重预防机制(DRM)软件等工业化工管理软件...
+    link: https://www.she-tools.com/#/
+  - icon:
+      dark: /yunhan-icon.png
+      light: /yunhan-icon-light.png
+    title: 云焓ERP咨询管理平台
+    details: 该项目通过整合企业财务、采购、生产、销售、库存等核心业务流程与数据，实现信息共享、流程协同和资源优化，从而提升运营效率与管理决策水平...
     link: https://lanhuapp.com/web/#/item/project/stage?tid=df098ad5-43b9-4c9f-a33e-b7a4ff95e742&pid=6bdf9045-93de-4093-ac68-6ee27a5a0e3f
   - icon:
       dark: /cec-icon.png
@@ -80,11 +101,11 @@ features:
       light: /zhenheyxs-icon.png
     title: 医学社小程序
     details: 该项目是作为基层医生中医学术交流以及医患交流平台，超过30万名基层医生从中受益，在国内中医培训行业形成巨大反响...
-  - icon:
-      dark: /guiybuild-icon.png
-      light: /guiybuild-icon.png
-    title: 贵阳市智慧工地监管平台
-    details: 该平台为贵阳市住建局提供了智慧工地数据治理，安全生产监管及劳务人员管理等功能，包括监管系统平台，劳务人员管理APP、可视化大屏等平台...
+  # - icon:
+  #     dark: /guiybuild-icon.png
+  #     light: /guiybuild-icon.png
+  #   title: 贵阳市智慧工地监管平台
+  #   details: 该平台为贵阳市住建局提供了智慧工地数据治理，安全生产监管及劳务人员管理等功能，包括监管系统平台，劳务人员管理APP、可视化大屏等平台...
   - icon:
       dark: /icon-pro-aifeng.png
       light: /icon-pro-aifeng.png

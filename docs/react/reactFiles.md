@@ -13,7 +13,7 @@ React 是由 Meta（原 Facebook）开源并维护的 **UI 库**，专注于用�
 | 维度 | React | Vue |
 | --- | --- | --- |
 | 定位 | UI 库（路由、状态需自行选型） | 渐进式框架（官方全家桶齐全） |
-| 模板 | JSX：HTML 与 JS 写在一起 | SFC：template / script / style 分离 |
+| 模板 | JSX/TSX：HTML 与 JS/TS 写在一起 | SFC：template / script / style 分离 |
 | 数据流 | 单向（props 向下，事件向上） | 单向为主，也有 `v-model` 双向语法糖 |
 | 响应式 | 调用 `setState` / Hooks 触发更新 | 依赖追踪，改数据自动更新 |
 | 复用逻辑 | 自定义 Hooks | Composables / Mixins |

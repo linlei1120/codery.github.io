@@ -47,7 +47,12 @@
 #### 5. 为什么 Electron 应用体积大？
 
 - 自带 Chromium 和 Node 运行时，每个应用都打包一份。
-- **优化方式**：asar、裁剪 locales、压缩、移除无用依赖、使用 electron-builder 配置。
+- **优化方式**：
+  - **asar**：将 `app` 目录打成单个 `.asar` 归档（`electron-builder` 默认 `asar: true`），减少散文件、加快读取；不能当作加密，体积收益有限。
+  - **裁剪 locales**：Chromium 自带大量语言包（`locales/*.pak`），只保留目标语言（如 `en-US`、`zh-CN`）；可在 `electron-builder` 配置 `electronLanguages`，或打包脚本里删除多余 `.pak`。
+  - **压缩**：前端构建开启 minify、tree-shaking、代码分割；压缩图片/字体/SVG；安装包侧可用 NSIS `compression: maximum` 等选项进一步减小分发体积。
+  - **移除无用依赖**：用 `depcheck`、bundle 分析工具审计依赖，删掉未使用的 npm 包；避免 devDependencies 进生产包；大库按需引入，不把整包 SDK 打进主进程。
+  - **electron-builder 配置**：用 `files` 白名单排除测试/文档/源码；`asarUnpack` 只解包必须读写的原生模块；按需选择 target（如只要 `portable` 不要 `nsis`）；用 `dir` 目标先分析 `resources/app` 体积再调优。
 
 ### 二、IPC 与安全
 
