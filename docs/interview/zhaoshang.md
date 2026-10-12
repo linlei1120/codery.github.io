@@ -296,21 +296,13 @@ Object.prototype
 
 例如：
 
-```jsx
+```js
 function CommentList() {
   const [comments, setComments] = useState([]);
-
   const addComment = (comment) => {
     setComments((prev) => [...prev, comment]);
   };
-
-  return (
-    <div>
-      {comments.map((comment) => (
-        <div key={comment.id}>{comment.text}</div>
-      ))}
-    </div>
-  );
+  return comments.map((comment) => comment.text);
 }
 ```
 
@@ -686,7 +678,7 @@ first().then((arg) => {
 console.log(4);
 ```
 
-**正确答案：其他（图中选项 `3 7 1 4 2 5 Promise{<resolved>: 1}` 是错误答案，正确输出为：`3 7 4 1 2 5 Promise{<resolved>: 1}`）**
+**正确答案：其他（图中选项 `3 7 1 4 2 5 Promise{&lt;resolved&gt;: 1}` 是错误答案，正确输出为：`3 7 4 1 2 5 Promise{&lt;resolved&gt;: 1}`）**
 
 **详细解析：**
 图片中的选项存在明显逻辑错误，缺少了 `6`，且对象内容描述混乱。
@@ -694,10 +686,10 @@ console.log(4);
    *同步输出：3, 7, 4*
 2. **微任务队列**：同步代码执行完毕，清空微任务队列。执行 `p.then` 回调（因为 `p` 的状态已为 resolved(1)），打印 `1`。执行 `first().then` 回调，打印 `2`。
    *微任务输出：1, 2*
-3. **宏任务队列**：微任务清空后，执行 `setTimeout` 回调。打印 `5`。执行 `resolve(6)`（由于 `p` 状态已定，被忽略）。打印 `p`，此时 `p` 的状态仍为 resolved 且值为 `1`，所以打印 `Promise {<resolved>: 1}`。
-   *宏任务输出：5, Promise{<resolved>: 1}*
+3. **宏任务队列**：微任务清空后，执行 `setTimeout` 回调。打印 `5`。执行 `resolve(6)`（由于 `p` 状态已定，被忽略）。打印 `p`，此时 `p` 的状态仍为 resolved 且值为 `1`，所以打印 `Promise {&lt;resolved&gt;: 1}`。
+   *宏任务输出：5, Promise{&lt;resolved&gt;: 1}*
 
-**最终输出结果：** `3 7 4 1 2 5 Promise{<resolved>: 1}`
+**最终输出结果：** `3 7 4 1 2 5 Promise{&lt;resolved&gt;: 1}`
 
 ---
 
@@ -745,7 +737,7 @@ console.log(4);
 **正确答案：第一个选项（`其他都对`）**
 
 **详细解析：**
-* `rem`（root em）是相对于根元素（通常是 `<html>` 元素）的 `font-size` 来计算的单位。
+* `rem`（root em）是相对于根元素（通常是 `&lt;html&gt;` 元素）的 `font-size` 来计算的单位。
 * 通过动态修改根元素的 `font-size`，可以方便地适配各种移动设备屏幕，所以选项二正确。
 * `rem` 确实是 CSS3 新增的相对单位，所以选项三正确。
 * `1rem` 等于根元素的 `font-size` 大小，所以选项四正确。
@@ -758,7 +750,7 @@ console.log(4);
 **选项：**
 1. `min-device-width`是用浏览器视口宽度作为判断条件
 2. 视口的尺寸可以随意指定，且视口与显示设备的物理分辨率无关。
-3. 可以通过 `<link media="screen && (min-width>768px)" rel="stylesheet" href="print.css">` 时，才执行 print.css 文件
+3. 可以通过 `&lt;link media="screen && (min-width&gt;768px)" rel="stylesheet" href="print.css"&gt;` 时，才执行 print.css 文件
 4. 媒体查询，即可使用浏览器的视口大小作为判断条件，又可使用物理设备的窗口大小作为判断条件
 
 **正确答案：第二个选项（`视口的尺寸可以随意指定，且视口与显示设备的物理分辨率无关。`）**
