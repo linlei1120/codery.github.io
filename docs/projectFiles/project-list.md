@@ -16,7 +16,7 @@ features:
   - icon: 
       src: /glsk-bi-icon.png
     title: 广联BI经营分析系统
-    details: 该项目面向汽车后市场业务的移动端 BI 报表系统，在企微内为总部、区域、门店和业务员提供经营总览、人效监测、业绩分析、预警推送和人才洞察等数据可视化能力...
+    details: 该项目面向汽车后市场业务的移动端 BI 报表系统，在企微内为总部、区域、门店和业务员提供经营总览、人效监测、业绩分析、预警推送和人才洞察等数据可视化能力并接入AI问数模块...
     link: https://codesign.qq.com/app/s/626893302170912
   - icon: 
       src: /dj-logo.png
@@ -25,13 +25,13 @@ features:
     link: https://pixso.cn/app/recent
   - icon: 
       src: /dj-logo.png
-    title: 广联AI孪生智能体平台
+    title: 广联AI营销孪生智能体平台
     details: 车行业智能助理 / 智能体场景，为汽车领域提供智能体全生命周期管理平台，覆盖知识库维护、岗位助理配置、智能体训练与质检等能力，帮助业务团队搭建、运营和优化 AI 智能助理...
     link: https://pixso.cn/app/recent
   - icon: 
-      src: /dj-logo.png
+      src: /syzs-dj.png
     title: 广联生意助手员工版
-    details: 面向汽车 4S 店、园区店及驻店团队开发的微信小程序员工端，对外名称「精品升级」/「生意助手员工版」。小程序服务于门店一线销售、技师、驻店负责人、区域督导等角色，覆盖从...
+    details: 面向汽车 4S 店、园区店及驻店团队开发的微信小程序员工端，对外名称「精品升级」/「生意助手员工版」。小程序服务于门店一线销售、技师、驻店负责人、区域督导等角色...
     link: https://pixso.cn/app/recent
   - icon: 
       src: /henqing-icon.png
