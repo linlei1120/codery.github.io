@@ -1354,13 +1354,23 @@ function async(generatorFunction){
 ## 23、箭头函数是什么，与普通函数有何区别
 &emsp;&emsp;箭头函数（Arrow Functions）是JavaScript ES6引入的一种简洁的函数语法，它允许开发者以更直观和高效的方式编写函数。以下是箭头函数与普通函数的主要区别：
 
-&emsp;&emsp;**① this指向：** 箭头函数的this指向始终是定义时的上下文对象，而普通函		数的this指向会根据调用方式发生变化；
+&emsp;&emsp;**① this指向：** 箭头函数的this指向始终是定义时的上下文对象，而普通函数的this指向会根据调用方式发生变化；
 
-&emsp;&emsp;**② arguments对象：** 箭头函数中没有arguments对象，而普通函数中则		可以通过arguments对象访问函数的参数列表；
+&emsp;&emsp;**② arguments对象：** 箭头函数中没有arguments对象，而普通函数中则可以通过arguments对象访问函数的参数列表；
 
 &emsp;&emsp;**③ 构造函数：** 箭头函数不能作为构造函数使用，而普通函数则可以；
 
 &emsp;&emsp;**④ prototype属性函数：** 箭头函数没有prototype属性，而普通函数可以通过prototype属性为函数添加方法；
+
+&emsp;&emsp;使用箭头函数常见的好处如下：
+
+&emsp;&emsp;**① 语法更简洁：** 省略 `function` 关键字，单参数可省略括号，函数体仅一条表达式时可省略 `{}` 并隐式返回，代码更短、可读性更好；
+
+&emsp;&emsp;**② 词法绑定 this，回调更省心：** 在定时器、DOM 事件、数组方法（如 `map` / `filter` / `forEach`）、Promise 链等场景里，不必再写 `const self = this`、`bind(this)` 或在外层保存 `this`，箭头函数会继承定义时所在作用域的 `this`；
+
+&emsp;&emsp;**③ 适合写纯函数式的小函数：** 无自己的 `arguments`、`prototype`，也不能 `new`，天然不适合当构造函数，更适合作为一次性回调或工具函数；
+
+&emsp;&emsp;**④ 与 ES6+ 写法一致：** 常与解构、默认参数、模板字符串、展开运算符等一起使用，现代框架（如 React 类组件外的函数组件、Hooks）和工具链也普遍推荐在合适场景用箭头函数替代冗长的普通函数写法。
 
 ---
 

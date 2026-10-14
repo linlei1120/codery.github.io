@@ -39,6 +39,65 @@
     └──────────┘    └──────────┘    └──────────┘
 ```
 
+#### 2.2.1 微应用跨域问题如何解决？
+
+微应用往往独立部署在不同端口或域名（如主应用在 `a.com`，子应用在 `b.com:3000`）。qiankun 采用 **HTML Entry**：主应用在浏览器里 **fetch 子应用的入口 HTML**，再解析其中的 `<script>`、`<link>` 并继续拉取 JS/CSS。这一步属于跨源网络请求，仍受浏览器 **同源策略 / CORS** 约束，qiankun 并不会像 iframe 那样自动绕过限制。
+
+常见应对方式：
+
+| 场景 | 做法 |
+|------|------|
+| **开发环境** | 子应用 `devServer` 响应头增加 `Access-Control-Allow-Origin`（或允许主应用源），使入口 HTML 与静态资源可被 fetch |
+| **开发环境（推荐）** | 主应用 **反向代理**：把 `/micro-react/` 等路径代理到子应用本地地址，对外表现为 **同域**，无需浏览器跨域 |
+| **生产环境** | 网关 / Nginx 将各微应用挂到 **同一主域** 的不同路径或子域，入口 URL 与主应用同源或已配置 CORS |
+| **定制请求** | `start({ fetch: customFetch })` 统一加凭证、走 BFF，或配合代理改写请求 |
+
+资源加载完成后，脚本在 **同一页面** 内通过 **JS 沙箱** 执行，子应用之间并不互相直接请求对方域名；跨域主要出现在 **「主应用加载子应用静态资源」** 这一环。应用间通信用 `props` / `initGlobalState`，与加载子应用时的 CORS 是不同问题。
+
+**打个比方：** 主应用像 **商场前台**，子应用像 **隔壁街区的专柜**。qiankun 的工作是前台派人去专柜 **把「开业说明书」（HTML）和货品（JS/CSS）取回来**，在本店一块场地里搭开展示（沙箱里运行）。浏览器规定：去 **别的街区** 拿货，对方专柜必须 **同意放行**（CORS）；或者让 **商场统一从自家仓库门进出货**（同域 + 反向代理），顾客眼里全是「本商场内部流转」，就不算跨街了。
+
+**本地开发小例子：**
+
+- 主应用：`http://localhost:8080`（qiankun 基座）
+- React 子应用：`http://localhost:3000`（`entry` 填这个地址）
+
+注册时主应用会去拉 `http://localhost:3000` 的 HTML。端口不同 = **不同源**，控制台可能出现 *blocked by CORS*。
+
+**做法 A — 子应用「同意放行」**（3000 端口 devServer 加响应头，示意）：
+
+```javascript
+// webpack / vue-cli 等 devServer 配置
+devServer: {
+  port: 3000,
+  headers: {
+    'Access-Control-Allow-Origin': 'http://localhost:8080', // 或开发阶段用 '*'
+  },
+}
+```
+
+**做法 B — 主应用「统一从自家门进货」**（推荐，8080 代理到 3000）：
+
+```javascript
+// 主应用 devServer
+devServer: {
+  port: 8080,
+  proxy: {
+    '/micro-react': {
+      target: 'http://localhost:3000',
+      changeOrigin: true,
+      pathRewrite: { '^/micro-react': '' },
+    },
+  },
+}
+
+// qiankun 注册时 entry 改为同域路径，而不是直连 3000
+registerMicroApps([
+  { name: 'react-app', entry: '/micro-react/', container: '#container', activeRule: '/react' },
+]);
+```
+
+浏览器只请求 `localhost:8080/micro-react/...`，由 devServer 转发到 3000，**对浏览器来说全程同源**，跨域问题自然消失。
+
 #### 2.3 JS 沙箱原理
 
 qiankun 通过代理 `window` 对象实现 JS 隔离：
@@ -216,6 +275,7 @@ actions.onGlobalStateChange((state) => {
 | 样式污染 | 开启 `strictStyleIsolation` 或使用 CSS Modules |
 | 全局事件监听未清理 | 在 unmount 中手动 removeEventListener |
 | 子应用静态资源 404 | 配置 webpack devServer 的 `headers` 和 `port` |
+| 入口 HTML / JS 跨域失败 | 子应用开 CORS，或主应用 devServer / Nginx 同源代理子应用 `entry` |
 | 应用间通信复杂 | 使用 Redux/Vuex + initGlobalState |
 | 子应用首次加载慢 | 开启 prefetch 预加载功能 |
 
