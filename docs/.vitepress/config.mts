@@ -128,7 +128,14 @@ export default withMermaid(
             text: '算法题解',
             link: '/algorithm/addAlg',
           }] },
-      { text: "AI知识文库", link: "/aiFiles/index" },
+      { text: "AI知识文库", items:[
+        {
+          text: 'AI基础知识',
+          link: '/aiFiles/index',
+        },{
+          text: 'Skills',
+          link: '/aiFiles/skills',
+        }]  },
       { text: "工作笔记",items:[
         {
           text: '2025年4月',

@@ -189,7 +189,7 @@ const valueProxy = useVModel(props, 'value', emit)
 
 ## 5、组件间事件
 &emsp;&emsp;① 触发及监听事件：在子组件中可以通过创建函数触发父组件中的`emits`函数，也可以直接在标签内联中进行`$emits`触发；
-```template
+```html
 <!-- 直接触发事件 -->
 <button @click="$emit('someEvent')">Click</button>
 <!-- 事件绑定监听 -->
@@ -199,7 +199,7 @@ const valueProxy = useVModel(props, 'value', emit)
 **注意：** 事件命名可以使用camelCase命名，也可以使用kebab-case命名；组件触发的事件没有冒泡机制，所以只能监听直接子组件触发的事件，平级组件或者跨组件多层嵌套的组件之间通信只能使用外部事件总线如EventBus，或者全局状态管理方案。
 
 &emsp;&emsp;② 事件参数：`emits` 选项和 `defineEmits()` 宏还支持对象语法。通过 `TypeScript` 为参数指定类型，它允许我们对触发事件的参数进行验证；
-```template
+```html
 <!-- 父组件 -->
 <button @click="$emit('increaseBy', 1)">
   Increase by 1
