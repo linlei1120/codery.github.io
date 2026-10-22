@@ -204,8 +204,9 @@ export default withMermaid(
         text: 'NextJS入门基础',
           items: [
               { text: 'NextJS入门基础', link: '/NextStudy/index' },
-              { text: 'SEO实践', link: '/NextStudy/ssr' },
-              { text: 'SSR实践', link: '/NextStudy/seo' },
+              { text: 'SSR实践', link: '/NextStudy/ssr' },
+              { text: 'SEO实践', link: '/NextStudy/seo' },
+              { text: '必备知识点', link: '/NextStudy/interview' },
           ]
       }],
       '/refinedNuxt/': [{
