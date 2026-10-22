@@ -153,7 +153,6 @@ export default withMermaid(
           text: '2025年1月',
           link: '/workNote/2025年1月',
         },
-        
         {
           text: '2024年12月',
           link: '/workNote/2024年12月',
@@ -199,6 +198,14 @@ export default withMermaid(
           items: [
               { text: 'Interface接口', link: '/refinedTS/tsInterface' },
               { text: 'Class类', link: '/refinedTS/tsClass' }
+          ]
+      }],
+      '/NextStudy/': [{
+        text: 'NextJS入门基础',
+          items: [
+              { text: 'NextJS入门基础', link: '/NextStudy/index' },
+              { text: 'SEO实践', link: '/NextStudy/ssr' },
+              { text: 'SSR实践', link: '/NextStudy/seo' },
           ]
       }],
       '/refinedNuxt/': [{
