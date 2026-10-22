@@ -89,6 +89,9 @@ export default withMermaid(
         },{
           text: 'React开发文档',
           link: '/react/reactFiles',
+        },{
+          text: 'NextJS精读文档',
+          link: '/NextStudy/index',
         },
         {
           text: 'Electron开发文档',
